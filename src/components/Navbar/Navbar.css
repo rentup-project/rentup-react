@@ -1,0 +1,19 @@
+.Navbar {
+    width: 100vw;
+    height: 2rem;
+    background-color: #FFD166;
+}
+
+.Navbar ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.Navbar li {
+   list-style: none;   
+}
+
+.Navbar a {
+    text-decoration: none;
+}
