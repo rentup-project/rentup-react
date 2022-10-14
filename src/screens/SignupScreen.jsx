@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Input from '../components/Input/Input';
 import SignupSchema from './../Schemas/SignupSchema';
 import { signup } from './../services/Auth.services';
@@ -52,6 +52,10 @@ export default function SignupScreen() {
           setSubmitting(false);
         });
     }
+
+    // const doLoginGoogle = () => {
+    //   window.open('http://localhost:3001/auth/google/callback', '_self')
+    // }
 
     return (
       <div>
@@ -142,8 +146,12 @@ export default function SignupScreen() {
             className="btn btn-primary"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Loading" : "Submit"}
+            {isSubmitting ? "Loading" : "Signup"}
           </button>
+          {/* <Link onClick={doLoginGoogle} className="btn btn-danger">
+              <i className="fa fa-google"></i>
+              Login with Google
+          </Link> */}
         </form>
       </div>
     );
