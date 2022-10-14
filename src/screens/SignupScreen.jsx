@@ -11,7 +11,7 @@ const INITIAL_VALUES = {
   password: "",
   phoneNumber: "",
   annualSalary: "select",
-  jobDuration: ""
+  jobDuration: "select"
 };
 
 export default function SignupScreen() {
@@ -115,7 +115,7 @@ export default function SignupScreen() {
               <option value="<50K">{"<50K"}</option>
               <option value="<60K">{"<60K"}</option>
               <option value="<70K">{"<70K"}</option>
-              <option value=">70K">{">70K"}</option>
+              <option value=">70K">{"More than 70K"}</option>
             </select>
           </div>
 
