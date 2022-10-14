@@ -9,6 +9,7 @@ const createHttp = (useAccessToken = false) => {
 http.interceptors.request.use((request) => {
   if (useAccessToken && getAccessToken()) {
     request.headers.Authorization = `Bearer ${getAccessToken()}`;
+    return request;
   } else {
     return request;
   }  

@@ -5,13 +5,13 @@ import Input from "../components/Input/Input";
 import AuthContext from "../contexts/AuthContext";
 import { login as userLogin } from "../services/Auth.services";
 import LoginSchema from "../Schemas/LoginSchema";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {  
-  const location = useLocation();
-  console.log(location);
 
   const { state } = useLocation();
   const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const INITIAL_VALUES = {
     email: (state && state.email) || "",
@@ -24,7 +24,8 @@ export default function Login() {
     handleSubmit,
     errors,
     isSubmitting,
-    setSubmitting
+    setSubmitting,
+    setFieldError
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
@@ -34,9 +35,20 @@ export default function Login() {
   });
 
   function onSubmit(values) {
+    console.log('user values', values)
     userLogin(values)
       .then(({ accessToken }) => {
         login(accessToken);
+        navigate("/");
+        setSubmitting(false);
+      })
+      .catch((err) => {
+        err.response.data &&
+          Object.keys(err.response.data.errors).forEach((errorKey) => {
+            setFieldError(errorKey, err.response.data.errors[errorKey]);
+          });
+      })
+      .finally(() => {
         setSubmitting(false);
       });
   }

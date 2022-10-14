@@ -22,7 +22,7 @@ export default function RegisterScreen() {
     errors,
     isSubmitting,
     setSubmitting,
-    setFieldError,
+    setFieldError
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
