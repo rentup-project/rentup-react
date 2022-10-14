@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import ERRORS from "../constants/FormErrors";
 
-const SignupSchema = Yup.object().shape({
+const RegisterSchema = Yup.object().shape({
   name: Yup.string()
     .required(ERRORS.ERROR_REQUIRED),
   email: Yup.string()
@@ -12,4 +12,4 @@ const SignupSchema = Yup.object().shape({
     .required(ERRORS.ERROR_REQUIRED),
 });
 
-export default SignupSchema;
+export default RegisterSchema;

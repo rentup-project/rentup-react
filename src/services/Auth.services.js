@@ -1,6 +1,16 @@
-import http from './Base.services';
+import createHttp from './Base.services';
 
-export const signup = (body) => 
-    http
-    .post('/signup', body)
-    .then((res) => res)
+const authHttp = createHttp(true);
+const noAuthHttp = createHttp();
+
+export const register = (body) => 
+    noAuthHttp
+    .post('/register', body)
+
+export const login = (body) =>
+    noAuthHttp
+    .post("/login", body)
+
+export const getCurrentUser = () => 
+    authHttp
+    .get("/users/me");

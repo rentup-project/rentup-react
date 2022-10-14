@@ -1,21 +1,37 @@
 import axios from "axios";
+import { getAccessToken, logout } from "../store/AccessTokenStore";
 
-const http = axios.create({
-  baseURL: "http://localhost:3001/api",
+const createHttp = (useAccessToken = false) => {
+  const http = axios.create({
+    baseURL: "http://localhost:3001/api",
+});
+
+http.interceptors.request.use((request) => {
+  if (useAccessToken && getAccessToken()) {
+    request.headers.Authorization = `Bearer ${getAccessToken()}`;
+  } else {
+    return request;
+  }  
 });
 
 http.interceptors.response.use(
-  function (response) {
-    return response.data;
-  },
-  function (error) {
-    if (error?.response?.status === 401) {
-      console.error("unauthenticated, redirect to login");
-      localStorage.clear();
-      window.location.replace("/login");
+  (response) => response.data,
+  (error) => {
+    if (
+      error?.response?.status &&
+      [401, 403].includes(error.response.status)
+    ) {
+      if (getAccessToken()) {
+        logout();
+        if (window.location.pathname !== "/login") {
+          window.location.assign("/login");
+        }
+      }
     }
     return Promise.reject(error);
   }
 );
+  return http;
+};
 
-export default http;
+export default createHttp;

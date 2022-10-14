@@ -1,9 +1,10 @@
-import './App.css';
+import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import HomeScreen from './screens/HomeScreen';
-import Navbar from './components/Navbar/Navbar';
-import SignupScreen from './screens/SignupScreen';
+import HomeScreen from "./screens/HomeScreen";
+import Navbar from "./components/Navbar/Navbar";
+import RegisterScreen from "./screens/RegisterScreen";
+import LoginScreen from "./screens/LoginScreen";
 
 function App() {
   return (
@@ -13,8 +14,8 @@ function App() {
         {/* HOME */}
         <Route path="/" element={<HomeScreen />} />
         {/* AUTH */}
-        <Route path="/signup" element={<SignupScreen />} />
-        <Route path="/login" element={<HomeScreen />} />
+        <Route path="/register" element={<RegisterScreen />} />
+        <Route path="/login" element={<LoginScreen />} />
         {/* MISC */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
