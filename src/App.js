@@ -5,6 +5,7 @@ import HomeScreen from "./screens/HomeScreen";
 import Navbar from "./components/Navbar/Navbar";
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
+import LoadingScreen from "./screens/LoadingScreen";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         {/* AUTH */}
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/login" element={<LoginScreen />} />
+        <Route path="/activate/:token" element={<LoadingScreen />} />
         {/* MISC */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -14,3 +14,7 @@ export const login = (body) =>
 export const getCurrentUser = () => 
     authHttp
     .get("/users/me");
+
+export const activateAccount = (token) => 
+    noAuthHttp
+    .get(`/activate/${token}`);
