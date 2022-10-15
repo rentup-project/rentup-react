@@ -58,12 +58,19 @@ export default function Navbar() {
           <div className='side-navbar'>
             <div className='header-side-navbar'>
               <img src={CloseBtnNav} alt="btn-close" onClick={handleOnClick} className='close-navbar' />
-              <p className='cursor-pointer' onClick={handleChangeLogin}>Login</p>
-              <p className='cursor-pointer' onClick={handleChangeRegister}>Register</p>
+              {!currentUser && (
+                <>
+                <p className={`cursor-pointer ${login && 'bold'}`} onClick={handleChangeLogin}>Login</p>
+                <p className={`cursor-pointer ${register && 'bold'}`} onClick={handleChangeRegister}>Register</p>
+                </>
+              )}
             </div>
             <div>
               {!currentUser && (
-                login ? <Login handleChangeRegister={handleChangeRegister}/> : <Register />
+                login ? 
+                <Login handleChangeRegister={handleChangeRegister} /> 
+                : 
+                <Register handleChangeLogin={handleChangeLogin} />
               )}
               {currentUser && (
                 <Link onClick={userLogOut}>Logout</Link>

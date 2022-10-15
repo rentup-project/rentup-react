@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import { useContext } from "react";
-import { useLocation } from "react-router-dom";
 import Input from "../Input/Input";
 import AuthContext from "../../contexts/AuthContext";
 import { login as userLogin, loginGoogle } from "../../services/Auth.services";
@@ -11,12 +10,11 @@ import googleIcon from '../../assets/images/google-icon.png'
 import arrowIcon from '../../assets/images/arrow.png'
 
 export default function Login({ handleChangeRegister }) {
-  const { state } = useLocation();
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const INITIAL_VALUES = {
-    email: (state && state.email) || "",
+    email: "",
     password: "",
   };
 
@@ -32,7 +30,6 @@ export default function Login({ handleChangeRegister }) {
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
     validationSchema: LoginSchema,
-    validateOnBlur: false,
     validateOnChange: false,
   });
 
@@ -66,7 +63,7 @@ export default function Login({ handleChangeRegister }) {
       <form onSubmit={handleSubmit}>
         <Input
           label="Email"
-          placeholder="JohnSnow@gmail.com"
+          placeholder="johnsnow@gmail.com"
           type="email"
           name="email"
           id="email"
@@ -105,7 +102,7 @@ export default function Login({ handleChangeRegister }) {
             <img className='arrow-icon' src={arrowIcon} alt="arrow icon" />
           </div>
 
-          <p className="register-link" onClick={handleChangeRegister}>Don't have an account? <strong>Register here!</strong></p>
+          <p className="login-link" onClick={handleChangeRegister}>Don't have an account? <strong>Register here!</strong></p>
         </div>
       </form>
     </div>

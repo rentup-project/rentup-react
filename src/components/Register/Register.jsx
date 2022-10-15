@@ -1,10 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
 import Input from "../Input/Input";
 import RegisterSchema from "../../schemas/RegisterSchema";
 import { register } from "../../services/Auth.services";
 import './Register.css'
+import { loginGoogle } from './../../services/Auth.services';
+import googleIcon from '../../assets/images/google-icon.png'
+import arrowIcon from '../../assets/images/arrow.png'
 
 const INITIAL_VALUES = {
   name: "",
@@ -15,7 +17,7 @@ const INITIAL_VALUES = {
   jobDuration: "select",
 };
 
-export default function Register() {
+export default function Register({ handleChangeLogin }) {
   const {
     values,
     handleChange,
@@ -31,31 +33,33 @@ export default function Register() {
     validateOnChange: false,
   });
 
-  const navigate = useNavigate();
-
   function onSubmit(values) {
     register(values)
       .then((user) => {
-        navigate("/login", {
-          state: {
-            email: values.email,
-          },
-        });
+        handleChangeLogin()
       })
       .catch((err) => {
-        err.response.data &&
-          Object.keys(err.response.data.errors).forEach((errorKey) => {
-            setFieldError(errorKey, err.response.data.errors[errorKey]);
+        err?.response?.data &&
+          Object.keys(err.response.data).forEach((errorKey) => {
+            setFieldError(errorKey, err.response.data.message[errorKey]);
+            console.log(errors)
           });
+          //VER COMO HACER PARA APARECER EL ERROR
       })
       .finally(() => {
         setSubmitting(false);
       });
   }
 
+  const handleOnClick = () => {
+    loginGoogle()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+
   return (
-    <div>
-      <h1>Register</h1>
+    <div className="Register">
+      <h2>Join us</h2>
       <form onSubmit={handleSubmit}>
         <Input
           label="Name"
@@ -68,7 +72,7 @@ export default function Register() {
         />
         <Input
           label="Email"
-          placeholder="Ex: charles@gmail.com"
+          placeholder="madonna@gmail.com"
           type="email"
           name="email"
           id="email"
@@ -86,64 +90,28 @@ export default function Register() {
           onChange={handleChange}
           error={errors.password}
         />
-        <Input
-          label="Phone number"
-          placeholder="Phone number"
-          type="tel"
-          name="phoneNumber"
-          id="phoneNumber"
-          value={values.phoneNumber}
-          onChange={handleChange}
-          error={errors.phoneNumber}
-        />
-
-        <div className="mb-3">
-          <label htmlFor="annualSalary" className="form-label">
-            Annual salary
-          </label>
-          <select
-            name="annualSalary"
-            id="annualSalary"
-            onChange={handleChange}
-            error={errors.annualSalary}
-            value={values.annualSalary}
+        <div>
+          <button
+            type="submit"
+            className="register-button"
+            disabled={isSubmitting}
           >
-            <option defaultValue="select">Select</option>
-            <option value="<20K">{"<20K"}</option>
-            <option value="<30K">{"<30K"}</option>
-            <option value="<40K">{"<40K"}</option>
-            <option value="<50K">{"<50K"}</option>
-            <option value="<60K">{"<60K"}</option>
-            <option value="<70K">{"<70K"}</option>
-            <option value=">70K">{"More than 70K"}</option>
-          </select>
-        </div>
+            {isSubmitting ? "Loading" : "REGISTER"}
+          </button>
 
-        <div className="mb-3">
-          <label htmlFor="jobDuration" className="form-label">
-            Job duration
-          </label>
-          <select
-            name="jobDuration"
-            id="jobDuration"
-            onChange={handleChange}
-            error={errors.jobDuration}
-            value={values.jobDuration}
-          >
-            <option defaultValue="select">Select</option>
-            <option value="less than 3 months">{"Less than 3 months"}</option>
-            <option value="less then a year">{"Less then a year"}</option>
-            <option value="more than a year">{"More than a year"}</option>
-          </select>
-        </div>
+          <p className="or-line"><span>OR</span></p>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Loading" : "Register"}
-        </button>
+          <div className="google-button" onClick={handleOnClick}>
+            <div className="flex-div">
+              <img className='google-icon' src={googleIcon} alt="google icon" />
+              <p>
+                Register with Google
+              </p>
+            </div>
+            <img className='arrow-icon' src={arrowIcon} alt="arrow icon" />
+          </div>
+          <p className="register-link" onClick={handleChangeLogin}>Already have an account? <strong>Login here!</strong></p>
+        </div>
       </form>
     </div>
   );
