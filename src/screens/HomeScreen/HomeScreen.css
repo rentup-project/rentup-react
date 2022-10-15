@@ -1,0 +1,124 @@
+.property-search {
+    width: 100vw;
+    height: 85vh;
+    background-image: url('../../assets/images/BannerHome.jpg');
+    background-size: cover;
+    background-position: 50%;
+    margin-top: -50px;
+    margin-bottom: 3rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-search-property {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    width: 50vw;
+    padding: 0.8rem;
+    border-radius: 10px;
+    display: flex;
+}
+
+.form-search-property input {
+    margin-left: 2.5%;
+    width: 100%;
+    border: none;
+}
+
+.form-search-property input:focus {
+    outline: none;
+}
+
+.form-search-property img {
+    height: 25px;
+    cursor: pointer;
+}
+
+.last-properties {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.properties-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    width: 100%;
+    color: rgb(105, 103, 103);
+}
+
+.properties-container div img {
+    width: 350px;
+    border-radius: 10px;
+    margin-bottom: 0.5rem;
+}
+
+.property-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    color:rgb(105, 103, 103);
+}
+
+.rentup-advantages {
+    padding: 2rem;
+    background-color: rgb(255, 209, 102);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Scroller styling */
+.scroller {
+    height: 2.5em;
+    line-height: 2.7em;
+    position: relative;
+    overflow: hidden;
+    width: 15rem;
+}
+
+.scroller > span {
+    font-size: 2.4rem;
+    position: absolute;
+    top: 0;
+    animation: slide 5s infinite;
+    font-weight: bold;
+    margin-left: 1rem;
+}
+
+@media (max-width: 992px) {
+    .form-search-property {
+        width: 90vw;
+    }
+
+    .form-search-property input {
+        margin-left: 5%;
+        width: 100%;
+        border: none;
+    }
+}
+
+@keyframes slide {
+    0% {
+        top: 0;
+    }
+
+    25% {
+        top: -1.2em;
+    }
+
+    50% {
+        top: -2.4em;
+    }
+
+    75% {
+        top: -3.6em;
+    }
+}
