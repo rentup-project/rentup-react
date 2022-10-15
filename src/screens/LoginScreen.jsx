@@ -4,11 +4,10 @@ import { useLocation } from "react-router-dom";
 import Input from "../components/Input/Input";
 import AuthContext from "../contexts/AuthContext";
 import { login as userLogin } from "../services/Auth.services";
-import LoginSchema from "../Schemas/LoginSchema";
+import LoginSchema from "../schemas/LoginSchema";
 import { useNavigate } from "react-router-dom";
 
-export default function Login() {  
-
+export default function Login() {
   const { state } = useLocation();
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -25,7 +24,7 @@ export default function Login() {
     errors,
     isSubmitting,
     setSubmitting,
-    setFieldError
+    setFieldError,
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
@@ -35,7 +34,6 @@ export default function Login() {
   });
 
   function onSubmit(values) {
-    console.log('user values', values)
     userLogin(values)
       .then(({ accessToken }) => {
         login(accessToken);

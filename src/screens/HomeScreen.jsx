@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeCard from '../components/HomeCard/HomeCard';
-import cards from '../data/homecards.json'
+import cards from '../data/homecards.json';
 
 export default function HomeScreen() {
   return (

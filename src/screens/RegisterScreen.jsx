@@ -2,7 +2,7 @@ import React from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import Input from "../components/Input/Input";
-import RegisterSchema from "../Schemas/RegisterSchema";
+import RegisterSchema from "../schemas/RegisterSchema";
 import { register } from "../services/Auth.services";
 
 const INITIAL_VALUES = {
@@ -22,7 +22,7 @@ export default function RegisterScreen() {
     errors,
     isSubmitting,
     setSubmitting,
-    setFieldError
+    setFieldError,
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,

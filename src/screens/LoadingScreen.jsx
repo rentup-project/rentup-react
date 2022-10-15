@@ -1,6 +1,6 @@
-import React from 'react'
-import { useParams } from 'react-router-dom'
-import { activateAccount } from '../services/Auth.services'
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { activateAccount } from '../services/Auth.services';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
