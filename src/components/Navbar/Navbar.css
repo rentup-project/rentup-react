@@ -1,19 +1,48 @@
 .Navbar {
-    width: 100vw;
-    height: 2rem;
-    background-color: #FFD166;
-}
-
-.Navbar ul {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 0 4rem;
 }
 
-.Navbar li {
-   list-style: none;   
+.logo-navbar {
+    margin-top: 0.5rem;
+    width: 120px;
 }
 
-.Navbar a {
-    text-decoration: none;
+.sandwich-navbar {
+    margin-top: 0.5rem;
+    width: 40px;
+    cursor: pointer;
+}
+
+.close-navbar {
+    width: 30px;
+    cursor: pointer;
+}
+
+.opened {
+    padding: 3rem;
+    background-color: blue;
+    position: fixed;
+    z-index: 1;
+    width: 30%;
+    height: 100vh;
+    right: 0;
+    box-shadow: -1000px 0px 36px 1000px rgb(0 0 0 / 30%);
+}
+
+.closed {
+    display: none;
+}
+
+.header-side-navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 992px) {
+    .opened {
+        width: 100%;
+    }
 }

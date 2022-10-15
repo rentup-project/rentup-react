@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import Input from "../components/Input/Input";
 import AuthContext from "../contexts/AuthContext";
-import { login as userLogin } from "../services/Auth.services";
+import { login as userLogin, loginGoogle } from "../services/Auth.services";
 import LoginSchema from "../schemas/LoginSchema";
 import { useNavigate } from "react-router-dom";
 
@@ -51,6 +51,12 @@ export default function Login() {
       });
   }
 
+  const handleOnClick = () => {
+    loginGoogle()
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+
   return (
     <div>
       <h1>Login</h1>
@@ -75,14 +81,24 @@ export default function Login() {
           onChange={handleChange}
           error={errors.password}
         />
+        <div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Loading" : "Login"}
+          </button>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Loading" : "Login"}
-        </button>
+          <div onClick={handleOnClick}>
+            <i className="fa fa-google"></i>
+            Login with Google
+          </div>
+
+          <a href="/register">
+            Don't have an account?<strong>Register here!</strong>
+          </a>
+        </div>
       </form>
     </div>
   );

@@ -11,6 +11,10 @@ export const login = (body) =>
     noAuthHttp
     .post("/login", body)
 
+export const loginGoogle = () => 
+    noAuthHttp
+    .get("/login/google");
+
 export const getCurrentUser = () => 
     authHttp
     .get("/users/me");
