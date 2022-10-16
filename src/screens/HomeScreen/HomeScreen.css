@@ -4,8 +4,8 @@
     background-image: url('../../assets/images/BannerHome.jpg');
     background-size: cover;
     background-position: 50%;
-    margin-top: -50px;
-    margin-bottom: 3rem;
+    margin-top: -60px;
+    margin-bottom: 2.5rem;
     text-align: center;
     display: flex;
     align-items: center;
@@ -37,12 +37,14 @@
     cursor: pointer;
 }
 
+/* LAST PROPERTIES */
+
 .last-properties {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-    margin-bottom: 3rem;
+    gap: 4rem;
+    margin-bottom: 4rem;
 }
 
 .properties-container {
@@ -51,10 +53,14 @@
     flex-wrap: wrap;
     gap: 1.5rem;
     width: 100%;
-    color: rgb(105, 103, 103);
+    color: #636366;
 }
 
-.properties-container div img {
+.property-container {
+    cursor: pointer;
+}
+
+.property-container img {
     width: 350px;
     border-radius: 10px;
     margin-bottom: 0.5rem;
@@ -67,6 +73,8 @@
     color:rgb(105, 103, 103);
 }
 
+/* EASY TEXT WITH WORDS SCROLLER */
+
 .rentup-advantages {
     padding: 2rem;
     background-color: rgb(255, 209, 102);
@@ -75,7 +83,6 @@
     justify-content: center;
 }
 
-/* Scroller styling */
 .scroller {
     height: 2.5em;
     line-height: 2.7em;
@@ -93,6 +100,53 @@
     margin-left: 1rem;
 }
 
+/* RENTUP SERVICES */
+
+.rentup-services {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+}
+
+/* RENTUP REVIEWS */
+
+.rentup-reviews {
+    padding: 2rem 0;
+    background-color: rgb(30,30,30);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.reviews-container {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.review-detail {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.review-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    text-align: center;
+    padding: 0 3rem;
+}
+
+.review-text p {
+    color: rgba(255, 255, 255, 0.733)
+}
+/* MEDIA QUERIES & KEY FRAMES */
+
 @media (max-width: 992px) {
     .form-search-property {
         width: 90vw;
@@ -102,6 +156,11 @@
         margin-left: 5%;
         width: 100%;
         border: none;
+    }
+
+    .reviews-container {
+        display: flex;
+        flex-direction: column;
     }
 }
 
