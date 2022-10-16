@@ -42,7 +42,7 @@ export default function Register({ handleChangeLogin }) {
         err?.response?.data &&
           Object.keys(err.response.data).forEach((errorKey) => {
             setFieldError(errorKey, err.response.data.message[errorKey]);
-            console.log(errors)
+            console.log(err.response.data.message)
           });
           //VER COMO HACER PARA APARECER EL ERROR
       })
@@ -68,7 +68,7 @@ export default function Register({ handleChangeLogin }) {
           id="name"
           value={values.name}
           onChange={handleChange}
-          error={errors.name}
+          error={errors.name || errors.message}
         />
         <Input
           label="Email"
