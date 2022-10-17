@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import Input from "../Input/Input";
 import RegisterSchema from "../../schemas/RegisterSchema";
@@ -18,6 +18,8 @@ const INITIAL_VALUES = {
 };
 
 export default function Register({ handleChangeLogin }) {
+  const [mongoErr, setMongoErr] = useState(false)
+
   const {
     values,
     handleChange,
@@ -25,7 +27,6 @@ export default function Register({ handleChangeLogin }) {
     errors,
     isSubmitting,
     setSubmitting,
-    setFieldError,
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
@@ -36,15 +37,14 @@ export default function Register({ handleChangeLogin }) {
   function onSubmit(values) {
     register(values)
       .then((user) => {
-        handleChangeLogin()
+        const emailMessage = 'Message sent'
+        handleChangeLogin(emailMessage)
       })
       .catch((err) => {
         err?.response?.data &&
           Object.keys(err.response.data).forEach((errorKey) => {
-            setFieldError(errorKey, err.response.data.message[errorKey]);
-            console.log(err.response.data.message)
+            setMongoErr(err.response.data[errorKey])
           });
-          //VER COMO HACER PARA APARECER EL ERROR
       })
       .finally(() => {
         setSubmitting(false);
@@ -62,26 +62,23 @@ export default function Register({ handleChangeLogin }) {
       <h2>Join us</h2>
       <form onSubmit={handleSubmit}>
         <Input
-          label="Name"
-          placeholder="Name"
+          placeholder="Full name"
           name="name"
           id="name"
           value={values.name}
           onChange={handleChange}
-          error={errors.name || errors.message}
+          error={errors.name}
         />
         <Input
-          label="Email"
-          placeholder="madonna@gmail.com"
+          placeholder="Email"
           type="email"
           name="email"
           id="email"
           value={values.email}
           onChange={handleChange}
-          error={errors.email}
+          error={errors.email || mongoErr}
         />
         <Input
-          label="Password"
           placeholder="Password"
           type="password"
           name="password"
@@ -110,7 +107,7 @@ export default function Register({ handleChangeLogin }) {
             </div>
             <img className='arrow-icon' src={arrowIcon} alt="arrow icon" />
           </div>
-          <p className="register-link" onClick={handleChangeLogin}>Already have an account? <strong>Login here!</strong></p>
+          <p className="register-link" onClick={handleChangeLogin}>Already have an account? <span>Login here!</span></p>
         </div>
       </form>
     </div>
