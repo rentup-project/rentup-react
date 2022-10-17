@@ -2,8 +2,15 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    height: 8vh;
+    height: 9vh;
     padding: 0 4rem;
+}
+
+.fixed {
+    width: 100vw;
+    position: fixed;
+    background-color: white;
+    z-index: 1;
 }
 
 .logo-navbar {

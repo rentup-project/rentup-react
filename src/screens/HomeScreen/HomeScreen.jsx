@@ -16,7 +16,11 @@ export default function HomeScreen() {
   }
 
   const handleSubmit = () => {
-    navigate(`/search/${search}`)
+    if (search !== '') {
+      navigate(`/search/${search}`)
+    } else {
+      navigate('/')
+    }
   }
 
   const handleOnClick = () => {
@@ -30,8 +34,6 @@ export default function HomeScreen() {
           <input
             placeholder="Search by your favourite location"
             value={search}
-            id="city"
-            name="city"
             onChange={handleChange}
           />
           <button><img src={SearchLogo} alt="logo-search" onClick={handleOnClick} /></button>

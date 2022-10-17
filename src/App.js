@@ -7,6 +7,7 @@ import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
 
 function App() {
+  
   return (
     <div className="App">
       <Navbar />
@@ -17,7 +18,7 @@ function App() {
         <Route path="/activate/:token" element={<LoadingScreen />} />
         {/* PROPERTIES */}
         <Route path="/search" element={<PropertiesScreen />} />
-        {/* <Route path="/search/:search" element={<PropertiesScreen />} /> */}
+        <Route path="/search/:search" element={<PropertiesScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* MISC */}
         <Route path="*" element={<Navigate to="/" replace />} />
