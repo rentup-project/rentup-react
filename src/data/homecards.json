@@ -2,21 +2,27 @@
     {
         "color": "#FFD166",
         "img_url": "https://static.plumcache.com/static-images/homepage/4x5_images.jpg?ar=4%3A5&fit=crop&q=55&w=660",
-        "number": "1",
+        "number": "01",
+        "position": "position-left",
+        "left": true,
         "title": "Why chose Rentup?",
         "text": "Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa."
     },
     {
         "color": "#FFD166",
         "img_url": "https://static.plumcache.com/static-images/homepage/4x5_images2.jpg?ar=4%3A5&fit=crop&q=55&w=660",
-        "number": "2",
+        "number": "02",
+        "position": "position-rigth",
+        "left": false,
         "title": "Easy to rent",
         "text": "Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa."
     },
     {
         "color": "#FFD166",
         "img_url": "https://static.plumcache.com/static-images/homepage/4x5_images3.jpg?ar=4%3A5&fit=crop&q=55&w=660",
-        "number": "3",
+        "number": "03",
+        "position": "position-left",
+        "left": true,
         "title": "Easy to manage",
         "text": "Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa."
     }
