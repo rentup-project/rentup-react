@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import './PropertiesScreen.css'
+import PropertyList from '../../components/PropertyList/PropertyList';
 mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q';
 
 export default function PropertiesScreen() {
@@ -23,6 +24,9 @@ export default function PropertiesScreen() {
 
     return (
         <div className='PropertiesScreen'>
+            <div className='property-list-container'>
+                <PropertyList />
+            </div>
             <div ref={mapContainer} className="map-container" />
         </div>
     )
