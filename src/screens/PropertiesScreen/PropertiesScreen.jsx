@@ -22,7 +22,7 @@ export default function PropertiesScreen() {
     });
 
     return (
-        <div>
+        <div className='PropertiesScreen'>
             <div ref={mapContainer} className="map-container" />
         </div>
     )
