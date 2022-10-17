@@ -4,20 +4,29 @@ import cards from '../../data/homecards.json';
 import './HomeScreen.css';
 import SearchLogo from '../../assets/images/SearchIcon.png';
 import ImgMockup from '../../assets/images/HouseMockup.jpg';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomeScreen() {
    const [search, setSearch] = useState('')
+   const navigate = useNavigate();
 
    const handleChange = (e) => {
     const {value} = e.target
     setSearch(value)
   }
 
+  const handleSubmit = () => {
+    navigate(`/search/${search}`)
+  }
+
+  const handleOnClick = () => {
+    handleSubmit()
+  }
+
   return (
     <div className="HomeScreen">
       <div className="property-search">
-        <form className="form-search-property" action="">
-          <img src={SearchLogo} alt="logo-search"></img>
+        <form className="form-search-property" action="" onSubmit={handleSubmit}>
           <input
             placeholder="Search by your favourite location"
             value={search}
@@ -25,6 +34,7 @@ export default function HomeScreen() {
             name="city"
             onChange={handleChange}
           />
+          <button><img src={SearchLogo} alt="logo-search" onClick={handleOnClick} /></button>
         </form>
       </div>
 
