@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Input from "../Input/Input";
 import AuthContext from "../../contexts/AuthContext";
 import { login as userLogin, loginGoogle } from "../../services/Auth.services";
@@ -9,7 +9,8 @@ import './Login.css'
 import googleIcon from '../../assets/images/google-icon.png'
 import arrowIcon from '../../assets/images/arrow.png'
 
-export default function Login({ handleChangeRegister }) {
+export default function Login({ handleChangeRegister, message }) {
+  const [mongoErr, setMongoErr] = useState(false)
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -25,7 +26,6 @@ export default function Login({ handleChangeRegister }) {
     errors,
     isSubmitting,
     setSubmitting,
-    setFieldError,
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
@@ -41,9 +41,9 @@ export default function Login({ handleChangeRegister }) {
         setSubmitting(false);
       })
       .catch((err) => {
-        err.response.data &&
-          Object.keys(err.response.data.errors).forEach((errorKey) => {
-            setFieldError(errorKey, err.response.data.errors[errorKey]);
+        err?.response?.data &&
+          Object.keys(err.response.data).forEach((errorKey) => {
+            setMongoErr(err.response.data[errorKey])
           });
       })
       .finally(() => {
@@ -56,30 +56,36 @@ export default function Login({ handleChangeRegister }) {
     .then(res => console.log(res))
     .catch(err => console.log(err))
   }
+  console.log(message)
 
   return (
     <div className="Login">
       <h2>Login to your account</h2>
+      {
+        message === 'Message sent'
+        ? 
+        <p className="email-message">Please check your email before trying to login.</p>
+        :
+        <></>
+      }
       <form onSubmit={handleSubmit}>
         <Input
-          label="Email"
-          placeholder="johnsnow@gmail.com"
+          placeholder="Email"
           type="email"
           name="email"
           id="email"
           value={values.email}
           onChange={handleChange}
-          error={errors.email}
+          error={errors.email || mongoErr}
         />
         <Input
-          label="Password"
           placeholder="Password"
           type="password"
           name="password"
           id="password"
           value={values.password}
           onChange={handleChange}
-          error={errors.password}
+          error={errors.password || mongoErr}
         />
         <div>
           <button
@@ -102,7 +108,7 @@ export default function Login({ handleChangeRegister }) {
             <img className='arrow-icon' src={arrowIcon} alt="arrow icon" />
           </div>
 
-          <p className="login-link" onClick={handleChangeRegister}>Don't have an account? <strong>Register here!</strong></p>
+          <p className="login-link" onClick={handleChangeRegister}>Don't have an account? <span>Register here!</span></p>
         </div>
       </form>
     </div>

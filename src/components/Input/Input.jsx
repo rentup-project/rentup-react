@@ -17,12 +17,13 @@ function Input({
       )}
       <input
         type={type}
-        className={`form-control ${error ? "is-invalid" : ""}`}
+        className={`form-control form-control-sm ${error ? "is-invalid" : ""}`}
         id={id}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
         name={name}
+        autoComplete={type === 'password' ? 'current-password' : 'off'}
       />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>

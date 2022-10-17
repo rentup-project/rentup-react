@@ -15,6 +15,7 @@ export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(true);
+  const [message, setMessage] = useState('');
 
   const { currentUser } = useContext(AuthContext);
 
@@ -30,10 +31,11 @@ export default function Navbar() {
     }
   }
 
-  const handleChangeLogin = () => {
+  const handleChangeLogin = (emailMessage = '') => {
     if (!login) {
       setRegister(false)
       setLogin(true)
+      setMessage(emailMessage)
     }
   }
 
@@ -41,6 +43,7 @@ export default function Navbar() {
     if (!register) {
       setRegister(true)
       setLogin(false)
+      setMessage('')
     }
   }
 
@@ -68,7 +71,7 @@ export default function Navbar() {
             <div>
               {!currentUser && (
                 login ? 
-                <Login handleChangeRegister={handleChangeRegister} /> 
+                <Login handleChangeRegister={handleChangeRegister} message={message} /> 
                 : 
                 <Register handleChangeLogin={handleChangeLogin} />
               )}
