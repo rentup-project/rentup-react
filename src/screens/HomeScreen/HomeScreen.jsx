@@ -114,7 +114,7 @@ export default function HomeScreen() {
             />
             <div className="review-text">
               <h5>Maria Kate</h5>
-              <span>⭐⭐⭐⭐⭐⭐</span>
+              <span>⭐⭐⭐⭐⭐</span>
               <p>
                 ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
                 et deleniti nesciunt sint eligendi reprehenderit reiciendis,
@@ -132,7 +132,7 @@ export default function HomeScreen() {
             />
             <div className="review-text">
               <h5>John Doe</h5>
-              <span>⭐⭐⭐⭐⭐⭐</span>
+              <span>⭐⭐⭐⭐⭐</span>
               <p>
                 ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
                 et deleniti nesciunt sint eligendi reprehenderit reiciendis,
@@ -150,7 +150,7 @@ export default function HomeScreen() {
             />
             <div className="review-text">
               <h5>Anna Deynah</h5>
-              <span>⭐⭐⭐⭐⭐⭐</span>
+              <span>⭐⭐⭐⭐⭐</span>
               <p>
                 ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
                 et deleniti nesciunt sint eligendi reprehenderit reiciendis,
