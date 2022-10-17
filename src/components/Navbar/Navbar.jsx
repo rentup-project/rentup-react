@@ -6,7 +6,7 @@ import { useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
-import logoWhite from "../../assets/images/logo-white.png"
+import logoYellow from "../../assets/images/logo-yellow.png"
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
@@ -51,7 +51,7 @@ export default function Navbar() {
     <div className="Navbar">
       <div></div>
       <div>
-        <Link to="/"><img src={logoWhite} alt="rentup-logo" className='logo-navbar' /></Link>
+        <Link to="/"><img src={logoYellow} alt="rentup-logo" className='logo-navbar' /></Link>
       </div>
       <div onClick={handleOnClick}>
         <img src={BtnNavbar} alt="img" className='sandwich-navbar' />
