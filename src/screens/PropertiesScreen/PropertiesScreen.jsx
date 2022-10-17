@@ -4,7 +4,6 @@ import './PropertiesScreen.css'
 mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q';
 
 export default function PropertiesScreen() {
-
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [long, setLng] = useState(-3.70);
