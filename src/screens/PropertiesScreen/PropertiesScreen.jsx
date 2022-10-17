@@ -14,16 +14,16 @@ export default function PropertiesScreen() {
     useEffect(() => {
         if (map.current) return;
         map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [long, lat],
-        zoom: zoom
+            container: mapContainer.current,
+            style: 'mapbox://styles/mapbox/dark-v10',
+            center: [long, lat],
+            zoom: zoom
         });
     });
-    
+
     return (
-    <div>
-        <div ref={mapContainer} className="map-container" />
-    </div>
+        <div>
+            <div ref={mapContainer} className="map-container" />
+        </div>
     )
 }
