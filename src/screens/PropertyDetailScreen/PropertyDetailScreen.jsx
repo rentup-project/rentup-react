@@ -1,40 +1,191 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PropertyDetailScreen.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getOneProperty } from './../../services/Properties.services';
+import CloseBtnNav from "../../assets/images/CloseBtnNavbar.png";
+import StarBlack from '../../assets/images/Star_black.png';
+import ShareIcon from '../../assets/images/Share-icon.png';
+import UnFavIcon from '../../assets/images/UnFav-icon.png';
 
 export default function PropertyDetailScreen() {
-    const propertyId = useParams()
+    const  { id }  = useParams();
+    const [property, setProperty] = useState('');
+    const [allImages, setAllImages] = useState(false);
+    const [firstImg, setFirstImage] = useState('');
+    const [secondImg, setSecondImage] = useState('');
 
+    useEffect(() => {
+        getOneProperty(id)
+        .then(res => {
+            console.log(res.features)
+            setProperty(res)
+            setFirstImage(res.images[0])
+            setSecondImage(res.images[1]);
+        })
+        .catch(err => console.log(err)) 
+    }, [id])
 
-  return (
-    <div>
-        <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="true">
-            <div className="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    const showImages = () => {
+        setAllImages(true)
+    }
+
+    const hideImages = () => {
+      setAllImages(false);
+    };
+
+    return allImages ? (
+      <div className="all-images">
+        <img
+          src={CloseBtnNav}
+          alt="btn-close"
+          onClick={hideImages}
+          className="close-images"
+        />
+        <div className="all-images-container">
+          {property?.images?.map((img, i) => (
+            <div
+              key={i}
+              className={i === 2 ? "large-img" : "medium-img"}
+              style={{
+                backgroundImage: `url(${img})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+              }}
+            ></div>
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div className="property-detail">
+        <section className="reviews-and-actions">
+          <div className="stars-container">
+            <div
+              className="review-img"
+              style={{
+                backgroundImage: `url(${StarBlack})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <span>
+              4,5 · <a href="#reviews">5 reviews</a>
+            </span>
+          </div>
+          <div className='actions-container'>
+            <div className="share-container">
+              <div
+                className="share-img"
+                style={{
+                  backgroundImage: `url(${ShareIcon})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+              <span>Share</span>
             </div>
-            <div className="carousel-inner">
-                <div className="carousel-item active">
-                <img src="..." className="d-block w-100" alt="..."/>
-                </div>
-                <div className="carousel-item">
-                <img src="..." className="d-block w-100" alt="..."/>
-                </div>
-                <div className="carousel-item">
-                <img src="..." className="d-block w-100" alt="..."/>
-                </div>
+            <div className="save-fav-container">
+              <div
+                className="fav-img"
+                style={{
+                  backgroundImage: `url(${UnFavIcon})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+              <span>Save</span>
             </div>
-            <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Previous</span>
-            </button>
-            <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                <span className="visually-hidden">Next</span>
-            </button>
-         </div>
+          </div>
+        </section>
 
-    </div>
-  )
+        <section className="main-imgs-container">
+          <div
+            className="main-imgs"
+            style={{
+              backgroundImage: `url(${firstImg})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+          <div
+            className="main-imgs"
+            style={{
+              backgroundImage: `url(${secondImg})`,
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          ></div>
+          <button className="show-img-btn" onClick={showImages}>
+            VIEW ALL PHOTOS
+          </button>
+        </section>
+
+        <header>
+          <div>
+            <h2>
+              {property.propertyType} on {property.address}
+            </h2>
+            <h2>{property.availabilityDate}</h2>
+          </div>
+          <h3>
+            {property.monthlyRent} <small>€/mes</small>
+          </h3>
+        </header>
+
+        <hr></hr>
+
+        <section className="property-info">
+          <h4>Details</h4>
+          <div className="property-info-container">
+            <span>{property.squaredMeters} m2</span>
+            <span>
+              {property.bedroom}
+              {property.bedroom === "1" ? " room" : " rooms"}
+            </span>
+            <span>
+              {property.bathroom}{" "}
+              {property.bathroom === "1" ? " bathroom" : " bathrooms"}
+            </span>
+          </div>
+        </section>
+        <hr></hr>
+
+        <section className="features">
+          <h4>Features</h4>
+          <div className="features-container">
+            <li>{property.houseType || property.aparmentType}</li>
+            <li>{property.orientation} orientation</li>
+            <li>{property.furniture} furniture</li>
+            <li>{property.floor} floor</li>
+            <li>{property.heating}</li>
+            <li>{property.petAllowed ? "Pets allowed" : "Pets not allowed"}</li>
+          </div>
+        </section>
+        <hr></hr>
+
+        <section className="amenities-container">
+          <h4>Amenities</h4>
+          <ul className="amenities-list">
+            {property?.features?.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        </section>
+        <hr></hr>
+
+        <section id="reviews">
+          <h4>Reviews</h4>
+        </section>
+        <hr></hr>
+
+        <section className="location">
+          <h4>Location</h4>
+          <div>Mapbox</div>
+        </section>
+      </div>
+    );
 }
