@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar/Navbar";
 import LoadingScreen from "./screens/LoadingScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
+import ErrorScreen from './screens/ErrorScreen/ErrorScreen';
 
 function App() {
   
@@ -21,7 +22,8 @@ function App() {
         <Route path="/search/:search" element={<PropertiesScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* MISC */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/error" element={<ErrorScreen />} />
+        <Route path="*" element={<Navigate to="/error" replace />} />
       </Routes>
     </div>
   );
