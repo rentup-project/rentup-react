@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './PropertyDetailScreen.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getOneProperty } from './../../services/Properties.services';
 import CloseBtnNav from "../../assets/images/CloseBtnNavbar.png";
+import StarBlack from '../../assets/images/Star_black.png';
+import ShareIcon from '../../assets/images/Share-icon.png';
+import UnFavIcon from '../../assets/images/UnFav-icon.png';
 
 export default function PropertyDetailScreen() {
     const  { id }  = useParams();
@@ -54,6 +57,49 @@ export default function PropertyDetailScreen() {
       </div>
     ) : (
       <div className="property-detail">
+        <section className="reviews-and-actions">
+          <div className="stars-container">
+            <div
+              className="review-img"
+              style={{
+                backgroundImage: `url(${StarBlack})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></div>
+            <span>
+              4,5 · <a href="#reviews">5 reviews</a>
+            </span>
+          </div>
+          <div className='actions-container'>
+            <div className="share-container">
+              <div
+                className="share-img"
+                style={{
+                  backgroundImage: `url(${ShareIcon})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+              <span>Share</span>
+            </div>
+            <div className="save-fav-container">
+              <div
+                className="fav-img"
+                style={{
+                  backgroundImage: `url(${UnFavIcon})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
+              <span>Save</span>
+            </div>
+          </div>
+        </section>
+
         <section className="main-imgs-container">
           <div
             className="main-imgs"
@@ -131,11 +177,14 @@ export default function PropertyDetailScreen() {
         </section>
         <hr></hr>
 
+        <section id="reviews">
+          <h4>Reviews</h4>
+        </section>
+        <hr></hr>
+
         <section className="location">
           <h4>Location</h4>
-          <div>
-            Mapbox
-          </div>
+          <div>Mapbox</div>
         </section>
       </div>
     );

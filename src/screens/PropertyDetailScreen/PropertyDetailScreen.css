@@ -1,6 +1,40 @@
 
 .property-detail {
     padding: 1.5rem;
+    color: rgb(34, 34, 34);
+}
+
+.reviews-and-actions, .actions-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 0 1rem;
+}
+
+.stars-container, .share-container, .save-fav-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 10rem;
+    font-weight: 500;    
+}
+
+.stars-container {
+    width: 10rem;
+}
+
+.share-container,
+.save-fav-container {
+    width: 5rem;
+}
+
+.reviews-container a {
+    color: rgb(34, 34, 34)
+}
+
+.review-img, .share-img, .fav-img {
+    width: 1.2rem;
+    height: 1.2rem;
 }
 
 .close-images {
