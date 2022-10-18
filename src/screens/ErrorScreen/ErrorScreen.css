@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@900&display=swap');
+
+.ErrorScreen {
+    height: 100vh;
+    padding-top: 9vh;
+    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: 0 63%;
+    background-size: cover;
+}
+
+.ErrorScreen h2 {
+    font-family: 'Work Sans', sans-serif;
+    margin-top: 20vh;
+    color: white;
+    font-weight: 900;
+    font-size: 4.8rem;
+}
+
+.ErrorScreen p {
+    color: white;
+    font-size: 1.8rem;
+}
+
+.ErrorScreen a {
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: none;
+}
+
+.ErrorScreen span {
+    color: white;
+    font-size: 1.8rem;
+    text-decoration: underline;
+}
+.ErrorScreen span:hover {
+    color: rgb(255, 230, 147);
+}

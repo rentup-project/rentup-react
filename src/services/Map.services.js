@@ -6,6 +6,6 @@ const http = axios.create({
     baseURL: "https://api.mapbox.com/geocoding/v5/mapbox.places",
 });
 
-// export const getCoordinates = (search) => 
-//     http
-//     .get(`/search_text/${search}.json?access_token=${accessToken}`)
+export const getCoordinates = (search) => 
+    http
+    .get(`/${search}.json?access_token=${accessToken}`)
