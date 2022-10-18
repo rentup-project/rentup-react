@@ -9,6 +9,7 @@
     justify-content: space-between;
     gap: 2rem;
     padding: 0 1rem;
+    color: rgb(239, 239, 239);
 }
 
 .stars-container, .share-container, .save-fav-container {
