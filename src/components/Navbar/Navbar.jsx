@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { logout } from '../../store/AccessTokenStore';
 import './Navbar.css';
 import { useContext } from "react";
 import AuthContext from "../../contexts/AuthContext";
 import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
-import logoYellow from "../../assets/images/logo-yellow.png"
+import logoYellow from "../../assets/images/logo-yellow.png";
+import logoWhite from "../../assets/images/logo-white.png"
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(true);
   const [message, setMessage] = useState('');
+  let location = useLocation()
 
   const { currentUser } = useContext(AuthContext);
 
@@ -48,10 +50,10 @@ export default function Navbar() {
   }
 
   return (
-    <div className="Navbar">
+    <div className={location.pathname === '/' ? 'Navbar' : 'Navbar fixed'}>
       <div></div>
       <div>
-        <Link to="/"><img src={logoYellow} alt="rentup-logo" className='logo-navbar' /></Link>
+        <Link to="/"><img src={location.pathname === '/' ? logoWhite : logoYellow} alt="rentup-logo" className='logo-navbar' /></Link>
       </div>
       <div onClick={handleOnClick}>
         <img src={BtnNavbar} alt="img" className='sandwich-navbar' />

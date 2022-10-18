@@ -1,6 +1,7 @@
 .PropertiesScreen {
-    height: 92vh;
+    height: 91vh;
     display: flex;
+    padding-top: 9vh;
 }
 
 .map-container {

@@ -1,13 +1,7 @@
 .PropertyList {
-    height: 300px;
+    height: 280px;
     display: flex;
-    border-bottom: 1px solid rgb(180, 180, 180);
-}
-
-.img-div {
-    flex: 1;
-}
-
-.content-div {
-    flex: 2;
+    border-bottom: 1px solid rgb(203, 203, 203);
+    padding: 30px;
+    gap: 20px;
 }
