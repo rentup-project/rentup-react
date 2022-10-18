@@ -32,6 +32,11 @@
     outline: none;
 }
 
+.search-btn {
+    background-color: transparent;
+    border: none;
+}
+
 .form-search-property img {
     height: 25px;
     cursor: pointer;
@@ -145,6 +150,16 @@
 .review-text p {
     color: rgba(255, 255, 255, 0.733)
 }
+
+.Star-wraper {
+    display: flex;
+    gap: 0.3rem;
+}
+
+.Star-wraper img {
+    width: 1.5rem;
+}
+
 /* MEDIA QUERIES & KEY FRAMES */
 
 @media (max-width: 992px) {

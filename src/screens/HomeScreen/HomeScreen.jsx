@@ -5,6 +5,8 @@ import './HomeScreen.css';
 import SearchLogo from '../../assets/images/SearchIcon.png';
 import ImgMockup from '../../assets/images/HouseMockup.jpg';
 import { useNavigate } from 'react-router-dom';
+/* IMAGES */
+import StarYellow from '../../assets/images/Star_yellow.png'
 
 export default function HomeScreen() {
    const [search, setSearch] = useState('')
@@ -30,13 +32,20 @@ export default function HomeScreen() {
   return (
     <div className="HomeScreen">
       <div className="property-search">
-        <form className="form-search-property" action="" onSubmit={handleSubmit}>
+        <form
+          className="form-search-property"
+          action=""
+          onSubmit={handleSubmit}
+        >
+          <button className="search-btn">
+            <img src={SearchLogo} alt="logo-search" onClick={handleOnClick} />
+          </button>
+          
           <input
             placeholder="Search by your favourite location"
             value={search}
             onChange={handleChange}
           />
-          <button><img src={SearchLogo} alt="logo-search" onClick={handleOnClick} /></button>
         </form>
       </div>
 
@@ -116,7 +125,13 @@ export default function HomeScreen() {
             />
             <div className="review-text">
               <h5>Maria Kate</h5>
-              <span>⭐⭐⭐⭐⭐</span>
+              <div className="Star-wraper">
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+              </div>
               <p>
                 ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
                 et deleniti nesciunt sint eligendi reprehenderit reiciendis,
@@ -134,7 +149,13 @@ export default function HomeScreen() {
             />
             <div className="review-text">
               <h5>John Doe</h5>
-              <span>⭐⭐⭐⭐⭐</span>
+              <div className="Star-wraper">
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+              </div>
               <p>
                 ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
                 et deleniti nesciunt sint eligendi reprehenderit reiciendis,
@@ -152,7 +173,13 @@ export default function HomeScreen() {
             />
             <div className="review-text">
               <h5>Anna Deynah</h5>
-              <span>⭐⭐⭐⭐⭐</span>
+              <div className="Star-wraper">
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+                <img src={StarYellow} alt="star-logo" />
+              </div>
               <p>
                 ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
                 et deleniti nesciunt sint eligendi reprehenderit reiciendis,

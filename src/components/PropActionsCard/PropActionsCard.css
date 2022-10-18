@@ -1,0 +1,35 @@
+.prop-actions-container {
+    position: absolute;
+    z-index: 1;
+    top: 93%;
+    right: 6%;
+    width: 25rem;
+    height: 30rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2rem;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+}
+
+.prop-actions-container div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.actions-btn-yellow {
+    background-color: #ffd166;
+    border: none;
+    padding: 0.5rem;
+}
+
+.actions-btn-blue {
+    background-color: #118AB2;
+    border: none;
+    padding: 0.5rem;
+}
+
