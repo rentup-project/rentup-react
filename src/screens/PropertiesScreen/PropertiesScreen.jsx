@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import './PropertiesScreen.css'
 import PropertyList from '../../components/PropertyList/PropertyList';
 import { getAllProperties } from '../../services/Properties.services'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q';
 
 export default function PropertiesScreen() {
@@ -48,13 +48,16 @@ export default function PropertiesScreen() {
                 {
                     properties && (
                         properties.map((property) => (
-                            <PropertyList
-                                key={property.id}
-                                images={property.images}
-                                address={property.address}
-                                bedroom={property.bedroom}
-                                bathroom={property.bathroom}
-                            />
+                            <div key={property.id}>
+                                <Link to={`property/${property.id}`}>
+                                <PropertyList
+                                    images={property.images}
+                                    address={property.address}
+                                    bedroom={property.bedroom}
+                                    bathroom={property.bathroom}
+                                />
+                                </Link>
+                            </div>
                         ))
                     )
                 }
