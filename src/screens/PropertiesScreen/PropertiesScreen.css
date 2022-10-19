@@ -1,16 +1,104 @@
 .PropertiesScreen {
-    height: 91vh;
     display: flex;
     padding-top: 9vh;
 }
 
+/* FILTER CONTAINER */
+
+.yellow-div {
+    width: 100vw;
+    height: 40px;
+    background-color: #ffd166;
+    position: fixed;
+}
+
+.search-filter-container {
+    z-index: 1;
+    position: fixed;
+    width: 55vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px 0 30px;
+}
+
+.search-filter-container img {
+    height: 25px;
+    cursor: pointer;
+}
+
+.search-filter-container > form > button {
+    background-color: transparent;
+    border: none;
+}
+
+.search-filter-container form {
+    background-color: white;
+    width: 50%;
+    padding: 0.4rem;
+    border-radius: 10px;
+    display: flex;
+    border: 1px solid rgb(239, 239, 239);
+}
+
+.search-filter-container input {
+    margin-left: 2.5%;
+    width: 100%;
+    border: none;
+}
+
+.search-filter-container input:focus {
+    outline: none;
+}
+
+.btn-filter {
+    border-radius: 10px;
+    padding: 0.4rem 1rem;
+    border: 1px solid rgb(239, 239, 239);
+    background-color: white;
+}
+
+.btn-filter img {
+    width: 25px;
+    height: 25px;
+    padding-right: 5px;
+}
+
+/* MAP */
+
 .map-container {
+    z-index: -1;
     position: fixed;
     right: 0;
     height: 100%;
     width: 45vw;
 }
 
+/* LIST */
+
 .property-list-container {
+    padding-top: 15vh;
     width: 55vw;
+}
+
+.property-list-container h2 {
+    margin: 0px 30px 40px;
+    text-transform: uppercase;
+}
+
+/* FILTER PAGE */
+
+.filter-page {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 700px;
+    width: 70vw;
+    max-height: 800px;
+    height: 80vh;
+    background-color: white;
+    z-index: 2;
+    border-radius: 1rem;
+    box-shadow: -1000px 1000px 200px 1000px rgb(0 0 0 / 30%);
 }

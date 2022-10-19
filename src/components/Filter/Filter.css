@@ -1,0 +1,15 @@
+.filter-title {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid rgb(239, 239, 239);
+}
+
+.filter-title img {
+    width: 25px;
+    cursor: pointer;
+}
+

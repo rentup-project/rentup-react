@@ -1,10 +1,17 @@
 .PropertyList {
+    background-color: inherit;
+    width: 53vw;
     height: 280px;
     display: flex;
-    border-top: 1px solid rgb(239, 239, 239);
     border-bottom: 1px solid rgb(239, 239, 239);
     padding: 30px;
     gap: 20px;
+}
+
+.img-div {
+    width: 220px;
+    height: 220px;
+    background-repeat: no-repeat;
 }
 
 .property-link {
