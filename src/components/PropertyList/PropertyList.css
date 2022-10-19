@@ -9,10 +9,15 @@
     background-color: inherit;
 }
 
+.PropertyList:hover {
+    background-color: rgb(239, 239, 239);
+}
+
 .img-div {
     width: 220px;
     height: 220px;
     background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .property-link {
@@ -23,4 +28,8 @@
 .property-link:hover {
     color: black;
     text-decoration: none;
+}
+
+.content-div span {
+    margin-left: 0.4rem;
 }
