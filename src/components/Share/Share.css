@@ -1,0 +1,68 @@
+.Share-container {
+    position: absolute;
+    z-index: 1;
+    background-color: white;
+    top: 10%;
+    left: 27%;
+    box-shadow: -1000px 0px 200px 3000px rgb(0 0 0 / 30%);
+    width: 35rem;
+    height: fit-content;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.close-share-options {
+    position: fixed;
+    right: 35%;
+    width: 20px;
+    cursor: pointer;
+}
+
+.Share-container h3 {
+    margin-top: 3rem;
+}
+
+.Share-prop-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.Share-prop-info img {
+    width: 5rem;
+    border-radius: 0.5rem;
+}
+
+.Social-btn-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 22rem;
+}
+
+.Social-btn-wraper {
+    border: 1px solid #dad6d4;
+    border-radius: 1rem;
+    width: 10rem;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.Social-btn-wraper:hover {
+    background-color: rgb(239, 239, 239);
+}
+
+.Social-btn {
+    width: 10rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+.Social-btn span {
+    font-weight: 600;
+}

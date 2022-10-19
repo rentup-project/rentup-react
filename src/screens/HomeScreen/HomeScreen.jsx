@@ -37,10 +37,10 @@ export default function HomeScreen() {
           action=""
           onSubmit={handleSubmit}
         >
-          <button className="search-btn">
-            <img src={SearchLogo} alt="logo-search" onClick={handleOnClick} />
+          <button className="search-btn" onClick={handleOnClick}>
+            <img src={SearchLogo} alt="logo-search" />
           </button>
-          
+
           <input
             placeholder="Search by your favourite location"
             value={search}

@@ -18,9 +18,11 @@ import FurnishedIcon from '../../assets/images/Furnished-icon.png';
 import FloorLevelIcon from '../../assets/images/Floor-level-icon.png';
 import HeatingIcon from '../../assets/images/Heating-icon.png';
 import PetIcon from '../../assets/images/Pet-icon.png';
+/* COMPONENTS */
 import Amenity from "../../components/Amenity/Amenity";
 import Mapbox from '../../components/Mapbox/Mapbox';
 import PropActionsCard from '../../components/PropActionsCard/PropActionsCard';
+import Share from '../../components/Share/Share';
 
 export default function PropertyDetailScreen() {
     const  { id }  = useParams();
@@ -29,6 +31,7 @@ export default function PropertyDetailScreen() {
     const [firstImg, setFirstImage] = useState('');
     const [secondImg, setSecondImage] = useState('');
     const [availability, setAvailability] = useState('');
+    const [openShare, setOpenShare] = useState(false);
 
     const checkAvailability = useCallback(() => {
       if (property.availabilityDate <= Date.now()) {
@@ -55,6 +58,10 @@ export default function PropertyDetailScreen() {
     const hideImages = () => {
       setAllImages(false);
     };    
+
+    const handleShare = () => {
+      openShare ? setOpenShare(false) : setOpenShare(true)
+    }
 
     return allImages ? (
       <div className="all-images">
@@ -117,7 +124,7 @@ export default function PropertyDetailScreen() {
             </div>
           </div>
           <div className="actions-container">
-            <div className="share-container">
+            <div className="share-container" onClick={handleShare}>
               <div
                 className="share-img"
                 style={{
@@ -143,6 +150,8 @@ export default function PropertyDetailScreen() {
             </div>
           </div>
         </section>
+
+        {openShare && <Share property={property} handleClick={handleShare}/>}
 
         <section className="main-imgs-container">
           <div

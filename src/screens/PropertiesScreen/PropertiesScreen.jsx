@@ -66,7 +66,7 @@ export default function PropertiesScreen() {
     }
 
     const changeBackgroundToWhite = (e) => {
-        e.target.style.background = 'white';
+        e.target.style.background = '';
         blueMarker.remove()
     }
 
