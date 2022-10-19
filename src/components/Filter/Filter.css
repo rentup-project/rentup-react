@@ -1,15 +1,44 @@
+.Filter {
+    overflow-y: scroll;
+    height: 100%;
+}
+
 .filter-title {
     position: fixed;
-    width: 100%;
+    width: 91%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem;
+    margin: 0 1.5rem;
+    padding: 1.5rem 0;
+    background-color: white;
     border-bottom: 1px solid rgb(239, 239, 239);
 }
 
 .filter-title img {
     width: 25px;
     cursor: pointer;
+}
+
+.Filter form {
+    padding: 6rem 1.5rem 0;
+}
+
+.min-max-filter {
+    padding: 1.7rem 0;
+    border-bottom: 1px solid rgb(239, 239, 239);
+}
+
+.min-max-filter div {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.select-filter {
+    padding: 1.7rem 0;
+    border-bottom: 1px solid rgb(239, 239, 239);
+    display: flex;
+    justify-content: space-between;
 }
 
