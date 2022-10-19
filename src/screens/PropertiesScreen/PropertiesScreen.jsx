@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import mapboxgl from 'mapbox-gl';
 import './PropertiesScreen.css'
 import PropertyList from '../../components/PropertyList/PropertyList';
@@ -6,7 +7,9 @@ import { getAllProperties } from '../../services/Properties.services'
 import { useParams } from 'react-router-dom';
 import { getCoordinates } from '../../services/Map.services';
 import { getOneProperty } from './../../services/Properties.services';
-import { Marker } from 'react-map-gl';
+import YellowSearchIcon from '../../assets/images/yellow-search-icon.png';
+import FilterIcon from '../../assets/images/filter-icon.png';
+import Filter from '../../components/Filter/Filter';
 mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q';
 
 export default function PropertiesScreen() {
@@ -16,6 +19,24 @@ export default function PropertiesScreen() {
     const [properties, setProperties] = useState('')
     const { search } = useParams()
     let blueMarker;
+    const [searchInput, setSearchInput] = useState('')
+    const navigate = useNavigate();
+    const [filterPage, setFilterPage] = useState(false)
+
+    const handleChange = (e) => {
+        const {value} = e.target
+        setSearchInput(value)
+    }
+
+    const handleSubmit = () => {
+        if (searchInput !== '') {
+            navigate(`/search/${searchInput}`)
+        }
+    }
+
+    const handleOnClick = () => {
+        handleSubmit()
+    }
 
     useEffect(() => {
         getCoordinates(search)
@@ -27,16 +48,15 @@ export default function PropertiesScreen() {
                     center: [res.data.features[0].center[0], res.data.features[0].center[1]],
                     zoom: zoom
                 });
-            })
-            .catch(err => console.log(err))
 
-        getAllProperties(search)
-            .then(res => {
-                setProperties(res)
-                createMarker(res)
-                return getCoordinates(search)
-            })
-            .catch(err => console.log(err, 'entrou'))
+                getAllProperties(search)
+                .then(res => {
+                    setProperties(res)
+                    createMarker(res)
+                })
+                .catch(err => console.log(err, 'entrou'))
+                })
+            .catch(err => console.log(err))
     }, [zoom, search])
 
     const createMarker = (propert) => {
@@ -70,9 +90,40 @@ export default function PropertiesScreen() {
         blueMarker.remove()
     }
 
+    const openFilterPage = () => {
+        if (filterPage) {
+            setFilterPage(false)
+        } else {
+            setFilterPage(true)
+        }
+    }
+
     return (
         <div className='PropertiesScreen'>
+            <div className='yellow-div'></div>
+            <div className='search-filter-container'>
+                <form onSubmit={handleSubmit}>
+                    <button>
+                        <img src={YellowSearchIcon} alt="logo-search" onClick={handleOnClick} />
+                    </button>
+                    <input
+                        placeholder="Search by your favourite location"
+                        value={searchInput}
+                        onChange={handleChange}
+                    />
+                </form>
+                <button className='btn-filter' onClick={openFilterPage}>
+                    <img src={FilterIcon} alt="filter-icon" />
+                    Filter
+                </button>
+            </div>
             <div className='property-list-container'>
+                {
+                    search ? 
+                    <h2>Properties in {search}</h2>
+                    :
+                    <h2>No properties found</h2>
+                }
                 {
                     properties && (
                         properties.map((property) => (
@@ -93,6 +144,12 @@ export default function PropertiesScreen() {
                 }
             </div>
             <div ref={mapContainer} className="map-container" />
+            {
+            filterPage &&
+                <div className='filter-page'>
+                    <Filter CloseFilter={openFilterPage} />
+                </div>
+            }
         </div>
     )
 }
