@@ -14,7 +14,7 @@ export default function Mapbox({long, lat}) {
           container: mapContainer.current,
           style: "mapbox://styles/mapbox/dark-v10",
           center: [Number(long), Number(lat)],
-          zoom: 11.5,
+          zoom: 15,
         });
         createMarker();
     });

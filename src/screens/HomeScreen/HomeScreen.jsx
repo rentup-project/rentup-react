@@ -1,18 +1,27 @@
-import React, { useState } from 'react';
-import HomeCard from '../../components/HomeCard/HomeCard';
-import cards from '../../data/homecards.json';
-import './HomeScreen.css';
-import SearchLogo from '../../assets/images/SearchIcon.png';
-import ImgMockup from '../../assets/images/HouseMockup.jpg';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { AddressAutofill, config } from "@mapbox/search-js-react";
+import "./HomeScreen.css";
+import HomeCard from "../../components/HomeCard/HomeCard";
+import cards from "../../data/homecards.json";
 /* IMAGES */
+import SearchLogo from "../../assets/images/SearchIcon.png";
+import ImgMockup from "../../assets/images/HouseMockup.jpg";
 import StarYellow from '../../assets/images/Star_yellow.png'
 
 export default function HomeScreen() {
-   const [search, setSearch] = useState('')
-   const navigate = useNavigate();
+  const [search, setSearch] = useState('')
+  const navigate = useNavigate();
+  const [token, setToken] = useState("");
 
-   const handleChange = (e) => {
+  useEffect(() => {
+    const accessToken =
+      "pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q";
+    setToken(accessToken);
+    config.accessToken = accessToken;
+  }, []);
+
+  const handleChange = (e) => {
     const {value} = e.target
     setSearch(value)
   }
@@ -41,11 +50,20 @@ export default function HomeScreen() {
             <img src={SearchLogo} alt="logo-search" />
           </button>
 
-          <input
-            placeholder="Search by your favourite location"
-            value={search}
-            onChange={handleChange}
-          />
+          <AddressAutofill
+            accessToken={token}
+            options={{
+              language: "en",
+            }}
+            width="500px"
+          >
+            <input
+              placeholder="Search by your favourite location"
+              value={search}
+              onChange={handleChange}
+              autoComplete="address-level1"
+            />
+          </AddressAutofill>
         </form>
       </div>
 

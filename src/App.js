@@ -6,6 +6,8 @@ import LoadingScreen from "./screens/LoadingScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
 import ErrorScreen from './screens/ErrorScreen/ErrorScreen';
+import FavsScreen from "./screens/FavsScreen/FavsScreen";
+import NewProperty from './screens/NewProperty/NewProperty';
 
 function App() {
   
@@ -17,9 +19,12 @@ function App() {
         <Route path="/" element={<HomeScreen />} />
         {/* AUTH */}
         <Route path="/activate/:token" element={<LoadingScreen />} />
+        {/* ACCOUNT */}
+        <Route path="/account/favs/:user" element={<FavsScreen />} />
         {/* PROPERTIES */}
         <Route path="/search" element={<PropertiesScreen />} />
         <Route path="/search/:search" element={<PropertiesScreen />} />
+        <Route path="/property/create" element={<NewProperty />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />

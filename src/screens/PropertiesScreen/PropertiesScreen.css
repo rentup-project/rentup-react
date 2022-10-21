@@ -36,7 +36,7 @@
     background-color: white;
     width: 50%;
     padding: 0.4rem;
-    border-radius: 10px;
+    border-radius: 1rem;
     display: flex;
     border: 1px solid rgb(239, 239, 239);
 }
@@ -52,7 +52,7 @@
 }
 
 .btn-filter {
-    border-radius: 10px;
+    border-radius: 1rem;
     padding: 0.4rem 1rem;
     border: 1px solid rgb(239, 239, 239);
     background-color: white;

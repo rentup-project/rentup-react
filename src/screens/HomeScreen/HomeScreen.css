@@ -18,14 +18,19 @@
     background-color: white;
     width: 50vw;
     padding: 0.8rem;
-    border-radius: 10px;
+    border-radius: 1rem;
     display: flex;
+}
+
+.form-search-property mapbox-address-autofill {
+    width: 95%;
 }
 
 .form-search-property input {
     margin-left: 2.5%;
-    width: 100%;
     border: none;
+    width: 90%;
+    background-color: transparent;
 }
 
 .form-search-property input:focus {

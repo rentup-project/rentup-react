@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from '../../store/AccessTokenStore';
 import './Navbar.css';
 import { useContext } from "react";
@@ -18,7 +18,6 @@ export default function Navbar() {
   const [login, setLogin] = useState(true);
   const [message, setMessage] = useState('');
   let location = useLocation()
-
   const { currentUser } = useContext(AuthContext);
 
   const userLogOut = () => {
@@ -50,40 +49,83 @@ export default function Navbar() {
   }
 
   return (
-    <div className={location.pathname === '/' ? 'Navbar' : 'Navbar fixed'}>
+    <div className={location.pathname === "/" ? "Navbar" : "Navbar fixed"}>
       <div></div>
       <div>
-        <Link to="/"><img src={location.pathname === '/' ? logoWhite : logoYellow} alt="rentup-logo" className='logo-navbar' /></Link>
+        <Link to="/">
+          <img
+            src={location.pathname === "/" ? logoWhite : logoYellow}
+            alt="rentup-logo"
+            className="logo-navbar"
+          />
+        </Link>
       </div>
+
       <div onClick={handleOnClick}>
-        <img src={BtnNavbar} alt="img" className='sandwich-navbar' />
+        <img src={BtnNavbar} alt="img" className="sandwich-navbar" />
       </div>
-      {
-        isOpened && (
-          <div className='side-navbar'>
-            <div className='header-side-navbar'>
-              <img src={CloseBtnNav} alt="btn-close" onClick={handleOnClick} className='close-navbar' />
-              {!currentUser && (
-                <>
-                <p className={`cursor-pointer ${login && 'bold'}`} onClick={handleChangeLogin}>Login</p>
-                <p className={`cursor-pointer ${register && 'bold'}`} onClick={handleChangeRegister}>Register</p>
-                </>
-              )}
-            </div>
-            <div>
-              {!currentUser && (
-                login ? 
-                <Login handleChangeRegister={handleChangeRegister} message={message} /> 
-                : 
-                <Register handleChangeLogin={handleChangeLogin} />
-              )}
-              {currentUser && (
-                <Link onClick={userLogOut}>Logout</Link>
-              )}
-            </div>
+
+      {isOpened && (
+        <div className="side-navbar">
+          <div className="header-side-navbar">
+            <img
+              src={CloseBtnNav}
+              alt="btn-close"
+              onClick={handleOnClick}
+              className="close-navbar"
+            />
+            {!currentUser && (
+              <>
+                <p
+                  className={`cursor-pointer ${login && "bold"}`}
+                  onClick={handleChangeLogin}
+                >
+                  Login
+                </p>
+                <p
+                  className={`cursor-pointer ${register && "bold"}`}
+                  onClick={handleChangeRegister}
+                >
+                  Register
+                </p>
+              </>
+            )}
           </div>
-        )
-      }
+
+          <div>
+            {!currentUser &&
+              (login ? (
+                <Login
+                  handleChangeRegister={handleChangeRegister}
+                  message={message}
+                />
+              ) : (
+                <Register handleChangeLogin={handleChangeLogin} />
+              ))}
+          </div>
+
+          {currentUser && (
+            <div className="Navbar-auth">
+              <Link to="/" onClick={handleOnClick}>
+                Home
+              </Link>
+              <Link to="/search" onClick={handleOnClick}>
+                Search properties
+              </Link>
+              <Link to="/property/create" onClick={handleOnClick}>
+                Post a property
+              </Link>
+              <Link
+                to={`/account/favs/${currentUser.id}`}
+                onClick={handleOnClick}
+              >
+                Favourite properties
+              </Link>
+              <Link onClick={userLogOut}>Logout</Link>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
