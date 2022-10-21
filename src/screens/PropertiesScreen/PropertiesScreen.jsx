@@ -70,7 +70,6 @@ export default function PropertiesScreen() {
     }
 
     const changeBackgroundToGrey = (e) => {
-        e.target.style.background = 'rgb(239, 239, 239)';
         if(e.target.id) {
             getOneProperty(e.target.id)
             .then(res => {
@@ -86,8 +85,7 @@ export default function PropertiesScreen() {
     }
 
     const changeBackgroundToWhite = (e) => {
-        e.target.style.background = '';
-        blueMarker?.remove();
+        blueMarker.remove()
     }
 
     const openFilterPage = () => {
@@ -137,6 +135,7 @@ export default function PropertiesScreen() {
                                         bedroom={property.bedroom}
                                         bathroom={property.bathroom}
                                         id={property.id}
+                                        squaredMeters={property.squaredMeters}
                                     />
                             </div>
                         ))
