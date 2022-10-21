@@ -1,15 +1,14 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
 import './PropertiesScreen.css'
 import PropertyList from '../../components/PropertyList/PropertyList';
+import Filter from "../../components/Filter/Filter";
 import { getAllProperties } from '../../services/Properties.services'
-import { useParams } from 'react-router-dom';
 import { getCoordinates } from '../../services/Map.services';
 import { getOneProperty } from './../../services/Properties.services';
 import YellowSearchIcon from '../../assets/images/yellow-search-icon.png';
 import FilterIcon from '../../assets/images/filter-icon.png';
-import Filter from '../../components/Filter/Filter';
 mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q';
 
 export default function PropertiesScreen() {
@@ -40,24 +39,27 @@ export default function PropertiesScreen() {
 
     useEffect(() => {
         getCoordinates(search)
-            .then((res) => {
-                if (map.current) return;
-                map.current = new mapboxgl.Map({
-                    container: mapContainer.current,
-                    style: 'mapbox://styles/mapbox/dark-v10',
-                    center: [res.data.features[0].center[0], res.data.features[0].center[1]],
-                    zoom: zoom
-                });
+          .then((res) => {
+            if (map.current) return;
+            map.current = new mapboxgl.Map({
+              container: mapContainer.current,
+              style: "mapbox://styles/mapbox/dark-v10",
+              center: [
+                res.data.features[0].center[0],
+                res.data.features[0].center[1],
+              ],
+              zoom: zoom,
+            });
 
-                getAllProperties(search)
-                .then(res => {
-                    setProperties(res)
-                    createMarker(res)
-                })
-                .catch(err => console.log(err, 'entrou'))
-                })
-            .catch(err => console.log(err))
-    }, [zoom, search])
+            getAllProperties(search)
+              .then((res) => {
+                setProperties(res);
+                createMarker(res);
+              })
+              .catch((err) => navigate("/error"));
+          })
+          .catch((err) => navigate("/error"));
+    }, [zoom, search, navigate])
 
     const createMarker = (propert) => {
         propert.map((property) => {
@@ -72,20 +74,19 @@ export default function PropertiesScreen() {
     const changeBackgroundToGrey = (e) => {
         if(e.target.id) {
             getOneProperty(e.target.id)
-            .then(res => {
+              .then((res) => {
                 blueMarker = new mapboxgl.Marker({
-                    color: "#118AB2",
+                  color: "#118AB2",
                 })
-                    .setLngLat([res.long, res.lat])
-                    .addTo(map.current);
-                    console.log(mapboxgl)
-            })
-            .catch((err) => console.log(err))
+                  .setLngLat([res.long, res.lat])
+                  .addTo(map.current);
+              })
+              .catch((err) => navigate("/error"));
         }
     }
 
     const changeBackgroundToWhite = (e) => {
-        blueMarker.remove()
+        blueMarker?.remove();
     }
 
     const openFilterPage = () => {
@@ -146,7 +147,7 @@ export default function PropertiesScreen() {
             {
             filterPage &&
                 <div className='filter-page'>
-                    <Filter CloseFilter={openFilterPage} />
+                    <Filter city={search} CloseFilter={openFilterPage} />
                 </div>
             }
         </div>

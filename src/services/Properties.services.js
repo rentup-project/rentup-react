@@ -6,6 +6,6 @@ export const getOneProperty = (id) =>
     http
     .get(`/property/${id}`);
 
-export const getAllProperties = (city) => 
+export const getAllProperties = (city, queries) =>
     http
     .get(`/properties/${city}`);
