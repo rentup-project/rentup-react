@@ -2,6 +2,8 @@
 .property-detail {
     padding: 4rem 1.5rem;
     color: rgb(34, 34, 34);
+    max-width: 1300px;
+    margin: 0 auto;
 }
 
 hr {
@@ -73,7 +75,7 @@ hr {
 }
 
 .all-images-container {
-    max-width: 80%;
+    max-width: 900px;
     height: fit-content;
     display: flex;
     justify-content: center;

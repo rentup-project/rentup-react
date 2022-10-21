@@ -27,7 +27,7 @@ export default function Share({ property, handleClick }) {
           className="close-share-options"
           onClick={handleClick}
         />
-        <h3>Share this property with your friends and family</h3>
+        <h3>Share this property on</h3>
         <div className="Share-prop-info">
           <img src={property.images[0]} alt="property-img" />
           <h6>{property.address}</h6>

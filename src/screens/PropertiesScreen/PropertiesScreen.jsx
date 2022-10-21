@@ -87,7 +87,7 @@ export default function PropertiesScreen() {
 
     const changeBackgroundToWhite = (e) => {
         e.target.style.background = '';
-        blueMarker.remove()
+        blueMarker?.remove();
     }
 
     const openFilterPage = () => {

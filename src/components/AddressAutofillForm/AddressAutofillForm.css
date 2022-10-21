@@ -1,0 +1,21 @@
+.form-search-address {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 50vw;
+}
+
+.form-search-address mapbox-address-autofill {
+    padding: 1rem 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid rgb(239, 239, 239);
+    border-radius: 1rem;
+}
+
+.form-search-address input {
+    margin-left: 2.5%;
+    border: none;
+    background-color: transparent;
+    color: black;
+}

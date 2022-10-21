@@ -53,7 +53,7 @@ export default function Login({ handleChangeRegister, message }) {
 
   const handleOnClick = () => {
     loginGoogle()
-    .then(res => console.log(res))
+    .then(res => console.log(res, 'entra en google'))
     .catch(err => console.log(err))
   }
   console.log(message)
