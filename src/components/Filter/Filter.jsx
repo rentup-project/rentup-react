@@ -34,7 +34,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
       </div>
       <form onSubmit={handleSubmit}>
         <div className="min-max-filter">
-          <h4>Price per month</h4>
+          <h4>Monthly Rent</h4>
           <div>
             <p>FROM</p>
             <input
@@ -55,7 +55,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="min-max-filter">
-          <h4>Size</h4>
+          <h4>Squared Meters</h4>
           <div>
             <p>FROM</p>
             <input
@@ -78,7 +78,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Bedrooms</h4>
           <div>
-            <select onChange={handleOnChange} name="bedroom" id="bedroom">
+            <select onChange={handleOnChange} name="bedrooms" id="bedrooms">
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -95,7 +95,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
                 3 or more
               </option>
               <option className="option-filter" name="4+">
-                more than 4
+                More than 4
               </option>
             </select>
           </div>
@@ -103,7 +103,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Bathrooms</h4>
           <div>
-            <select onChange={handleOnChange} name="bathroom" id="bathroom">
+            <select onChange={handleOnChange} name="bathrooms" id="bathrooms">
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -117,7 +117,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
                 3 or more
               </option>
               <option className="option-filter" name="4+">
-                more than 4
+                More than 4
               </option>
             </select>
           </div>
@@ -125,12 +125,12 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Furniture</h4>
           <div>
-            <select onChange={handleOnChange} name="furniture" id="furniture">
+            <select onChange={handleOnChange} name="furnitures" id="furnitures">
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
               <option className="option-filter" name="not-furnished">
-                No furnished
+                Not furnished
               </option>
               <option className="option-filter" name="only-kitchen">
                 Only kitchen furnished
@@ -146,8 +146,8 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           <div>
             <select
               onChange={handleOnChange}
-              name="orientation"
-              id="orientation"
+              name="orientationType"
+              id="orientationType"
             >
               <option className="option-filter" name="selected" defaultValue>
                 Select
@@ -164,7 +164,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Pets allowed</h4>
           <div>
-            <select onChange={handleOnChange} name="petAllowed" id="petAllowed">
+            <select onChange={handleOnChange} name="petAllowedInfo" id="petAllowedInfo">
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -180,7 +180,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Heating</h4>
           <div>
-            <select onChange={handleOnChange} name="heating" id="heating">
+            <select onChange={handleOnChange} name="heatingType" id="heatingType">
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -201,12 +201,12 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Type</h4>
+          <h4>Property Type</h4>
           <div>
             <select
               onChange={handleOnChange}
-              name="propertyType"
-              id="propertyType"
+              name="propertyTypeInfo"
+              id="propertyTypeInfo"
             >
               <option className="option-filter" name="selected" defaultValue>
                 Select
@@ -223,7 +223,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Floor</h4>
           <div>
-            <select onChange={handleOnChange} name="floor" id="floor">
+            <select onChange={handleOnChange} name="floorInfo" id="floorInfo">
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -244,17 +244,17 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           <div>
             <select
               onChange={handleOnChange}
-              name="availabilityDate"
-              id="availabilityDate"
+              name="availabilityDateInfo"
+              id="availabilityDateInfo"
             >
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
               <option className="option-filter" name="available">
-                Available
+                Available now
               </option>
               <option className="option-filter" name="not-available">
-                Not available
+                Available soon
               </option>
             </select>
           </div>
