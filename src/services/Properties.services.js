@@ -3,9 +3,9 @@ import createHttp from "./Base.services";
 const http = createHttp();
 
 export const getOneProperty = (id) => 
-    http
-    .get(`/property/${id}`);
+    http.get(`/property/${id}`);
 
-export const getAllProperties = (city) => 
-    http
-    .get(`/properties/${city}`);
+export const getAllProperties = (city, filterData) =>
+  http.get(`/properties/${city}`, {
+    params: filterData
+  });

@@ -9,6 +9,7 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthContextProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
+  const [isAuthFetched, setIsAuthFetched] = useState(false);
 
   const login = (token) => {
     setToken(token);
@@ -19,6 +20,7 @@ export const AuthContextProvider = ({ children }) => {
     getCurrentUser()
     .then((user) => {
       setCurrentUser(user);
+      setIsAuthFetched(true);
     });
   };
 
@@ -29,13 +31,14 @@ export const AuthContextProvider = ({ children }) => {
       } else {
         getUser();
       }
-    }
+    } 
   }, []);
 
   const value = {
     currentUser,
     login,
     getUser,
+    isAuthFetched
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
