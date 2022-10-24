@@ -1,15 +1,33 @@
-import React, { useContext, useState } from "react";
-import AddressAutofillForm from "../../components/AddressAutofillForm/AddressAutofillForm";
+import React, { useContext, useState, useEffect } from "react";
+import MapboxAutocomplete from "react-mapbox-autocomplete";
 import './NewProperty.css';
 import AuthContext from './../../contexts/AuthContext';
+import { createProperty } from './../../services/Properties.services';
 
 export default function NewProperty() {
-  const [typeHouse, setTypeHouse] = useState('')
-  const [typeApartment, setTypeApartment] = useState("");
+  const [typeHouse, setTypeHouse] = useState('');
+  const [typeApartment, setTypeApartment] = useState('');
+  const [formData, setFormData] = useState({});
+  const [address, setAddress] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
   const { currentUser } = useContext(AuthContext);
 
+  const suggestionSelect = (result, lat, lng, text) => {
+    console.log(result, lat, lng);
+    setAddress(result)
+    setLatitude(lat)
+    setLongitude(lng)
+  }
+
   const handleOnChange = (e) => {
-    const { name, value } = e.target
+    const { name, value, type, files } = e.target;
+
+    if (type === "file") {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }   
 
     if (name === "propertyType" && value === "House") {
       setTypeHouse(true)
@@ -22,14 +40,35 @@ export default function NewProperty() {
     }
   }
 
+  const handleOnSubmit = () => {
+    createProperty({
+      ...formData,
+      owner: currentUser,
+      address: address,
+      lat: latitude,
+      long: longitude
+    })
+    .then(prop => console.log(prop))
+    .catch(err => console.log(err))
+  }
+
   return (
     <div className="new-property-container">
       <h3>Let's post your property!</h3>
-      <form>
-        <input name="owner" value={currentUser} hidden />
-        <AddressAutofillForm />
+      <form onSubmit={handleOnSubmit}>
+        <MapboxAutocomplete
+          publicKey="pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q"
+          inputClass="form-control search"
+          onSuggestionSelect={suggestionSelect}
+          country="es"
+          resetSearch={false}
+        />
         <label htmlFor="addressVisibility">Address Visibility</label>
-        <select name="addressVisibility" id="addressVisibility">
+        <select
+          name="addressVisibility"
+          id="addressVisibility"
+          onChange={handleOnChange}
+        >
           <option name="selected" defaultValue>
             Select
           </option>
@@ -45,6 +84,7 @@ export default function NewProperty() {
           type="date"
           name="availabilityDate"
           id="availabilityDate"
+          onChange={handleOnChange}
         ></input>
         <label htmlFor="propertyType">Type of property</label>
         <select onChange={handleOnChange} name="propertyType" id="propertyType">
@@ -106,7 +146,11 @@ export default function NewProperty() {
             </select>
 
             <label htmlFor="orientation">Orientation</label>
-            <select name="orientation" id="orientation">
+            <select
+              name="orientation"
+              id="orientation"
+              onChange={handleOnChange}
+            >
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -119,7 +163,7 @@ export default function NewProperty() {
             </select>
 
             <label htmlFor="floor">Floor level</label>
-            <select name="floor" id="floor">
+            <select name="floor" id="floor" onChange={handleOnChange}>
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -136,13 +180,28 @@ export default function NewProperty() {
           </>
         )}
         <label htmlFor="squaredMeters">Squared Meters</label>
-        <input type="number" name="squaredMeters" id="squaredMeters"></input>
+        <input
+          type="number"
+          name="squaredMeters"
+          id="squaredMeters"
+          onChange={handleOnChange}
+        ></input>
         <label htmlFor="bedroom">Bedrooms</label>
-        <input type="number" name="bedroom" id="bedroom"></input>
+        <input
+          type="number"
+          name="bedroom"
+          id="bedroom"
+          onChange={handleOnChange}
+        ></input>
         <label htmlFor="bathroom">Bathrooms</label>
-        <input type="number" name="bathroom" id="bathroom"></input>
+        <input
+          type="number"
+          name="bathroom"
+          id="bathroom"
+          onChange={handleOnChange}
+        ></input>
         <label htmlFor="furniture">Furniture</label>
-        <select name="furniture" id="furniture">
+        <select name="furniture" id="furniture" onChange={handleOnChange}>
           <option className="option-filter" name="selected" defaultValue>
             Select
           </option>
@@ -157,8 +216,11 @@ export default function NewProperty() {
           </option>
         </select>
         <label htmlFor="petAllowed">Pets allowed</label>
-        <select name="petAllowed" id="petAllowed">
-          <option className="option-filter" name="true" defaultValue>
+        <select name="petAllowed" id="petAllowed" onChange={handleOnChange}>
+          <option className="option-filter" name="selected" defaultValue>
+            Select
+          </option>
+          <option className="option-filter" name="true">
             Yes
           </option>
           <option className="option-filter" name="false">
@@ -166,7 +228,7 @@ export default function NewProperty() {
           </option>
         </select>
         <label htmlFor="heating">Heating</label>
-        <select name="heating" id="heating">
+        <select name="heating" id="heating" onChange={handleOnChange}>
           <option className="option-filter" name="selected" defaultValue>
             Select
           </option>
@@ -187,8 +249,14 @@ export default function NewProperty() {
         <h6>Features</h6>
         <div className="features-container">
           <div className="checkbox-wrapper">
-            <input type="checkbox" id="Pool" name="Pool" value="Pool" />
-            <label for="Pool">Pool</label>
+            <input
+              type="checkbox"
+              id="Pool"
+              name="Pool"
+              value="Pool"
+              onChange={handleOnChange}
+            />
+            <label htmlFor="Pool">Pool</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -197,11 +265,11 @@ export default function NewProperty() {
               name="Air conditioning"
               value="Air conditioning"
             />
-            <label for="Air conditioning">Air conditioning</label>
+            <label htmlfor="Air conditioning">Air conditioning</label>
           </div>
           <div className="checkbox-wrapper">
             <input type="checkbox" id="Lyft" name="Lyft" value="Lyft" />
-            <label for="Lyft">Lyft</label>
+            <label htmlFor="Lyft">Lyft</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -210,7 +278,7 @@ export default function NewProperty() {
               name="Built-in cabinets"
               value="Built-in cabinets"
             />
-            <label for="Built-in cabinets">Built-in cabinets</label>
+            <label htmlFor="Built-in cabinets">Built-in cabinets</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -219,7 +287,7 @@ export default function NewProperty() {
               name="Boxroom"
               value="Boxroom"
             />
-            <label for="Boxroom">Boxroom</label>
+            <label htmlFor="Boxroom">Boxroom</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -228,7 +296,7 @@ export default function NewProperty() {
               name="Parking"
               value="Parking"
             />
-            <label for="Parking">Parking</label>
+            <label htmlFor="Parking">Parking</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -237,7 +305,7 @@ export default function NewProperty() {
               name="Balcony"
               value="Balcony"
             />
-            <label for="Balcony">Balcony</label>
+            <label htmlFor="Balcony">Balcony</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -246,11 +314,11 @@ export default function NewProperty() {
               name="Terrace"
               value="Terrace"
             />
-            <label for="Terrace">Terrace</label>
+            <label htmlFor="Terrace">Terrace</label>
           </div>
           <div className="checkbox-wrapper">
             <input type="checkbox" id="Garden" name="Garden" value="Garden" />
-            <label for="Garden">Garden</label>
+            <label htmlFor="Garden">Garden</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -259,11 +327,11 @@ export default function NewProperty() {
               name="24-hour-security"
               value="24-hour-security"
             />
-            <label for="24-hour-security">24-hour-security</label>
+            <label htmlFor="24-hour-security">24-hour-security</label>
           </div>
           <div className="checkbox-wrapper">
             <input type="checkbox" id="Gym" name="Gym" value="Gym" />
-            <label for="Gym">Gym</label>
+            <label htmlFor="Gym">Gym</label>
           </div>
           <div className="checkbox-wrapper">
             <input
@@ -272,23 +340,33 @@ export default function NewProperty() {
               name="Playground"
               value="Playground"
             />
-            <label for="Playground">Playground</label>
+            <label htmlFor="Playground">Playground</label>
           </div>
           <div className="checkbox-wrapper">
             <input type="checkbox" id="Spa" name="Spa" value="Spa" />
-            <label for="Spa">Spa</label>
+            <label htmlFor="Spa">Spa</label>
           </div>
           <div className="checkbox-wrapper">
             <input type="checkbox" id="Patio" name="Patio" value="Patio" />
-            <label for="Patio">Patio</label>
+            <label htmlFor="Patio">Patio</label>
           </div>
         </div>
 
         <label htmlFor="images">Images</label>
-        <input type="file" name="images" id="images" multiple></input>
+        <input
+          type="file"
+          name="images"
+          id="images"
+          multiple
+          onChange={handleOnChange}
+        ></input>
 
         <label htmlFor="requiredJobDuration">Required Job Duration</label>
-        <select name="requiredJobDuration" id="requiredJobDuration">
+        <select
+          name="requiredJobDuration"
+          id="requiredJobDuration"
+          onChange={handleOnChange}
+        >
           <option className="option-filter" name="selected" defaultValue>
             Select
           </option>
@@ -315,23 +393,39 @@ export default function NewProperty() {
           min={15000}
           name="requiredAnnualSalary"
           id="requiredAnnualSalary"
+          onChange={handleOnChange}
         ></input>
 
         <label htmlFor="monthlyRent">Monthly Rent</label>
-        <input type="number" name="monthlyRent" id="monthlyRent"></input>
+        <input
+          type="number"
+          name="monthlyRent"
+          id="monthlyRent"
+          onChange={handleOnChange}
+        ></input>
 
         <label htmlFor="bailDeposit">Bail Deposit</label>
-        <input type="number" name="bailDeposit" id="bailDeposit"></input>
+        <input
+          type="number"
+          name="bailDeposit"
+          id="bailDeposit"
+          onChange={handleOnChange}
+        ></input>
 
         <label htmlFor="reservationPrice">Reservation Price</label>
         <input
           type="number"
           name="reservationPrice"
           id="reservationPrice"
+          onChange={handleOnChange}
         ></input>
 
         <label htmlFor="requireGuarantee">Guarantee</label>
-        <select name="requiredJobDuration" id="requiredJobDuration">
+        <select
+          name="requiredJobDuration"
+          id="requiredJobDuration"
+          onChange={handleOnChange}
+        >
           <option className="option-filter" name="selected" defaultValue>
             Select
           </option>
