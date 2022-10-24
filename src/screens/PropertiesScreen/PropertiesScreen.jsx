@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
 import './PropertiesScreen.css'
 import PropertyList from '../../components/PropertyList/PropertyList';
@@ -19,9 +19,10 @@ export default function PropertiesScreen() {
   const [properties, setProperties] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [filterPage, setFilterPage] = useState(false);
-  const [currentMarkers, setCurrentMarkers] = useState([]);
   const { search } = useParams();
+  const location = useLocation();
   const navigate = useNavigate();
+  const [currentMarkers, setCurrentMarkers] = useState([]);
   let blueMarker;
 
   const handleChange = (e) => {
@@ -39,6 +40,12 @@ export default function PropertiesScreen() {
     handleSubmit();
   };
 
+  const removeMarkers = useCallback(() => {
+    currentMarkers.forEach(marker => {
+      marker.remove();
+    })
+  }, [currentMarkers])
+
   const handleFilterData = (filterData) => {
     getAllProperties(search, filterData)
       .then((newProps) => {
@@ -47,31 +54,29 @@ export default function PropertiesScreen() {
             properties.map((prop) => prop.id !== newProp.id)
           );
           setProperties(newProperties);
+          createMarker(newProperties)
         } else {
           setProperties(newProps);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => navigate("/error"))
   };
 
-  const createMarker = useCallback((propert) => {
-    propert.map((property) => {
-      let marker = new mapboxgl.Marker({
+  const createMarker = (properties) => {
+    removeMarkers();
+    const markers = [];
+
+    properties.map((property) => {
+      let markerToAdd = new mapboxgl.Marker({
         color: "#FFD166",
       })
         .setLngLat([property.long, property.lat])
-        .addTo(map.current);
-      return marker;
+        .addTo(map.current)
+      markers.push(markerToAdd)
     });
-  }, []);
 
-  /* const removeMarker = useCallback((propert) => {
-        if (currentMarkers!==null) {
-            for (var i = currentMarkers.length - 1; i >= 0; i--) {
-            currentMarkers[i].remove(map.current);
-            }
-        }
-    }; */
+    setCurrentMarkers(markers)
+  };
 
   useEffect(() => {
     getCoordinates(search)
@@ -85,19 +90,18 @@ export default function PropertiesScreen() {
             res.data.features[0].center[1],
           ],
           zoom: zoom,
-        });
+      })
 
-        getAllProperties(search)
-          .then((res) => {
-            setProperties(res);
-            createMarker(res);
-            /* setCurrentMarkers([...currentMarkers, market ]);
-            console.log(currentMarkers); */
-          })
-          .catch((err) => navigate("/error"));
+      let queries = new URLSearchParams(location.search)
+
+      getAllProperties(search, queries)
+      .then((newProps) => {
+        setProperties(newProps);
+        createMarker(newProps)
       })
       .catch((err) => navigate("/error"));
-  }, [zoom, search, navigate, createMarker, currentMarkers]);
+      })
+  }, [zoom, search, navigate, createMarker]);
 
   const changeBackgroundToGrey = (e) => {
     if (e.target.id) {
@@ -112,6 +116,7 @@ export default function PropertiesScreen() {
         .catch((err) => navigate("/error"));
     }
   };
+
 
   const changeBackgroundToWhite = (e) => {
     blueMarker?.remove();
