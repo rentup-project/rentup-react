@@ -1,30 +1,30 @@
-import React, { useCallback, useEffect, useState, useContext } from "react";
-import "./PropertyDetailScreen.css";
-import { useParams } from "react-router-dom";
-import Moment from "react-moment";
 import "moment-timezone";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import Moment from "react-moment";
+import { useParams } from "react-router-dom";
 import { getOneProperty } from "./../../services/Properties.services";
+import "./PropertyDetailScreen.css";
 /* IMAGES */
-import CloseBtnNav from "../../assets/images/CloseBtnNavbar.png";
-import StarBlack from "../../assets/images/Star_black.png";
-import ShareIcon from "../../assets/images/Share-icon.png";
-import UnFavIcon from "../../assets/images/UnFav-icon.png";
-import FavIcon from "../../assets/images/Fav-icon.png";
-import CalendarIcon from "../../assets/images/Calendar-icon.png";
-import HouseIcon from "../../assets/images/House-icon.png";
 import ApartmentIcon from "../../assets/images/Apartment-icon.png";
+import CalendarIcon from "../../assets/images/Calendar-icon.png";
+import CloseBtnNav from "../../assets/images/CloseBtnNavbar.png";
 import ExteriorIcon from "../../assets/images/Exterior-icon.png";
-import InteriorIcon from "../../assets/images/Interior-icon.png";
-import FurnishedIcon from "../../assets/images/Furnished-icon.png";
+import FavIcon from "../../assets/images/Fav-icon.png";
 import FloorLevelIcon from "../../assets/images/Floor-level-icon.png";
+import FurnishedIcon from "../../assets/images/Furnished-icon.png";
 import HeatingIcon from "../../assets/images/Heating-icon.png";
+import HouseIcon from "../../assets/images/House-icon.png";
+import InteriorIcon from "../../assets/images/Interior-icon.png";
 import PetIcon from "../../assets/images/Pet-icon.png";
+import ShareIcon from "../../assets/images/Share-icon.png";
+import StarBlack from "../../assets/images/Star_black.png";
+import UnFavIcon from "../../assets/images/UnFav-icon.png";
 /* COMPONENTS */
 import Amenity from "../../components/Amenity/Amenity";
 import Mapbox from "../../components/Mapbox/Mapbox";
 import PropActionsCard from "../../components/PropActionsCard/PropActionsCard";
 import Share from "../../components/Share/Share";
-import { updateFav, getOneFav } from "./../../services/Account.services";
+import { getOneFav, updateFav } from "./../../services/Account.services";
 /* CONTEXTS */
 import AuthContext from "../../contexts/AuthContext";
 
