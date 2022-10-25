@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Filter.css";
 import CloseBtnFilter from "../../assets/images/CloseBtnNavbar.png";
 
 export default function Filter({ city, closeFilter, getFilterData }) {
+  const location = useLocation();
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    setFormData(Object.fromEntries(new URLSearchParams(location.search)))
+  }, [])
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +48,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
               name="minPrice"
               placeholder="Min price"
               min="0"
+              value={formData.minPrice && formData.minPrice}
             />
             <p>TO</p>
             <input
@@ -51,6 +57,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
               name="maxPrice"
               placeholder="Max price"
               min="0"
+              value={formData.maxPrice && formData.maxPrice}
             />
           </div>
         </div>
@@ -64,6 +71,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
               name="minMeters"
               placeholder="Min size"
               min="0"
+              value={formData.minMeters && formData.minMeters}
             />
             <p>TO</p>
             <input
@@ -72,14 +80,15 @@ export default function Filter({ city, closeFilter, getFilterData }) {
               name="maxMeters"
               placeholder="Max size"
               min="0"
+              value={formData.maxMeters && formData.maxMeters}
             />
           </div>
         </div>
         <div className="select-filter">
           <h4>Bedrooms</h4>
           <div>
-            <select onChange={handleOnChange} name="bedrooms" id="bedrooms">
-              <option className="option-filter" name="selected" defaultValue>
+            <select onChange={handleOnChange} name="bedrooms" id="bedrooms" value={'2 or more'}>
+              <option className="option-filter" name="selected">
                 Select
               </option>
               <option className="option-filter" name="studio">

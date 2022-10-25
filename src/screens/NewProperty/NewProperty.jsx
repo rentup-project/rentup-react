@@ -1,6 +1,5 @@
-import React, { useContext, useState, useTransition } from "react";
+import React, { useContext, useState } from "react";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
-import { useHref } from "react-router-dom";
 import AuthContext from './../../contexts/AuthContext';
 import { createProperty } from './../../services/Properties.services';
 import './NewProperty.css';

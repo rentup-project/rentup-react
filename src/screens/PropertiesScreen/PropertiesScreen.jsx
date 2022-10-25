@@ -1,29 +1,76 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate, useParams, useLocation } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
-import './PropertiesScreen.css'
-import PropertyList from '../../components/PropertyList/PropertyList';
-import Filter from "../../components/Filter/Filter";
-import { getAllProperties } from '../../services/Properties.services'
-import { getCoordinates } from '../../services/Map.services';
-import { getOneProperty } from './../../services/Properties.services';
-import YellowSearchIcon from '../../assets/images/yellow-search-icon.png';
+import moment from 'moment';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FilterIcon from '../../assets/images/filter-icon.png';
-import { useCallback } from 'react';
+import YellowSearchIcon from '../../assets/images/yellow-search-icon.png';
+import Filter from "../../components/Filter/Filter";
+import PropertyList from '../../components/PropertyList/PropertyList';
+import { getCoordinates } from '../../services/Map.services';
+import { getAllProperties } from '../../services/Properties.services';
+import './PropertiesScreen.css';
 mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q';
 
 export default function PropertiesScreen() {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [zoom] = useState(11.5);
-  const [properties, setProperties] = useState("");
+  const [properties, setProperties] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filterPage, setFilterPage] = useState(false);
+  const [currentMarkers, setCurrentMarkers] = useState([]);
+  const [sortBy, setSortBy] = useState('date')
   const { search } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  const [currentMarkers, setCurrentMarkers] = useState([]);
   let blueMarker;
+
+  const removeMarkers = useCallback(() => {
+    currentMarkers.forEach(marker => {
+      marker.remove();
+    })
+  }, [currentMarkers])
+
+  const createMarker = useCallback((properties) => {
+    removeMarkers();
+    const markers = [];
+    
+    properties.map((property) => {
+      let markerToAdd = new mapboxgl.Marker({
+        color: "#FFD166",
+      })
+      .setLngLat([property.long, property.lat])
+      .addTo(map.current)
+      return markers.push(markerToAdd)
+    });
+    
+    setCurrentMarkers(markers)
+  }, [removeMarkers])
+
+  useEffect(() => {
+    getCoordinates(search)
+      .then((res) => {
+        if (map.current) return;
+        map.current = new mapboxgl.Map({
+          container: mapContainer.current,
+          style: "mapbox://styles/mapbox/dark-v10",
+          center: [
+            res.data.features[0].center[0],
+            res.data.features[0].center[1],
+          ],
+          zoom: 11.5,
+      })
+
+      let queries = new URLSearchParams(location.search)
+
+      getAllProperties(search, queries)
+      .then((newProps) => {
+        let sorted = newProps.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
+        setProperties(sorted);
+        createMarker(newProps)
+      })
+      .catch((err) => navigate("/error"));
+      })
+  }, [search, navigate, createMarker, location.search]);
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -39,12 +86,6 @@ export default function PropertiesScreen() {
   const handleOnClick = () => {
     handleSubmit();
   };
-
-  const removeMarkers = useCallback(() => {
-    currentMarkers.forEach(marker => {
-      marker.remove();
-    })
-  }, [currentMarkers])
 
   const handleFilterData = (filterData) => {
     getAllProperties(search, filterData)
@@ -62,63 +103,21 @@ export default function PropertiesScreen() {
       .catch((err) => navigate("/error"))
   };
 
-  const createMarker = (properties) => {
-    removeMarkers();
-    const markers = [];
-
-    properties.map((property) => {
-      let markerToAdd = new mapboxgl.Marker({
-        color: "#FFD166",
-      })
-        .setLngLat([property.long, property.lat])
-        .addTo(map.current)
-      markers.push(markerToAdd)
-    });
-
-    setCurrentMarkers(markers)
-  };
-
-  useEffect(() => {
-    getCoordinates(search)
-      .then((res) => {
-        if (map.current) return;
-        map.current = new mapboxgl.Map({
-          container: mapContainer.current,
-          style: "mapbox://styles/mapbox/dark-v10",
-          center: [
-            res.data.features[0].center[0],
-            res.data.features[0].center[1],
-          ],
-          zoom: zoom,
-      })
-
-      let queries = new URLSearchParams(location.search)
-
-      getAllProperties(search, queries)
-      .then((newProps) => {
-        setProperties(newProps);
-        createMarker(newProps)
-      })
-      .catch((err) => navigate("/error"));
-      })
-  }, [zoom, search, navigate, createMarker]);
-
-  const changeBackgroundToGrey = (e) => {
+  const createBlueMarker = (e) => {
     if (e.target.id) {
-      getOneProperty(e.target.id)
-        .then((res) => {
-          blueMarker = new mapboxgl.Marker({
-            color: "#118AB2",
-          })
-            .setLngLat([res.long, res.lat])
-            .addTo(map.current);
-        })
-        .catch((err) => navigate("/error"));
+      let arr = e.target.id.split(',')
+      let targetLat = arr[0]
+      let targetLong = arr[1]
+
+      blueMarker = new mapboxgl.Marker({
+        color: "#118AB2",
+      })
+      .setLngLat([targetLong, targetLat])
+      .addTo(map.current);
     }
   };
 
-
-  const changeBackgroundToWhite = (e) => {
+  const removeBlueMarker = (e) => {
     blueMarker?.remove();
   };
 
@@ -129,6 +128,25 @@ export default function PropertiesScreen() {
       setFilterPage(true);
     }
   };
+
+  const changeSortByState = (e) => {
+    if(e.target.selectedIndex === 4) {
+      setSortBy('size-biggest')
+      properties.sort((a, b) => b.squaredMeters - a.squaredMeters)
+    } else if(e.target.selectedIndex === 3) {
+      setSortBy('size-smallest')
+      properties.sort((a, b) => a.squaredMeters - b.squaredMeters)
+    } else if(e.target.selectedIndex === 2) {
+      setSortBy('price-highest')
+      properties.sort((a, b) => b.monthlyRent - a.monthlyRent)
+    } else if (e.target.selectedIndex === 1) {
+      setSortBy('price-lowest')
+      properties.sort((a, b) => a.monthlyRent - b.monthlyRent)
+    } else {
+      setSortBy('date')
+      properties.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
+    }
+  }
 
   return (
     <div className="PropertiesScreen">
@@ -153,29 +171,57 @@ export default function PropertiesScreen() {
           Filter
         </button>
       </div>
-      <div className="property-list-container">
-        {search ? (
-          <h2>Properties in {search}</h2>
-        ) : (
-          <h2>No properties found</h2>
-        )}
-        {properties &&
-          properties.map((property) => (
-            <div
-              key={property.id}
-              onMouseEnter={changeBackgroundToGrey}
-              onMouseLeave={changeBackgroundToWhite}
-            >
-              <PropertyList
-                images={property.images}
-                address={property.address}
-                bedroom={property.bedroom}
-                bathroom={property.bathroom}
-                id={property.id}
-                squaredMeters={property.squaredMeters}
-              />
-            </div>
-          ))}
+      <div>
+        <div className="city-title-sort">
+          <h2>{search}</h2>
+          <div className='sort-div'>
+            <p>
+              Sort by: 
+            </p>
+            <form>
+              <select id="sortByBtn" onChange={changeSortByState}>
+                <option name="date: most recent first" defaultValue>
+                  Date - most recent first
+                </option>
+                <option name="price: lowest first">
+                  Price - lowest first
+                </option>
+                <option name="price: highest first">
+                  Price - highest first
+                </option>
+                <option name="price: lowest first">
+                  Size - smallest first
+                </option>
+                <option name="price: highest first">
+                  Size - biggest first
+                </option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <div className="property-list-container">
+          {properties &&
+            properties.map((property) => (
+              <div
+                key={property.id}
+                onMouseEnter={createBlueMarker}
+                onMouseLeave={removeBlueMarker}
+              >
+                <PropertyList
+                  images={property.images}
+                  address={property.address}
+                  bedroom={property.bedroom}
+                  bathroom={property.bathroom}
+                  id={property.id}
+                  squaredMeters={property.squaredMeters}
+                  lat={property.lat}
+                  long={property.long}
+                  price={property.monthlyRent}
+                  availability={property.availability}
+                />
+              </div>
+            ))}
+        </div>
       </div>
       <div ref={mapContainer} className="map-container" />
       {filterPage && (
