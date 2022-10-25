@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
-import './NewProperty.css';
 import AuthContext from './../../contexts/AuthContext';
 import { createProperty } from './../../services/Properties.services';
+import './NewProperty.css';
 
 export default function NewProperty() {
   const [typeHouse, setTypeHouse] = useState('');

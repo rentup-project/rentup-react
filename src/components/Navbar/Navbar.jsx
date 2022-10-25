@@ -1,16 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { logout } from '../../store/AccessTokenStore';
-import './Navbar.css';
-import { useContext } from "react";
-import AuthContext from "../../contexts/AuthContext";
-import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
+import React, { useContext, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
+import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
+import logoWhite from "../../assets/images/logo-white.png";
 import logoYellow from "../../assets/images/logo-yellow.png";
-import logoWhite from "../../assets/images/logo-white.png"
+import AuthContext from "../../contexts/AuthContext";
+import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
-
+import './Navbar.css';
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
