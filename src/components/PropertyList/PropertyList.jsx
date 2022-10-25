@@ -2,10 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import './PropertyList.css'
 
-export default function PropertyList({ images, address, bedroom, bathroom, id, squaredMeters }) {
+export default function PropertyList(
+    { images, address, bedroom, bathroom, id, squaredMeters, lat, long, price, availability }
+) {
     return (
-        <Link to={`/property/${id}`} className="property-link">
-            <div className='property-list' id={id}>
+        <div>
+            <Link to={`/property/${id}`} className="property-link" id={`${lat},${long}`}>
                 <div className='img-div' style={{ backgroundImage: `url(${images[0]})`}}>
                 </div>
                 <div className='content-div'>
@@ -21,8 +23,10 @@ export default function PropertyList({ images, address, bedroom, bathroom, id, s
                         {bathroom}
                         {bathroom === "1" ? " bathroom" : " bathrooms"}
                     </span>
+                    <p>{price}€</p>
+                    <p>{availability}</p>
                 </div>
-            </div>
-        </Link>
+            </Link>
+        </div>
     )
 }

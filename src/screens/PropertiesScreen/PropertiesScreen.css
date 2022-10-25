@@ -76,14 +76,28 @@
 
 /* LIST */
 
-.property-list-container {
-    padding-top: 15vh;
-    width: 55vw;
+.city-title-sort{
+    margin-top: 40px;
+    position: fixed;
+    background-color: white;
+    padding: 45px 0 15px 30px;
+    width: 53vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.property-list-container h2 {
-    margin: 0px 30px 40px;
+.city-title-sort h2 {
     text-transform: uppercase;
+}
+
+.sort-div {
+    display: flex;
+    gap: 5px;
+}
+
+.property-list-container {
+    margin-top: 140px;
 }
 
 /* FILTER PAGE */
