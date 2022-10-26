@@ -12,6 +12,7 @@ export default function FavsScreen() {
     const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (currentUser) {
             const userSend = currentUser.id;
 

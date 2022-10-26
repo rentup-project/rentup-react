@@ -258,7 +258,7 @@ export default function PropertyDetailScreen() {
                     }
               }
             ></div>
-            <span>{property.houseType || property.aparmentType}</span>
+            <span>{property.houseType || property.apartmentType}</span>
           </div>
 
           <div className="features-wraper">

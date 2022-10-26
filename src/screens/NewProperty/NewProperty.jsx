@@ -1,8 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import AuthContext from './../../contexts/AuthContext';
 import { createProperty } from './../../services/Properties.services';
 import './NewProperty.css';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewProperty() {
   const [mongoErr, setMongoErr] = useState(false);
@@ -15,6 +16,7 @@ export default function NewProperty() {
   const [longitude, setLongitude] = useState('');
   const [images, setImages] = useState([]);
   const [features, setFeatures] = useState([]); 
+  const navigate = useNavigate();
   
   const { currentUser } = useContext(AuthContext);
 
@@ -30,8 +32,11 @@ export default function NewProperty() {
     if (type === "checkbox") {
       setFeatures([ ...features, value])    
 
-    } else if (type === "file") {          
-      setImages([...images, files])     
+    } else if (type === "file") {   
+      console.log(files[0].file)
+     
+      //setImages([...images, files[0]); 
+      
 
     } else if (type === "number"){
       setFormData({ ...formData, [name]: Number(value) });
@@ -66,11 +71,11 @@ export default function NewProperty() {
       images: images,
       petAllowed: petAllowed,
     })
-      .then((prop) => console.log("prop", prop))
-      .catch((err) => err?.response?.data && setMongoErr(err.response.data.errors))
-      .finally(() => {
-        console.log(mongoErr);
-      });    
+      .then((prop) => {
+        console.log("prop", prop)
+        navigate(`/property/${prop.id}`)
+      })
+      .catch((err) => err?.response?.data && setMongoErr(err.response.data.errors))    
   }
 
   return (
@@ -646,13 +651,13 @@ export default function NewProperty() {
         </div>
 
         <div>
-          <label htmlFor="image" className="form-label">
+          <label htmlFor="images" className="form-label">
             Images
           </label>
           <input
             type="file"
-            name="image"
-            id="image"
+            name="images"
+            id="images"
             multiple
             onChange={handleOnChange}
             className={`form-control ${
