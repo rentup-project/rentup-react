@@ -1,0 +1,17 @@
+.messages-screen {
+    height: 100vh;
+    background-color: blueviolet;
+    padding: 12vh 3rem 3rem 3rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-of-messages-container {
+    width: 30vw;
+    background-color: aqua;
+}
+
+.messages-container {
+    width: 70vw;
+    background-color: red;
+}
