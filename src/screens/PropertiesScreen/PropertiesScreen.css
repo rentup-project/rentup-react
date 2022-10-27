@@ -67,11 +67,12 @@
 /* MAP */
 
 .map-container {
-    z-index: -1;
+    z-index: 0;
     position: fixed;
     right: 0;
     height: 100%;
     width: 45vw;
+    margin-top: 40px;
 }
 
 /* LIST */
