@@ -13,11 +13,15 @@ export default function Filter({ city, closeFilter, getFilterData }) {
   let furnitureSelect;
   let orientationTypeSelect;
   let petAllowedInfoSelect;
+  let heatingTypeSelect;
+  let propertyTypeInfoSelect;
+  let floorInfoSelect;
+  let availabilityDateInfoSelect;
 
   //definir en el form data los datos de filtros anteriores
   useEffect(() => {
     setFormData(Object.fromEntries(new URLSearchParams(location.search)))
-  }, [])
+  }, [location.search])
 
   //handle on change para ver el valor cuando escriber o seleccionas un input
   const handleOnChange = (e) => {
@@ -89,13 +93,53 @@ export default function Filter({ city, closeFilter, getFilterData }) {
     orientationTypeSelect = 'Interior'
   }
 
-  //petAllowedInfo petAllowedInfoSelect
+  //petAllowedInfo
   if (!formData.petAllowedInfo || formData.petAllowedInfo === 'Select') {
     petAllowedInfoSelect = 'Select'
   } else if (formData.petAllowedInfo === 'Allow pets') {
     petAllowedInfoSelect = 'Allow pets'
   } else if (formData.petAllowedInfo === 'Does not allow pets') {
     petAllowedInfoSelect = 'Does not allow pets'
+  }
+
+  //heatingType
+  if (!formData.heatingType || formData.heatingType === 'Select') {
+    heatingTypeSelect = 'Select'
+  } else if (formData.heatingType === 'Individual-electric') {
+    heatingTypeSelect = 'Individual-electric'
+  } else if (formData.heatingType === 'Central') {
+    heatingTypeSelect = 'Central'
+  } else if (formData.heatingType === 'Individual-gas') {
+    heatingTypeSelect = 'Individual-gas'
+  }
+
+  //propertyTypeInfoSelect
+  if (!formData.propertyTypeInfo || formData.propertyTypeInfo === 'Select') {
+    propertyTypeInfoSelect = 'Select'
+  } else if (formData.propertyTypeInfo === 'Apartment') {
+    propertyTypeInfoSelect = 'Apartment'
+  } else if (formData.propertyTypeInfo === 'House') {
+    propertyTypeInfoSelect = 'House'
+  }
+
+  //floorInfo
+  if (!formData.floorInfo || formData.floorInfo === 'Select') {
+    floorInfoSelect = 'Select'
+  } else if (formData.floorInfo === 'First') {
+    floorInfoSelect = 'First'
+  } else if (formData.floorInfo === 'In between') {
+    floorInfoSelect = 'In between'
+  } else if (formData.floorInfo === 'Last') {
+    floorInfoSelect = 'Last'
+  }
+
+  //availabilityDateInfoSelect
+  if (!formData.availabilityDateInfo || formData.availabilityDateInfo === 'Select') {
+    availabilityDateInfoSelect = 'Select'
+  } else if (formData.availabilityDateInfo === 'Available now') {
+    availabilityDateInfoSelect = 'Available now'
+  } else if (formData.availabilityDateInfo === 'Available soon') {
+    availabilityDateInfoSelect = 'Available soon'
   }
 
   return (
@@ -257,15 +301,11 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="select-filter">
           <h4>Heating</h4>
           <div>
-            <select onChange={handleOnChange} name="heatingType" id="heatingType">
-              <option className="option-filter" name="selected" defaultValue>
+            <select onChange={handleOnChange} name="heatingType" id="heatingType" value={heatingTypeSelect}>
+              <option className="option-filter" name="selected">
                 Select
               </option>
-              <option
-                className="option-filter"
-                name="individual-elec"
-                defaultValue
-              >
+              <option className="option-filter" name="individual-elec">
                 Individual-electric
               </option>
               <option className="option-filter" name="central">
@@ -284,8 +324,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
               onChange={handleOnChange}
               name="propertyTypeInfo"
               id="propertyTypeInfo"
+              value={propertyTypeInfoSelect}
             >
-              <option className="option-filter" name="selected" defaultValue>
+              <option className="option-filter" name="selected">
                 Select
               </option>
               <option className="option-filter" name="apartent">
@@ -297,10 +338,10 @@ export default function Filter({ city, closeFilter, getFilterData }) {
             </select>
           </div>
         </div>
-        <div className="select-filter">
+        <div className={`select-filter ${formData.propertyTypeInfo === 'Apartment' ? '' : 'hide'}`}>
           <h4>Floor</h4>
           <div>
-            <select onChange={handleOnChange} name="floorInfo" id="floorInfo">
+            <select onChange={handleOnChange} name="floorInfo" id="floorInfo" value={floorInfoSelect}>
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -323,8 +364,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
               onChange={handleOnChange}
               name="availabilityDateInfo"
               id="availabilityDateInfo"
+              value={availabilityDateInfoSelect}
             >
-              <option className="option-filter" name="selected" defaultValue>
+              <option className="option-filter" name="selected">
                 Select
               </option>
               <option className="option-filter" name="available">
