@@ -1,27 +1,25 @@
 import moment from "moment";
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../../services/Auth.services';
+import AuthContext from "../../contexts/AuthContext";
 import { createMessage, getMessages } from './../../services/Messages.services';
 import { getOneUser } from './../../services/Users.services';
 import './Message.css';
 
-export default function Message( {ownerId} ) {
-    const [currentUser, setCurrentUser] = useState('')
+export default function Message({ ownerId }) {
     const [owner, setOwner] = useState('')
     const [messages, setMessages] = useState([])
     const [messageToSend, setMessageToSend] = useState('')
     const [update, setUpdate] = useState(false)
     const navigate = useNavigate()
+    const { currentUser } = useContext(AuthContext);
 
     useEffect(()=> {
-        getOneUser(ownerId)
-        .then((owner) => {
-            setOwner(owner)
-            getCurrentUser()
-            .then((currentUser) => {
-                setCurrentUser(currentUser)
-                getMessages(currentUser.id, owner.id)
+        if(currentUser) {
+            getOneUser(ownerId)
+            .then((owner) => {
+                setOwner(owner)
+                getMessages(currentUser.id, ownerId)
                 .then((res) => {
                     setMessages(res)
                     setUpdate(false)
@@ -29,9 +27,8 @@ export default function Message( {ownerId} ) {
                 .catch((err) => navigate("/error"))
             })
             .catch((err) => navigate("/error"))
-        })
-        .catch((err) => navigate("/error"))
-    }, [update])
+        }
+    }, [update, currentUser, ownerId, navigate])
 
     const handleOnChange = (e) => {
         const { value } = e.target
@@ -75,7 +72,8 @@ export default function Message( {ownerId} ) {
                 }
             </div>
             <form onSubmit={handleOnSubmit} className='messages-form'>
-                <textarea id="msg" name="msg" rows="5" onChange={handleOnChange} value={messageToSend}></textarea>
+                <textarea id="msg" name="msg" rows="3" onChange={handleOnChange} 
+                value={messageToSend} placeholder="Type your message here"></textarea>
                 <button>Send</button>
             </form>
         </div>
