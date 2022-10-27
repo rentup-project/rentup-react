@@ -5,7 +5,6 @@ import "./PropActionsCard.css";
 export default function PropActionsCard( {property} ) {
   const { owner } = property
   
-  console.log(owner)
   return (
     <div className="prop-actions-container">
       <div className="prop-actions-container-wrapper">

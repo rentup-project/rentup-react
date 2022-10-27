@@ -12,3 +12,12 @@ export const getAllProperties = (city, filterData) =>
 
 export const createProperty = (body) =>
   http.post(`/properties/create`, body);
+
+export const getOwnerProperties = (user) =>
+  http.get(`/properties/created/${user}`);
+
+export const updateProperty = (id, body) => 
+  http.post(`/properties/edit/${id}`, body);
+
+export const deleteProperty = (id) => 
+  http.delete(`/properties/delete/${id}`);

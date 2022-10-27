@@ -10,6 +10,9 @@ import FavsScreen from "./screens/FavsScreen/FavsScreen";
 import NewProperty from './screens/NewProperty/NewProperty';
 import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
+import MyPropertiesScreen from "./screens/MyPropertiesScreen/MyPropertiesScreen";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import EditPropertyScreen from "./screens/EditPropertyScreen/EditPropertyScreen";
 
 function App() {
   
@@ -27,7 +30,12 @@ function App() {
         <Route path="/search" element={<PropertiesScreen />} />
         <Route path="/search/:search" element={<PropertiesScreen />} />
         <Route path="/property/create" element={<NewProperty />} />
+        <Route path="/property/edit/:id" element={<EditPropertyScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
+        <Route
+          path="/properties/created/:id"
+          element={<MyPropertiesScreen />}
+        />
         {/* MESSAGES */}
         <Route path="/messages/:id" element={<MessagesScreen />} />
         {/* PAYMENTS */}

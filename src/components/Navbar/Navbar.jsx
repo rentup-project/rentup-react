@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
 import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
 import logoWhite from "../../assets/images/logo-white.png";
@@ -10,51 +10,61 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './Navbar.css';
 import { useEffect } from 'react';
+import { getOneUser } from '../../services/Users.services';
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(true);
-  const [message, setMessage] = useState('');
-  let location = useLocation()
+  const [message, setMessage] = useState("");
+  const [isOwner, setIsOwner] = useState("");
+  let location = useLocation();
+  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
 
   const userLogOut = () => {
-    logout()
-  }
+    logout();
+  };
 
   const handleOnClick = () => {
     if (!isOpened) {
-      setIsOpened(true)
+      setIsOpened(true);
     } else {
       setIsOpened(false);
     }
-  }
+  };
 
-  const handleChangeLogin = (emailMessage = '') => {
+  const handleChangeLogin = (emailMessage = "") => {
     if (!login) {
-      setRegister(false)
-      setLogin(true)
-      setMessage(emailMessage)
+      setRegister(false);
+      setLogin(true);
+      setMessage(emailMessage);
     }
-  }
+  };
 
   const handleChangeRegister = () => {
     if (!register) {
-      setRegister(true)
-      setLogin(false)
-      setMessage('')
+      setRegister(true);
+      setLogin(false);
+      setMessage("");
     }
-  }
+  };
 
   useEffect(() => {
-    first
-  
-    return () => {
-      second
-    }
-  }, [third])
-  
+    if(currentUser) {
+      const userToFind = currentUser.id;
+
+      getOneUser(userToFind)
+        .then((res) => {
+          if (res.type === "tenant&owner") {
+            setIsOwner(true);
+          } else {
+            setIsOwner(false);
+          }
+        })
+        .catch((err) => navigate("/error"));
+    }    
+  });
 
   return (
     <div className={location.pathname === "/" ? "Navbar" : "Navbar fixed"}>
@@ -120,15 +130,23 @@ export default function Navbar() {
               <Link to="/search" onClick={handleOnClick}>
                 Search properties
               </Link>
-              <Link to="/property/create" onClick={handleOnClick}>
-                Post a property
-              </Link>
               <Link
                 to={`/account/favs/${currentUser.id}`}
                 onClick={handleOnClick}
               >
                 Favourite properties
               </Link>
+              <Link to="/property/create" onClick={handleOnClick}>
+                Post a property
+              </Link>
+              {isOwner && (
+                <Link
+                  to={`/properties/created/${currentUser.id}`}
+                  onClick={handleOnClick}
+                >
+                  My properties
+                </Link>
+              )}
               <Link onClick={userLogOut}>Logout</Link>
             </div>
           )}
