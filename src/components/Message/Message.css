@@ -1,0 +1,47 @@
+/* MESSAGES */
+
+.messages-scroll-container {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 20%;
+    background-color: black;
+    overflow-y: scroll;
+}
+
+.each-message {
+    margin: 5px 0;
+    padding: 7px;
+    width: 48%;
+    border-radius: 0.5rem;
+}
+
+.text-content {
+    font-size: 0.9rem;
+}
+
+.timestamp {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.timestamp span{
+    font-size: 0.7rem;
+}
+
+.mine {
+    background-color: rgb(255, 209, 102, 0.8);
+    margin-left: 52%;
+}
+
+.theirs {
+    background-color: rgb(239, 239, 239, 0.8);
+}
+
+/* FORM */
+
+.messages-form {
+    position: fixed;
+    bottom: 10%;
+}
