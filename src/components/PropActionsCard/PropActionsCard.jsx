@@ -1,7 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./PropActionsCard.css";
 
-export default function PropActionsCard() {
+export default function PropActionsCard( {property} ) {
+  const { owner } = property
+  
+  console.log(owner)
   return (
     <div className="prop-actions-container">
       <div className="prop-actions-container-wrapper">
@@ -13,7 +17,7 @@ export default function PropActionsCard() {
           </button>
         </div>
         <button className="actions-btn-yellow">Visit</button>
-        <button className="actions-btn-blue">Contact</button>
+        <Link to={`/messages/${owner}`} className="actions-btn-blue">Contact</Link>
         <button className="actions-btn-yellow">Reserve</button>
       </div>
     </div>

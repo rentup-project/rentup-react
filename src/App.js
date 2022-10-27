@@ -8,6 +8,8 @@ import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailS
 import ErrorScreen from './screens/ErrorScreen/ErrorScreen';
 import FavsScreen from "./screens/FavsScreen/FavsScreen";
 import NewProperty from './screens/NewProperty/NewProperty';
+import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
+import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
 
 function App() {
   
@@ -26,6 +28,10 @@ function App() {
         <Route path="/search/:search" element={<PropertiesScreen />} />
         <Route path="/property/create" element={<NewProperty />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
+        {/* MESSAGES */}
+        <Route path="/messages/:id" element={<MessagesScreen />} />
+        {/* PAYMENTS */}
+        {/* <Route path="/payment" element={<PaymentScreen />} /> */}
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />
