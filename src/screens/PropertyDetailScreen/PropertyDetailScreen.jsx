@@ -235,7 +235,7 @@ export default function PropertyDetailScreen() {
         </div>
       </header>
       <hr></hr>
-      <PropActionsCard />
+      <PropActionsCard property={property} />
       <section className="features">
         <h4>Features</h4>
         <div className="features-container">
