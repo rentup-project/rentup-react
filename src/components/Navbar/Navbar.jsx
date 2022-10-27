@@ -9,6 +9,7 @@ import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './Navbar.css';
+import { useEffect } from 'react';
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
@@ -45,6 +46,15 @@ export default function Navbar() {
       setMessage('')
     }
   }
+
+  useEffect(() => {
+    first
+  
+    return () => {
+      second
+    }
+  }, [third])
+  
 
   return (
     <div className={location.pathname === "/" ? "Navbar" : "Navbar fixed"}>

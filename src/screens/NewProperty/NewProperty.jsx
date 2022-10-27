@@ -1,49 +1,41 @@
 import React, { useContext, useState, useEffect } from "react";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
-import AuthContext from './../../contexts/AuthContext';
-import { createProperty } from './../../services/Properties.services';
-import './NewProperty.css';
-import { useNavigate } from 'react-router-dom';
+import AuthContext from "./../../contexts/AuthContext";
+import { createProperty } from "./../../services/Properties.services";
+import "./NewProperty.css";
+import { useNavigate } from "react-router-dom";
 
 export default function NewProperty() {
   const [mongoErr, setMongoErr] = useState(false);
-  const [typeHouse, setTypeHouse] = useState('');
-  const [typeApartment, setTypeApartment] = useState('');
-  const [petAllowed, setPetAllowed] = useState('');
-  const [formData, setFormData] = useState({});
-  const [address, setAddress] = useState('');
-  const [latitude, setLatitude] = useState('');
-  const [longitude, setLongitude] = useState('');
-  const [images, setImages] = useState([]);
-  const [features, setFeatures] = useState([]); 
+  const [typeHouse, setTypeHouse] = useState("");
+  const [typeApartment, setTypeApartment] = useState("");
+  const [address, setAddress] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  //const [images, setImages] = useState([]);
+  const [features, setFeatures] = useState([]);
+  const [propertyData, setPropertyData] = useState({});
   const navigate = useNavigate();
-  
+
   const { currentUser } = useContext(AuthContext);
 
   const suggestionSelect = (result, lat, lng, text) => {
-    setAddress(result)
-    setLatitude(lat)
-    setLongitude(lng)
-  }
+    setAddress(result);
+    setLatitude(lat);
+    setLongitude(lng);
+  };
 
   const handleOnChange = (e) => {
     const { name, value, type, files } = e.target;
 
     if (type === "checkbox") {
-      setFeatures([ ...features, value])    
-
-    } else if (type === "file") {   
-      console.log(files[0].file)
-     
-      //setImages([...images, files[0]); 
-      
-
-    } else if (type === "number"){
-      setFormData({ ...formData, [name]: Number(value) });
-
+      setFeatures([...features, value]);
+    } else if (type === "file") {
+      //setImages(files);
+      setPropertyData({ ...propertyData, [name]: files[0] });
     } else {
-      setFormData({ ...formData, [name]: value });
-    }   
+      setPropertyData({ ...propertyData, [name]: value });
+    }
 
     if (name === "propertyType" && value === "House") {
       setTypeHouse(true);
@@ -51,46 +43,50 @@ export default function NewProperty() {
     } else if (name === "propertyType" && value === "Apartment") {
       setTypeApartment(true);
       setTypeHouse(false);
-    } else if (name === "petAllowed" && value === "Yes") {
-      setPetAllowed(true);
-    } else if (name === "petAllowed" && value === "No") {
-      setPetAllowed(false);
-    } 
-  }
+    }
+  };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
 
-    createProperty({
-      ...formData,
+    const extraData = {
       owner: currentUser.id,
       address: address,
       lat: latitude,
       long: longitude,
       features: features,
-      images: images,
-      petAllowed: petAllowed,
-    })
+    };
+
+    for (let data in extraData) {
+      formData.append(data, extraData[data]);
+    }
+
+    for (let info in propertyData) {
+      formData.append(info, propertyData[info]);
+    }
+
+    createProperty(formData)
       .then((prop) => {
-        console.log("prop", prop)
+        console.log("prop", prop);
         navigate(`/property/${prop.id}`)
       })
-      .catch((err) => err?.response?.data && setMongoErr(err.response.data.errors))    
-  }
+      .catch(
+        (err) => err?.response?.data && setMongoErr(err.response.data.errors)
+      );
+  };
 
   return (
     <div className="new-property-container">
       <h3>Let's post your property!</h3>
-      <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleOnSubmit} encType="multipart/form-data">
         <div>
           <label htmlFor="address" className="form-label">
             Address
           </label>
           <MapboxAutocomplete
             publicKey="pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q"
-            inputClass={`form-control search ${
-              mongoErr.address ? "is-invalid" : ""
-            }`}
+            inputClass={`form-control search ${mongoErr.address ? "is-invalid" : ""}`}
             onSuggestionSelect={suggestionSelect}
             country="es"
             resetSearch={false}
@@ -651,22 +647,19 @@ export default function NewProperty() {
         </div>
 
         <div>
-          <label htmlFor="images" className="form-label">
-            Images
+          <label htmlFor="image" className="form-label">
+            Image
           </label>
           <input
             type="file"
-            name="images"
-            id="images"
-            multiple
+            name="image"
+            id="image"
             onChange={handleOnChange}
-            className={`form-control ${
-              mongoErr.images ? "is-invalid" : ""
-            }`}
+            className={`form-control ${mongoErr.image ? "is-invalid" : ""}`}
           ></input>
-          {mongoErr.images && (
+          {mongoErr.image && (
             <div id="validationServer04Feedback" className="invalid-feedback">
-              {mongoErr.images}
+              {mongoErr.image}
             </div>
           )}
         </div>
@@ -775,8 +768,10 @@ export default function NewProperty() {
           )}
         </div>
 
-        <div className="form-label">
-          <label htmlFor="requireGuarantee">Guarantee</label>
+        <div>
+          <label htmlFor="requireGuarantee" className="form-label">
+            Guarantee
+          </label>
           <select
             name="requireGuarantee"
             id="requireGuarantee"

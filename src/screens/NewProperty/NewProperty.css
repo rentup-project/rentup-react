@@ -3,7 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 9vh 0 1rem 1rem;
+    width: 100vw;
+    padding: 12vh 0 1rem 1rem;
     height: fit-content;
 }
 
@@ -13,7 +14,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
-    width: 50vw;
+    width: 25rem;
     padding-top: 1rem;
 }
 
@@ -29,7 +30,7 @@
 }
 
 .new-property-container form input, .new-property-container form select {
-    width: 50%;
+    width: 100%;
 }
 
 .new-property-container form select {
@@ -39,13 +40,15 @@
 .features-container {
     width: 100%;
     display: flex;
-    justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
 }
 
 .features-container .checkbox-wrapper {
     display: flex;
     align-items: center;
     gap: 0.8rem;
+    width: 10rem;
 }
 
 .features-container .checkbox-wrapper label{

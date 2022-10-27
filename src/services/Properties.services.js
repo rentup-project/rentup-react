@@ -10,5 +10,5 @@ export const getAllProperties = (city, filterData) =>
     params: filterData
   });
 
-export const createProperty = (data) =>
-  http.post(`/properties/create`, { data });
+export const createProperty = (body) =>
+  http.post(`/properties/create`, body);
