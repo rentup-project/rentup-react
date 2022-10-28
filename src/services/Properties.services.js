@@ -5,8 +5,8 @@ const http = createHttp();
 export const getOneProperty = (id) => 
   http.get(`/property/${id}`);
 
-export const getAllProperties = (city, filterData) =>
-  http.get(`/properties/${city}`, {
+export const getAllProperties = (city, filterData, skipNumber) =>
+  http.get(`/properties/${city}/${skipNumber}`, {
     params: filterData
   });
 

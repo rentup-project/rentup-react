@@ -14,14 +14,20 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9la
 export default function PropertiesScreen() {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState(null);
   const [searchInput, setSearchInput] = useState("");
   const [filterPage, setFilterPage] = useState(false);
   const [currentMarkers, setCurrentMarkers] = useState([]);
   const [sortBy, setSortBy] = useState('date')
+  const [pagination, setPagination] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalProperties, setTotalProperties] = useState(null);
+  const [skipNumber, setSkipNumber] = useState(0)
+  const [updatePage, setUpdate] = useState(true)
   const { search } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  let propertiesPerPage = 10;
   let blueMarker;
 
   const removeMarkers = useCallback(() => {
@@ -46,6 +52,26 @@ export default function PropertiesScreen() {
     setCurrentMarkers(markers)
   }, [removeMarkers])
 
+  const changePagination = (e) => {
+    if(e.target.value === pagination + 1 && (pagination < lastPage)) {
+      let bla = pagination * propertiesPerPage
+      setSkipNumber(bla)
+      setPagination(pagination + 1)
+      window.scrollTo(0, 0)
+    } else if (e.target.value === pagination - 1 && pagination > 1) {
+      let bla = (pagination - 2) * propertiesPerPage
+      setSkipNumber(bla)
+      setPagination(pagination - 1)
+      window.scrollTo(0, 0)
+    }
+  }
+
+  useEffect(() => {
+    if(totalProperties) {
+      setLastPage(Math.ceil(totalProperties/propertiesPerPage))
+    }
+  }, [totalProperties, lastPage, pagination])
+
   useEffect(() => {
     getCoordinates(search)
       .then((res) => {
@@ -58,19 +84,24 @@ export default function PropertiesScreen() {
             res.data.features[0].center[1],
           ],
           zoom: 11.5,
-      })
-
-      let queries = new URLSearchParams(location.search)
-
-      getAllProperties(search, queries)
-      .then((newProps) => {
-        let sorted = newProps.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
-        setProperties(sorted);
-        createMarker(newProps)
+        })
       })
       .catch((err) => navigate("/error"));
-      })
-  }, [search, navigate, createMarker, location.search]);
+  }, [search])
+
+  useEffect(() => {
+    let queries = new URLSearchParams(location.search)
+
+    getAllProperties(search, queries, skipNumber)
+    .then((newProps) => {
+      setTotalProperties(newProps.totalDocuments)
+      let newPropsJson = newProps.json
+      let sorted = newPropsJson.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
+      setProperties(sorted);
+      createMarker(sorted)
+    })
+    .catch((err) => navigate("/error"));
+  }, [search, skipNumber, updatePage])
 
   const handleChange = (e) => {
     const { value } = e.target;
@@ -88,16 +119,18 @@ export default function PropertiesScreen() {
   };
 
   const handleFilterData = (filterData) => {
-    getAllProperties(search, filterData)
+    getAllProperties(search, filterData, 0)
       .then((newProps) => {
-        if (newProps.length) {
-          let newProperties = newProps.filter((newProp) =>
+        setTotalProperties(newProps.totalDocuments)
+        let newPropsJson = newProps.json
+        if (newPropsJson.length) {
+          let newProperties = newPropsJson.filter((newProp) =>
             properties.map((prop) => prop.id !== newProp.id)
           );
           setProperties(newProperties);
           createMarker(newProperties)
         } else {
-          setProperties(newProps);
+          setProperties(newPropsJson);
         }
       })
       .catch((err) => navigate("/error"))
@@ -222,6 +255,17 @@ export default function PropertiesScreen() {
               </div>
             ))}
         </div>
+        <div className='pagination-container'>
+        {
+        lastPage > 1 &&
+          <ul className="pagination-ul">
+            <li className={`pagination-li ${pagination === 1 && 'disabled'}`} onClick={changePagination} 
+            value={pagination - 1}>Previous</li>
+            <li className={`pagination-li ${pagination === lastPage && 'disabled'}`} onClick={changePagination} 
+            value={pagination + 1}>Next</li>
+          </ul>
+        }
+        </div>
       </div>
       <div ref={mapContainer} className="map-container" />
       {filterPage && (
@@ -236,3 +280,4 @@ export default function PropertiesScreen() {
     </div>
   );
 }
+
