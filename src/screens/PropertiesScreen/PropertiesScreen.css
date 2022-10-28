@@ -117,3 +117,40 @@
     border-radius: 1rem;
     box-shadow: -1000px 1000px 200px 1000px rgb(0 0 0 / 30%);
 }
+
+/* PAGINATION */
+
+.pagination-container {
+    margin: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-ul {
+    display: flex;
+    gap: 5px;
+}
+
+.pagination-li {
+    cursor: pointer;
+    text-align: center;
+    min-width: 2rem;
+    list-style: none;
+    padding: 5px 12px;
+    border: 2px solid rgb(239, 239, 239);
+}
+
+.pagination-li:hover {
+    background-color: #ffd166b4;
+}
+
+.disabled {
+    color: white;
+    cursor: none;
+    background-color: rgb(239, 239, 239);
+}
+
+.disabled:hover {
+    cursor: default;
+    background-color: rgb(239, 239, 239);
+}

@@ -14,27 +14,33 @@ mapboxgl.accessToken = 'pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9la
 export default function PropertiesScreen() {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState(null);
+  const [propertiesToShow, setPropertiesToShow] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [filterPage, setFilterPage] = useState(false);
   const [currentMarkers, setCurrentMarkers] = useState([]);
   const [sortBy, setSortBy] = useState('date')
+  const [pagination, setPagination] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
+  const [totalProperties, setTotalProperties] = useState(null);
+  const [skipNumber, setSkipNumber] = useState(0)
   const { search } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  let propertiesPerPage = 5;
   let blueMarker;
 
-  const removeMarkers = useCallback(() => {
+  const removeMarkers = useCallback(() => { //REMOVE ALL YELLOW MARKERS
     currentMarkers.forEach(marker => {
       marker.remove();
     })
   }, [currentMarkers])
 
-  const createMarker = useCallback((properties) => {
+  const createMarker = useCallback((propertyToMark) => { //CREATE YELLOW MARKERS
     removeMarkers();
     const markers = [];
     
-    properties.map((property) => {
+    propertyToMark.map((property) => {
       let markerToAdd = new mapboxgl.Marker({
         color: "#FFD166",
       })
@@ -46,7 +52,27 @@ export default function PropertiesScreen() {
     setCurrentMarkers(markers)
   }, [removeMarkers])
 
-  useEffect(() => {
+  const changePagination = (e) => { //CHANGE PAGINATION WHEN CLICKING ON PREVIOUS OR NEXT PAGE
+    if(e.target.value === pagination + 1 && (pagination < lastPage)) {
+      let number = pagination * propertiesPerPage
+      setSkipNumber(number)
+      setPagination(pagination + 1)
+      window.scrollTo(0, 0)
+    } else if (e.target.value === pagination - 1 && pagination > 1) {
+      let number = (pagination - 2) * propertiesPerPage
+      setSkipNumber(number)
+      setPagination(pagination - 1)
+      window.scrollTo(0, 0)
+    }
+  }
+
+  useEffect(() => { //SET LAST PAGE TO BE ABLE TO PAGINATE
+    if(totalProperties) {
+      setLastPage(Math.ceil(totalProperties/propertiesPerPage))
+    }
+  }, [totalProperties, lastPage, pagination, propertiesPerPage])
+
+  useEffect(() => { //GET COORDINATES TO CENTER MAP
     getCoordinates(search)
       .then((res) => {
         if (map.current) return;
@@ -58,36 +84,54 @@ export default function PropertiesScreen() {
             res.data.features[0].center[1],
           ],
           zoom: 11.5,
-      })
-
-      let queries = new URLSearchParams(location.search)
-
-      getAllProperties(search, queries)
-      .then((newProps) => {
-        let sorted = newProps.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
-        setProperties(sorted);
-        createMarker(newProps)
+        })
       })
       .catch((err) => navigate("/error"));
-      })
-  }, [search, navigate, createMarker, location.search]);
+  }, [search, navigate])
 
-  const handleChange = (e) => {
+  useEffect(() => { //DO THE PROPERTIES SEARCH AND SET ALL PROPERTIES TO PROPERTIES
+    let queries = new URLSearchParams(location.search)
+
+    getAllProperties(search, queries)
+    .then((newProps) => {
+      setProperties(newProps);
+      setTotalProperties(newProps.length)
+    })
+    .catch((err) => navigate("/error"));
+  }, [search, skipNumber, pagination, location.search, navigate])
+
+  useEffect(() => { //SET PROPERTIES TO SHOW ACCORDING TO PAGINATION
+    blueMarker?.remove();
+    if(pagination && properties) {
+      let initial = ((pagination - 1) * propertiesPerPage);
+      let final = ((pagination - 1) * propertiesPerPage) + propertiesPerPage;
+      let pts = properties.slice(initial, final)
+      setPropertiesToShow(pts)
+    }
+  }, [properties, pagination, sortBy, propertiesPerPage]) //no añadir blueMarker al array de dependencias
+  
+  useEffect(() => { //SET MARKERS TO PROPERTIES TO SHOW
+    blueMarker?.remove();
+    let sortedMarkers = propertiesToShow.sort((a, b) => b.lat - a.lat)
+    createMarker(sortedMarkers)
+  }, [propertiesToShow]) //no añadir createMarker, ni blueMarker al array de dependencias
+
+  const handleChange = (e) => { //HANDLE CHANGE OF NEW SEARCH BY CITY
     const { value } = e.target;
     setSearchInput(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = () => { //NAVIGATE TO SEARCH/CITY
     if (searchInput !== "") {
       navigate(`/search/${searchInput}`);
     }
   };
 
-  const handleOnClick = () => {
+  const handleOnClick = () => { //CALLS HANDLE SUBMIT
     handleSubmit();
   };
 
-  const handleFilterData = (filterData) => {
+  const handleFilterData = (filterData) => { //DO THE SEARCH WITH FILTER
     getAllProperties(search, filterData)
       .then((newProps) => {
         if (newProps.length) {
@@ -95,13 +139,40 @@ export default function PropertiesScreen() {
             properties.map((prop) => prop.id !== newProp.id)
           );
           setProperties(newProperties);
-          createMarker(newProperties)
         } else {
           setProperties(newProps);
         }
       })
       .catch((err) => navigate("/error"))
   };
+
+  const openFilterPage = () => { //OPENS FILTER
+    if (filterPage) {
+      setFilterPage(false);
+    } else {
+      setFilterPage(true);
+    }
+  };
+
+  const changeSortByState = (e) => { //HANDLE THE SORT OF ALL PROPERTIES
+    setPagination(1)
+    if(e.target.selectedIndex === 4) {
+      properties.sort((a, b) => b.squaredMeters - a.squaredMeters)
+      setSortBy('size-biggest')
+    } else if(e.target.selectedIndex === 3) {
+      properties.sort((a, b) => a.squaredMeters - b.squaredMeters)
+      setSortBy('size-smallest')
+    } else if(e.target.selectedIndex === 2) {
+      properties.sort((a, b) => b.monthlyRent - a.monthlyRent)
+      setSortBy('price-highest')
+    } else if (e.target.selectedIndex === 1) {
+      properties.sort((a, b) => a.monthlyRent - b.monthlyRent)
+      setSortBy('price-lowest')
+    } else {
+      properties.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
+      setSortBy('date')
+    }
+  }
 
   const createBlueMarker = (e) => {
     if (e.target.id) {
@@ -120,33 +191,6 @@ export default function PropertiesScreen() {
   const removeBlueMarker = (e) => {
     blueMarker?.remove();
   };
-
-  const openFilterPage = () => {
-    if (filterPage) {
-      setFilterPage(false);
-    } else {
-      setFilterPage(true);
-    }
-  };
-
-  const changeSortByState = (e) => {
-    if(e.target.selectedIndex === 4) {
-      setSortBy('size-biggest')
-      properties.sort((a, b) => b.squaredMeters - a.squaredMeters)
-    } else if(e.target.selectedIndex === 3) {
-      setSortBy('size-smallest')
-      properties.sort((a, b) => a.squaredMeters - b.squaredMeters)
-    } else if(e.target.selectedIndex === 2) {
-      setSortBy('price-highest')
-      properties.sort((a, b) => b.monthlyRent - a.monthlyRent)
-    } else if (e.target.selectedIndex === 1) {
-      setSortBy('price-lowest')
-      properties.sort((a, b) => a.monthlyRent - b.monthlyRent)
-    } else {
-      setSortBy('date')
-      properties.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
-    }
-  }
 
   return (
     <div className="PropertiesScreen">
@@ -200,8 +244,8 @@ export default function PropertiesScreen() {
           </div>
         </div>
         <div className="property-list-container">
-          {properties &&
-            properties.map((property) => (
+          {propertiesToShow &&
+            propertiesToShow.map((property) => (
               <div
                 key={property.id}
                 onMouseEnter={createBlueMarker}
@@ -222,6 +266,17 @@ export default function PropertiesScreen() {
               </div>
             ))}
         </div>
+        <div className='pagination-container'>
+        {
+        lastPage > 1 &&
+          <ul className="pagination-ul">
+            <li className={`pagination-li ${pagination === 1 && 'disabled'}`} onClick={changePagination} 
+            value={pagination - 1}>Previous</li>
+            <li className={`pagination-li ${pagination === lastPage && 'disabled'}`} onClick={changePagination} 
+            value={pagination + 1}>Next</li>
+          </ul>
+        }
+        </div>
       </div>
       <div ref={mapContainer} className="map-container" />
       {filterPage && (
@@ -236,3 +291,4 @@ export default function PropertiesScreen() {
     </div>
   );
 }
+
