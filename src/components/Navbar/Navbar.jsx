@@ -17,7 +17,6 @@ export default function Navbar() {
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(true);
   const [message, setMessage] = useState("");
-  const [isOwner, setIsOwner] = useState("");
   let location = useLocation();
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
@@ -49,22 +48,6 @@ export default function Navbar() {
       setMessage("");
     }
   };
-
-  useEffect(() => {
-    if(currentUser) {
-      const userToFind = currentUser.id;
-
-      getOneUser(userToFind)
-        .then((res) => {
-          if (res.type === "tenant&owner") {
-            setIsOwner(true);
-          } else {
-            setIsOwner(false);
-          }
-        })
-        .catch((err) => navigate("/error"));
-    }    
-  });
 
   return (
     <div className={location.pathname === "/" ? "Navbar" : "Navbar fixed"}>
@@ -138,15 +121,13 @@ export default function Navbar() {
               </Link>
               <Link to="/property/create" onClick={handleOnClick}>
                 Post a property
-              </Link>
-              {isOwner && (
-                <Link
-                  to={`/properties/created/${currentUser.id}`}
-                  onClick={handleOnClick}
-                >
-                  My properties
-                </Link>
-              )}
+              </Link>              
+              <Link
+                to={"/my-area"}
+                onClick={handleOnClick}
+              >
+                My Area
+              </Link>              
               <Link onClick={userLogOut}>Logout</Link>
             </div>
           )}

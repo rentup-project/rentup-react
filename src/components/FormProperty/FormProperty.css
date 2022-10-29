@@ -1,4 +1,4 @@
-form {
+.form-property-create-edit {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -15,15 +15,15 @@ form {
     color: #dc3545;
 }
 
-form div {
+.form-property-create-edit div {
    width: 100%;
 }
 
-form input, form select {
+.form-property-create-edit input, .form-property-create-edit select {
     width: 100%;
 }
 
-form select {
+.form-property-create-edit select {
     cursor: pointer;
 }
 
@@ -52,7 +52,7 @@ form select {
     width: 1rem;
 } 
 
-form button{
+.form-property-create-edit button{
     border: none;
     background-color: #ffd166;
     width: 50%;

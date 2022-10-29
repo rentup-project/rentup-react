@@ -2,6 +2,12 @@
     padding: 9vh 0 2rem 2rem;
 }
 
+.my-properties-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
 .my-property-wrapper {
     position: relative;
     width: fit-content;
@@ -9,9 +15,11 @@
 
 .delete-edit-icons-wrapper {
     position: absolute;
-    top: 10%;
-    right: 5%;
+    bottom: 3%;
+    right: 10%;
     display: flex;
+    justify-content: space-between;
+    width: 80%;
     gap: 2rem;
 }
 
