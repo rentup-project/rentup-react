@@ -1,0 +1,33 @@
+.my-properties-container {
+    padding: 9vh 0 2rem 2rem;
+}
+
+.my-properties-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.my-property-wrapper {
+    position: relative;
+    width: fit-content;
+}
+
+.delete-edit-icons-wrapper {
+    position: absolute;
+    bottom: 3%;
+    right: 10%;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    gap: 2rem;
+}
+
+.delete-edit-icons-wrapper div {
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
+}
+
+
+

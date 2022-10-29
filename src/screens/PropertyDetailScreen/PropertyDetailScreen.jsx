@@ -1,6 +1,6 @@
-import "moment-timezone";
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import Moment from "react-moment";
+import "moment-timezone";
 import { useParams } from "react-router-dom";
 import { getOneProperty } from "./../../services/Properties.services";
 import "./PropertyDetailScreen.css";
@@ -137,7 +137,6 @@ export default function PropertyDetailScreen() {
             <span>
               {availability}
               <Moment format="MMMM D" date={property.availabilityDate} />
-              th
             </span>
           </div>
           <div className="stars-container">
@@ -258,7 +257,7 @@ export default function PropertyDetailScreen() {
                     }
               }
             ></div>
-            <span>{property.houseType || property.aparmentType}</span>
+            <span>{property.houseType || property.apartmentType}</span>
           </div>
 
           <div className="features-wraper">

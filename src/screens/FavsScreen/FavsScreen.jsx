@@ -12,6 +12,7 @@ export default function FavsScreen() {
     const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (currentUser) {
             const userSend = currentUser.id;
 
@@ -24,21 +25,23 @@ export default function FavsScreen() {
     }, [currentUser, navigate])
 
     return (
-        <div className="favs-container">
-            <h3>Look your favourites properties:</h3>      
-            {favs?.map((fav) => (
-                <div
-                key={fav.property.id}
-                >
-                    <PropertyList
-                        images={fav.property.images}
-                        address={fav.property.address}
-                        bedroom={fav.property.bedroom}
-                        bathroom={fav.property.bathroom}
-                        id={fav.property.id}
-                    />
-                </div>
-            ))}
-        </div>
+      <div className="favs-container">
+        <h3>Look your favourites properties:</h3>
+        {favs?.map((fav) => (
+          <div key={fav.property.id}>
+            <PropertyList
+              images={fav.property.images}
+              address={fav.property.address}
+              bedroom={fav.property.bedroom}
+              bathroom={fav.property.bathroom}
+              price={fav.property.reservationPrice}
+              id={fav.property.id}
+              squaredMeters={fav.property.squaredMeters}
+              lat={fav.property.lat}
+              long={fav.property.long}
+            />
+          </div>
+        ))}
+      </div>
     );
 }

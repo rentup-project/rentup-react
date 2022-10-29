@@ -1,0 +1,60 @@
+.form-property-create-edit {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 25rem;
+    padding-top: 1rem;
+}
+
+.error-feedback {
+    width: 100%;
+    margin-top: -1.25rem;
+    font-size: .875em;
+    color: #dc3545;
+}
+
+.form-property-create-edit div {
+   width: 100%;
+}
+
+.form-property-create-edit input, .form-property-create-edit select {
+    width: 100%;
+}
+
+.form-property-create-edit select {
+    cursor: pointer;
+}
+
+.commodities-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.commodities-container .checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: 10rem;
+}
+
+.commodities-container .checkbox-wrapper label{
+    width: 10rem;
+}
+
+.commodities-container .checkbox-wrapper input {
+    width: 1rem;
+} 
+
+.form-property-create-edit button{
+    border: none;
+    background-color: #ffd166;
+    width: 50%;
+    padding: 1rem;
+}
