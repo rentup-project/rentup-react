@@ -32,8 +32,7 @@ function App() {
         {/* MESSAGES */}
         <Route path="/messages/:id" element={<MessagesScreen />} />
         {/* MY PERSONAL AREA */}
-        <Route path="/my-area" element={<MyAreaScreen />}
-        />
+        <Route path="/my-area" element={<MyAreaScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />
