@@ -15,6 +15,7 @@ export default function HomeScreen() {
   const [token, setToken] = useState("");
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const accessToken =
       "pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q";
     setToken(accessToken);

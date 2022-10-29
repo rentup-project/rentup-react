@@ -10,5 +10,14 @@ export const getAllProperties = (city, filterData) =>
     params: filterData
   });
 
-export const createProperty = (data) =>
-  http.post(`/properties/create`, { data });
+export const createProperty = (body) =>
+  http.post(`/properties/create`, body);
+
+export const updateProperty = (id, body) =>
+  http.post(`/properties/edit/${id}`, body);
+
+export const getOwnerProperties = (user) =>
+  http.get(`/properties/created/${user}`);
+
+export const deleteProperty = (id) => 
+  http.delete(`/properties/delete/${id}`);

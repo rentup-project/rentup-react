@@ -1,18 +1,18 @@
-import "./App.css";
 import { Navigate, Route, Routes } from "react-router-dom";
-import HomeScreen from "./screens/HomeScreen/HomeScreen";
+import "./App.css";
 import Navbar from "./components/Navbar/Navbar";
+import EditPropertyScreen from "./screens/EditPropertyScreen/EditPropertyScreen";
+import ErrorScreen from "./screens/ErrorScreen/ErrorScreen";
+import FavsScreen from "./screens/FavsScreen/FavsScreen";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import LoadingScreen from "./screens/LoadingScreen";
+import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
+import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
+import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
-import ErrorScreen from './screens/ErrorScreen/ErrorScreen';
-import FavsScreen from "./screens/FavsScreen/FavsScreen";
-import NewProperty from './screens/NewProperty/NewProperty';
-import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
-import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
 
 function App() {
-  
   return (
     <div className="App">
       <Navbar />
@@ -27,11 +27,12 @@ function App() {
         <Route path="/search" element={<PropertiesScreen />} />
         <Route path="/search/:search" element={<PropertiesScreen />} />
         <Route path="/property/create" element={<NewProperty />} />
+        <Route path="/property/edit/:id" element={<EditPropertyScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* MESSAGES */}
         <Route path="/messages/:id" element={<MessagesScreen />} />
-        {/* PAYMENTS */}
-        <Route path="/payment" element={<PaymentScreen />} />
+        {/* MY PERSONAL AREA */}
+        <Route path="/my-area" element={<MyAreaScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />
