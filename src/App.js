@@ -31,7 +31,7 @@ function App() {
         {/* MESSAGES */}
         <Route path="/messages/:id" element={<MessagesScreen />} />
         {/* PAYMENTS */}
-        <Route path="/payment" element={<PaymentScreen />} />
+        <Route path="payment/reserve/:id" element={<PaymentScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

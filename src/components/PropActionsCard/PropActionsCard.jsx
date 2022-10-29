@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import "./PropActionsCard.css";
 
 export default function PropActionsCard( {property} ) {
-  const { owner } = property
-  
-  console.log(owner)
+  const { owner, id } = property
+  console.log(id)
   return (
     <div className="prop-actions-container">
       <div className="prop-actions-container-wrapper">
@@ -18,7 +17,7 @@ export default function PropActionsCard( {property} ) {
         </div>
         <button className="actions-btn-yellow">Visit</button>
         <Link to={`/messages/${owner}`} className="actions-btn-blue">Contact</Link>
-        <button className="actions-btn-yellow">Reserve</button>
+        <Link to={`/payment/reserve/${id}`} className="actions-btn-blue">Reserve this property</Link>
       </div>
     </div>
   );
