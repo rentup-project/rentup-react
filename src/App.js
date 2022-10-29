@@ -31,6 +31,8 @@ function App() {
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* MESSAGES */}
         <Route path="/messages/:id" element={<MessagesScreen />} />
+        {/* PAYMENTS */}
+        <Route path="payment/reserve/:id" element={<PaymentScreen />} />
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
         {/* MISC */}

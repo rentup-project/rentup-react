@@ -37,3 +37,12 @@
     padding: 0.5rem;
 }
 
+.prop-actions-container a {
+    text-align: center;
+    color: black;
+    text-decoration: none;
+}
+
+.prop-actions-container a:hover {
+    color: white;
+}
