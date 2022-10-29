@@ -27,7 +27,6 @@ export default function PaymentScreen() {
     getOneProperty(id)
     .then((prop) => {
       setProperty(prop)
-      console.log(prop)
     })
   }, [id, navigate]);
 

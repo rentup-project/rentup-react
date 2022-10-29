@@ -11,6 +11,7 @@ import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
+import PaymentScreen from './screens/PaymentScreen/PaymentScreen';
 
 function App() {
   return (

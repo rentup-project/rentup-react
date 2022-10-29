@@ -21,6 +21,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
     if (propertyId) {
       getOneProperty(propertyId)
         .then((prop) => {
+        
           if (prop.petAllowed) {
             prop.petAllowed = "Yes";
           } else if (!prop.petAllowed) {
@@ -492,7 +493,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Pool"
               value="Pool"
               onChange={handleOnChange}
-              checked={true}
+              checked={propertyData?.features?.includes("Pool") ? true : false}
             />
             <label htmlFor="Pool" className="form-check-label">
               Pool
@@ -506,6 +507,11 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Air conditioning"
               value="Air conditioning"
               onChange={handleOnChange}
+              checked={
+                propertyData?.features?.includes("Air conditioning")
+                  ? true
+                  : false
+              }
             />
             <label htmlFor="Air conditioning" className="form-check-label">
               Air conditioning
@@ -519,6 +525,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Lyft"
               value="Lyft"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Lyft") ? true : false}
             />
             <label htmlFor="Lyft" className="form-check-label">
               Lyft
@@ -532,6 +539,11 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Built-in cabinets"
               value="Built-in cabinets"
               onChange={handleOnChange}
+              checked={
+                propertyData?.features?.includes("Built-in cabinets")
+                  ? true
+                  : false
+              }
             />
             <label htmlFor="Built-in cabinets" className="form-check-label">
               Built-in cabinets
@@ -545,6 +557,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Boxroom"
               value="Boxroom"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Boxroom") ? true : false}
             />
             <label htmlFor="Boxroom" className="form-check-label">
               Boxroom
@@ -558,6 +571,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Parking"
               value="Parking"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Parking") ? true : false}
             />
             <label htmlFor="Parking" className="form-check-label">
               Parking
@@ -571,6 +585,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Balcony"
               value="Balcony"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Balcony") ? true : false}
             />
             <label htmlFor="Balcony" className="form-check-label">
               Balcony
@@ -584,6 +599,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Terrace"
               value="Terrace"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Terrace") ? true : false}
             />
             <label htmlFor="Terrace" className="form-check-label">
               Terrace
@@ -597,6 +613,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Garden"
               value="Garden"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Garden") ? true : false}
             />
             <label htmlFor="Garden" className="form-check-label">
               Garden
@@ -610,6 +627,11 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="24-hour-security"
               value="24-hour-security"
               onChange={handleOnChange}
+              checked={
+                propertyData?.features?.includes("24-hour-security")
+                  ? true
+                  : false
+              }
             />
             <label htmlFor="24-hour-security" className="form-check-label">
               24-hour-security
@@ -623,6 +645,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Gym"
               value="Gym"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Gym") ? true : false}
             />
             <label htmlFor="Gym" className="form-check-label">
               Gym
@@ -636,6 +659,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Playground"
               value="Playground"
               onChange={handleOnChange}
+              checked={
+                propertyData?.features?.includes("Playground") ? true : false
+              }
             />
             <label htmlFor="Playground" className="form-check-label">
               Playground
@@ -649,6 +675,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Spa"
               value="Spa"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Spa") ? true : false}
             />
             <label htmlFor="Spa" className="form-check-label">
               Spa
@@ -662,6 +689,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Patio"
               value="Patio"
               onChange={handleOnChange}
+              checked={propertyData?.features?.includes("Patio") ? true : false}
             />
             <label htmlFor="Patio" className="form-check-label">
               Patio

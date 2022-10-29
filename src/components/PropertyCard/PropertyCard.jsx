@@ -1,9 +1,7 @@
 import "moment-timezone";
-import React, { useCallback, useEffect, useState } from 'react';
-import Moment from "react-moment";
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './PropertyCard.css';
-import CalendarIcon from "../../assets/images/Calendar-icon.png";
 
 export default function PropertyCard({
   images,

@@ -154,23 +154,18 @@ export default function PropertiesScreen() {
   const changeSortByState = (e) => { //HANDLE THE SORT OF ALL PROPERTIES
     if (e.target.selectedIndex === 4) {
       properties.sort((a, b) => b.squaredMeters - a.squaredMeters)
-      console.log(properties)
       setSortBy('size-biggest')
     } else if (e.target.selectedIndex === 3) {
       properties.sort((a, b) => a.squaredMeters - b.squaredMeters)
-      console.log(properties)
       setSortBy('size-smallest')
     } else if (e.target.selectedIndex === 2) {
       properties.sort((a, b) => b.monthlyRent - a.monthlyRent)
-      console.log(properties)
       setSortBy('price-highest')
     } else if (e.target.selectedIndex === 1) {
       properties.sort((a, b) => a.monthlyRent - b.monthlyRent)
-      console.log(properties)
       setSortBy('price-lowest')
     } else if (e.target.selectedIndex === 0) {
       properties.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
-      console.log(properties)
       setSortBy('date')
     }
   }
