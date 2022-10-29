@@ -23,7 +23,6 @@ export default function PropertiesScreen() {
   const [pagination, setPagination] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [totalProperties, setTotalProperties] = useState(null);
-  const [skipNumber, setSkipNumber] = useState(0)
   const { search } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -39,36 +38,32 @@ export default function PropertiesScreen() {
   const createMarker = useCallback((propertyToMark) => { //CREATE YELLOW MARKERS
     removeMarkers();
     const markers = [];
-    
+
     propertyToMark.map((property) => {
       let markerToAdd = new mapboxgl.Marker({
         color: "#FFD166",
       })
-      .setLngLat([property.long, property.lat])
-      .addTo(map.current)
+        .setLngLat([property.long, property.lat])
+        .addTo(map.current)
       return markers.push(markerToAdd)
     });
-    
+
     setCurrentMarkers(markers)
   }, [removeMarkers])
 
   const changePagination = (e) => { //CHANGE PAGINATION WHEN CLICKING ON PREVIOUS OR NEXT PAGE
-    if(e.target.value === pagination + 1 && (pagination < lastPage)) {
-      let number = pagination * propertiesPerPage
-      setSkipNumber(number)
+    if (e.target.value === pagination + 1 && (pagination < lastPage)) {
       setPagination(pagination + 1)
       window.scrollTo(0, 0)
     } else if (e.target.value === pagination - 1 && pagination > 1) {
-      let number = (pagination - 2) * propertiesPerPage
-      setSkipNumber(number)
       setPagination(pagination - 1)
       window.scrollTo(0, 0)
     }
   }
 
   useEffect(() => { //SET LAST PAGE TO BE ABLE TO PAGINATE
-    if(totalProperties) {
-      setLastPage(Math.ceil(totalProperties/propertiesPerPage))
+    if (totalProperties) {
+      setLastPage(Math.ceil(totalProperties / propertiesPerPage))
     }
   }, [totalProperties, lastPage, pagination, propertiesPerPage])
 
@@ -93,26 +88,28 @@ export default function PropertiesScreen() {
     let queries = new URLSearchParams(location.search)
 
     getAllProperties(search, queries)
-    .then((newProps) => {
-      setProperties(newProps);
-      setTotalProperties(newProps.length)
-    })
-    .catch((err) => navigate("/error"));
-  }, [search, skipNumber, pagination, location.search, navigate])
+      .then((newProps) => {
+        newProps.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
+        setProperties(newProps);
+        setTotalProperties(newProps.length)
+      })
+      .catch((err) => navigate("/error"));
+  }, [search, location.search, navigate])
 
   useEffect(() => { //SET PROPERTIES TO SHOW ACCORDING TO PAGINATION
     blueMarker?.remove();
-    if(pagination && properties) {
+    if (pagination && properties) {
       let initial = ((pagination - 1) * propertiesPerPage);
       let final = ((pagination - 1) * propertiesPerPage) + propertiesPerPage;
-      let pts = properties.slice(initial, final)
-      setPropertiesToShow(pts)
+      let pieceOfPpropertiesToShow = [...properties].slice(initial, final)
+
+      setPropertiesToShow(pieceOfPpropertiesToShow)
     }
   }, [properties, pagination, sortBy, propertiesPerPage]) //no añadir blueMarker al array de dependencias
-  
+
   useEffect(() => { //SET MARKERS TO PROPERTIES TO SHOW
     blueMarker?.remove();
-    let sortedMarkers = propertiesToShow.sort((a, b) => b.lat - a.lat)
+    let sortedMarkers = [...propertiesToShow].sort((a, b) => b.lat - a.lat)
     createMarker(sortedMarkers)
   }, [propertiesToShow]) //no añadir createMarker, ni blueMarker al array de dependencias
 
@@ -155,21 +152,25 @@ export default function PropertiesScreen() {
   };
 
   const changeSortByState = (e) => { //HANDLE THE SORT OF ALL PROPERTIES
-    setPagination(1)
-    if(e.target.selectedIndex === 4) {
+    if (e.target.selectedIndex === 4) {
       properties.sort((a, b) => b.squaredMeters - a.squaredMeters)
+      console.log(properties)
       setSortBy('size-biggest')
-    } else if(e.target.selectedIndex === 3) {
+    } else if (e.target.selectedIndex === 3) {
       properties.sort((a, b) => a.squaredMeters - b.squaredMeters)
+      console.log(properties)
       setSortBy('size-smallest')
-    } else if(e.target.selectedIndex === 2) {
+    } else if (e.target.selectedIndex === 2) {
       properties.sort((a, b) => b.monthlyRent - a.monthlyRent)
+      console.log(properties)
       setSortBy('price-highest')
     } else if (e.target.selectedIndex === 1) {
       properties.sort((a, b) => a.monthlyRent - b.monthlyRent)
+      console.log(properties)
       setSortBy('price-lowest')
-    } else {
+    } else if (e.target.selectedIndex === 0) {
       properties.sort((a, b) => moment(a.createdAt).format('YYYYMMDD') - moment(b.createdAt).format('YYYYMMDD'))
+      console.log(properties)
       setSortBy('date')
     }
   }
@@ -183,8 +184,8 @@ export default function PropertiesScreen() {
       blueMarker = new mapboxgl.Marker({
         color: "#118AB2",
       })
-      .setLngLat([targetLong, targetLat])
-      .addTo(map.current);
+        .setLngLat([targetLong, targetLat])
+        .addTo(map.current);
     }
   };
 
@@ -220,7 +221,7 @@ export default function PropertiesScreen() {
           <h2>{search}</h2>
           <div className='sort-div'>
             <p>
-              Sort by: 
+              Sort by:
             </p>
             <form>
               <select id="sortByBtn" onChange={changeSortByState}>
@@ -267,15 +268,15 @@ export default function PropertiesScreen() {
             ))}
         </div>
         <div className='pagination-container'>
-        {
-        lastPage > 1 &&
-          <ul className="pagination-ul">
-            <li className={`pagination-li ${pagination === 1 && 'disabled'}`} onClick={changePagination} 
-            value={pagination - 1}>Previous</li>
-            <li className={`pagination-li ${pagination === lastPage && 'disabled'}`} onClick={changePagination} 
-            value={pagination + 1}>Next</li>
-          </ul>
-        }
+          {
+            lastPage > 1 &&
+            <ul className="pagination-ul">
+              <li className={`pagination-li ${pagination === 1 && 'disabled'}`} onClick={changePagination}
+                value={pagination - 1}>Previous</li>
+              <li className={`pagination-li ${pagination === lastPage && 'disabled'}`} onClick={changePagination}
+                value={pagination + 1}>Next</li>
+            </ul>
+          }
         </div>
       </div>
       <div ref={mapContainer} className="map-container" />
