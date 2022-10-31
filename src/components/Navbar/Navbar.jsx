@@ -9,8 +9,6 @@ import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './Navbar.css';
-import { useEffect } from 'react';
-import { getOneUser } from '../../services/Users.services';
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
@@ -18,7 +16,6 @@ export default function Navbar() {
   const [login, setLogin] = useState(true);
   const [message, setMessage] = useState("");
   let location = useLocation();
-  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
 
   const userLogOut = () => {

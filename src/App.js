@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
+import CheckoutForm from "./components/CheckoutForm/CheckoutForm";
 import Navbar from "./components/Navbar/Navbar";
 import EditPropertyScreen from "./screens/EditPropertyScreen/EditPropertyScreen";
 import ErrorScreen from "./screens/ErrorScreen/ErrorScreen";
@@ -9,6 +10,7 @@ import LoadingScreen from "./screens/LoadingScreen";
 import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
 import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
+import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
 
@@ -33,6 +35,7 @@ function App() {
         <Route path="/messages/:id" element={<MessagesScreen />} />
         {/* PAYMENTS */}
         <Route path="payment/reserve/:id" element={<PaymentScreen />} />
+        <Route path="/chekout" element={<CheckoutForm />} />
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
         {/* MISC */}

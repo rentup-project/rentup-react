@@ -5,17 +5,19 @@ import './PaymentScreen.css';
 import { paymentIntent } from "../../services/Payment.services";
 import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import { getOneProperty } from './../../services/Properties.services';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import Carrousel from './../../components/Carrousel/Carrousel';
 
 
 const stripePromise = loadStripe("pk_test_51LxA2OAzYaaEnlBj4Br2dKk5iw4g8dqA2HdkVdV3zabPPH01r6XQ1IFGZTXZ0gPVaJuVYxG8d1Y5nMcZOURpp3BR00yH9lfgGB");
 
 export default function PaymentScreen() {
   const [clientSecret, setClientSecret] = useState("");
-  const [price, setPrice] = useState('')
-  const [property, setProperty] = useState({})
-  const navigate = useNavigate()
-  const { id } = useParams()
+  const [price, setPrice] = useState('');
+  const [property, setProperty] = useState({});
+  const [successfulMessage, setSuccessfulMessage] = useState(false);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     paymentIntent(id)
@@ -27,7 +29,6 @@ export default function PaymentScreen() {
     getOneProperty(id)
     .then((prop) => {
       setProperty(prop)
-      console.log(prop)
     })
   }, [id, navigate]);
 
@@ -43,30 +44,54 @@ export default function PaymentScreen() {
     appearance
   }
 
+  const handleSuccessfulPayment = (boolean) => {
+    if(boolean) {
+      setSuccessfulMessage(true)
+    } else {
+      setSuccessfulMessage(false)
+    }
+  }
+
   return (
-    <div className="paymentScreen">
-      {clientSecret && price && (
-        <div>
-          <div className="property-payment-details">
-            <h2>You are about to rent the the place you will call home!</h2>
-            <h4>Please check the following information</h4>
-            <p>{property.address}</p>
-            <p>{property.bathroom} bathrooms</p>
-            <p>{property.bedroom} bathrooms</p>
-            <p>{property.monthlyRent} €/mes</p>
-            <p>
-              {
-              property.images.map((img) => (
-                <img src={img} alt='property' width='150px'/>
-              ))
-              }
-            </p>
+  <>
+    {clientSecret && price && (
+        <div className="paymentScreen">
+          <div className="details-container">
+            {
+              successfulMessage ?
+              <Link to='/my-area'>
+              <h2>RESERVATION SUCCESSFUL! CLICK <span>HERE</span> TO GO TO YOUR PERSONAL AREA</h2>
+              </Link>
+              :
+              <h2>You are about to reserve the the place you will call home!<br></br> Please verify carefully the following information.</h2>
+            }
+            <div className="property-details-container">
+                <Carrousel imagesArr={property.images} width={300} height={250}/>
+                <div>
+                  <p>Address: {property.address}</p>
+                  <p>Bedroom: {property.bedroom}</p>
+                  <p>Bathroom: {property.bathroom}</p>
+                  <p>Area: {property.squaredMeters} m<sup>2</sup></p>
+                  <h4>Monthly rent: {property.monthlyRent} €/month</h4>
+                </div>
+            </div>
+            {
+              !successfulMessage &&
+              <>
+                <h2>If you agree with the above, please proceed with the payment to finish the reservation of the property.</h2>
+                <div className="payment-details-container">
+                    <h6>RESERVATION PRICE: {price}€</h6>
+                    <p>*The amount paid now will be discounted from the first monthly rent. <br/>
+                    *If the reservation is not accepted by the owner, the amount paid will be returned to you.</p>
+                  <Elements options={options} stripe={stripePromise}>
+                    <CheckoutForm id={property.id} handleSuccessfulPayment={handleSuccessfulPayment}/>
+                  </Elements>
+                </div>
+              </>
+            }
           </div>
-          <Elements options={options} stripe={stripePromise}>
-            <CheckoutForm />
-          </Elements>
         </div>
       )}
-    </div>
+  </>
   )
 }
