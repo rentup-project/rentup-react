@@ -1,27 +1,26 @@
-.property-link {
+.property-list {
     display: inline-block;
-    color: black;
-    text-decoration: none;
     background-color: inherit;
     width: 53vw;
-    height: 280px;
+    height: 260px;
     display: flex;
     border-bottom: 1px solid rgb(239, 239, 239);
-    padding: 30px;
-    gap: 20px;
+    padding: 2rem 2rem 2rem 4rem;
+    gap: 5rem;
+}
+
+.property-list:hover {
+    background-color: rgb(239, 239, 239);
+}
+
+.property-link {
+    color: black;
+    text-decoration: none;
 }
 
 .property-link:hover {
     color: black;
     text-decoration: none;
-    background-color: rgb(239, 239, 239);
-}
-
-.img-div {
-    width: 220px;
-    height: 220px;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .content-div span {

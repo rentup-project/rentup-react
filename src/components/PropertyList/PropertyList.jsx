@@ -4,6 +4,7 @@ import "moment-timezone";
 import { Link } from 'react-router-dom';
 import CalendarIcon from '../../assets/images/Calendar-icon.png';
 import './PropertyList.css';
+import Carrousel from '../Carrousel/Carrousel';
 
 export default function PropertyList(
     { images, address, bedroom, bathroom, id, squaredMeters, lat, long, price, availability }
@@ -22,47 +23,43 @@ export default function PropertyList(
     }, [checkAvailability]);
 
     return (
-      <div>
+      <div className='property-list' id={`${lat},${long}`}>
+        <Carrousel imagesArr={images} />
         <Link
-          to={`/property/${id}`}
-          className="property-link"
-          id={`${lat},${long}`}
+        to={`/property/${id}`}
+        className="property-link"
         >
-          <div
-            className="img-div"
-            style={{ backgroundImage: `url(${images[0]})` }}
-          ></div>
           <div className="content-div">
-            <h4>{address.split(",")[0]}</h4>
-            <span>{squaredMeters} m2</span>
-            <span>•</span>
-            <span>
-              {bedroom}
-              {bedroom === "1" ? " bedroom" : " bedrooms"}
-            </span>
-            <span>•</span>
-            <span>
-              {bathroom}
-              {bathroom === "1" ? " bathroom" : " bathrooms"}
-            </span>
-            <p>{price}€</p>
-            <div className="availability-container">
-              <div
-                className="calendar-img"
-                style={{
-                  backgroundImage: `url(${CalendarIcon})`,
-                  backgroundRepeat: "no-repeat",
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
+              <h4>{address.split(",")[0]}</h4>
+              <span>{squaredMeters} m2</span>
+              <span>•</span>
               <span>
-                {available}
-                <Moment format="MMM D" date={availability} />
+                {bedroom}
+                {bedroom === "1" ? " bedroom" : " bedrooms"}
               </span>
+              <span>•</span>
+              <span>
+                {bathroom}
+                {bathroom === "1" ? " bathroom" : " bathrooms"}
+              </span>
+              <p>{price}€</p>
+              <div className="availability-container">
+                <div
+                  className="calendar-img"
+                  style={{
+                    backgroundImage: `url(${CalendarIcon})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
+                <span>
+                  {available}
+                  <Moment format="MMM D" date={availability} />
+                </span>
+              </div>
             </div>
-          </div>
-        </Link>
+          </Link>
       </div>
     );
 }
