@@ -32,8 +32,6 @@ function App() {
         <Route path="/property/create" element={<NewProperty />} />
         <Route path="/property/edit/:id" element={<EditPropertyScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
-        {/* MESSAGES */}
-        <Route path="/messages/:id" element={<MessagesScreen />} />
         {/* PAYMENTS */}
         <Route path="payment/reserve/:id" element={<PaymentScreen />} />
         <Route path="/chekout" element={<CheckoutForm />} />
@@ -41,6 +39,7 @@ function App() {
         <Route path="/notifications" element={<NotificationsScreen />} />
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
+        <Route path="/my-area/:owner" element={<MyAreaScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

@@ -38,7 +38,6 @@ export default function MyProperties() {
   return (
     properties && (
       <div className="my-properties-container">
-        <h3>My properties:</h3>
         <div className="my-properties-wrapper">
           {properties.map((prop) => (
             <div className="my-property-wrapper" key={prop.id}>

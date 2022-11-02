@@ -12,12 +12,14 @@ export default function PropertyCard({
   squaredMeters,
   lat,
   long,
-  price
+  price,
+  reserved,
+  rented
 }) {
 
     return (
       <Link
-        to={`/property/${id}`}
+        to={ reserved || rented ? `/rent/detail/${id}` : `/property/${id}` }
         className="property-card-link"
         id={`${lat},${long}`}
       >
@@ -27,7 +29,7 @@ export default function PropertyCard({
         ></div>
         <div className="property-card-content">
           <div className="property-card_title">
-            <h5>{address.split(",")[0]}</h5>
+            <h6>{address.split(",")[0]}</h6>
             <p>{price}€</p>
           </div>
           <span>{squaredMeters} m2</span>

@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../../contexts/AuthContext';
-import { completePrequalification, getPrecualification } from '../../services/MyArea.services';
-import './PrequalificationsForm';
+import { completePrequalification } from '../../services/MyArea.services';
+import './PrequalificationsForm.css';
 
 export default function PrequalificationsForm({ edit, create }) {
     const [mongoErr, setMongoErr] = useState("");
@@ -9,7 +9,7 @@ export default function PrequalificationsForm({ edit, create }) {
     const { currentUser } = useContext(AuthContext);
 
  /*    useEffect(() => {
-        getPrecualification(currentUser.id)
+        getPrequalification(currentUser.id)
         .then(res => console.log(res))
         .catch(err => console.log(err))
     },[currentUser]);
@@ -36,7 +36,6 @@ export default function PrequalificationsForm({ edit, create }) {
 
     return (
         <div className="prequalification-container">
-        <h3>Prequalification</h3>
         <form onSubmit={handleOnSubmit}>
             <div>
             <label htmlFor="tenantsQuantity" className="form-label">

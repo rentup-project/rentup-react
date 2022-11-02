@@ -1,0 +1,33 @@
+.my-rents-container {
+   padding: 1rem 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.my-rent-wrapper {
+    position: relative;
+    width: fit-content;
+}
+
+.tag-status {
+    position: absolute;
+    bottom: 3%;
+    left: 9.5%;
+}
+
+.green-tag {
+    background-color: rgba(30, 128, 30, 0.281);
+    padding: 0.3rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 800;
+    color: rgb(42, 114, 42);
+}
+
+.yellow-tag {
+    background-color: rgba(255, 209, 102, 0.281);
+    padding: 0.3rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 800;
+    color: #b19043;
+}

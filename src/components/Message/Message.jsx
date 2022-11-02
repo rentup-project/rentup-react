@@ -6,8 +6,8 @@ import { createMessage, getMessages } from './../../services/Messages.services';
 import { getOneUser } from './../../services/Users.services';
 import './Message.css';
 
-export default function Message({ ownerId }) {
-    const [owner, setOwner] = useState('')
+export default function Message({ receiverId }) {
+    const [receiver, setReceiver] = useState('')
     const [messages, setMessages] = useState([])
     const [messageToSend, setMessageToSend] = useState('')
     const [update, setUpdate] = useState(false)
@@ -15,20 +15,20 @@ export default function Message({ ownerId }) {
     const { currentUser } = useContext(AuthContext);
 
     useEffect(()=> {
-        if(currentUser) {
-            getOneUser(ownerId)
-            .then((owner) => {
-                setOwner(owner)
-                getMessages(currentUser.id, ownerId)
+        if (currentUser && receiverId) {
+          getOneUser(receiverId)
+            .then((receiver) => {
+              setReceiver(receiver);
+              getMessages(currentUser.id, receiverId)
                 .then((res) => {
-                    setMessages(res)
-                    setUpdate(false)
+                  setMessages(res);
+                  setUpdate(false);
                 })
-                .catch((err) => navigate("/error"))
+                .catch((err) => navigate("/error"));
             })
-            .catch((err) => navigate("/error"))
+            .catch((err) => navigate("/error"));
         }
-    }, [update, currentUser, ownerId, navigate])
+    }, [update, currentUser, receiverId, navigate])
 
     const handleOnChange = (e) => {
         const { value } = e.target
@@ -40,7 +40,7 @@ export default function Message({ ownerId }) {
 
         const body = {
             sender: currentUser.id,
-            receiver: owner.id,
+            receiver: receiver.id,
             msg: messageToSend
         }
 
@@ -53,7 +53,8 @@ export default function Message({ ownerId }) {
     }
 
     return (
-        <div>
+        receiverId &&
+        (<div>
             <div className="messages-scroll-container">
                 {
                     [...messages].map((msg) => (
@@ -76,6 +77,6 @@ export default function Message({ ownerId }) {
                 value={messageToSend} placeholder="Type your message here"></textarea>
                 <button>Send</button>
             </form>
-        </div>
+        </div>)
     )
 }
