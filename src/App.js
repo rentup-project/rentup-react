@@ -13,7 +13,6 @@ import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
-import PaymentScreen from './screens/PaymentScreen/PaymentScreen';
 
 function App() {
   return (
@@ -32,13 +31,12 @@ function App() {
         <Route path="/property/create" element={<NewProperty />} />
         <Route path="/property/edit/:id" element={<EditPropertyScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
-        {/* MESSAGES */}
-        <Route path="/messages/:id" element={<MessagesScreen />} />
         {/* PAYMENTS */}
         <Route path="payment/reserve/:id" element={<PaymentScreen />} />
         <Route path="/chekout" element={<CheckoutForm />} />
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
+        <Route path="/my-area/:owner" element={<MyAreaScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

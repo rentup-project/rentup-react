@@ -5,41 +5,53 @@ import AuthContext from "../../contexts/AuthContext";
 import { selectUser } from '../../services/Messages.services';
 import './MessagesScreen.css';
 
-export default function MessagesScreen() {
+export default function MessagesScreen({ ownerId }) {
   const [listOfMessages, setList] = useState([])
-  const { id } = useParams()
+  const [receiverId, setReceiverId] = useState('')
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate()
 
   useEffect(() => {
-    if(currentUser) {
+    if (currentUser) {
+      if (ownerId) {
+        setReceiverId(ownerId);
+      }
       selectUser(currentUser.id)
-      .then(res => {
-        setList(res)
-      })
-      .catch((err) => navigate("/error"))
+        .then((res) => {
+          setList(res);
+        })
+        .catch((err) => {
+          navigate("/error");
+        });
     }
-  }, [currentUser, navigate])
+  }, [currentUser, navigate, ownerId]);
+
+  const handleOnClick = (e) => {
+    const { id } = e.target
+    setReceiverId(id)
+  }
 
   return (
-    <div className='messages-screen'>
-        <div className='list-of-messages-container'>
-            {
-              listOfMessages !== [] ? 
-              listOfMessages.map((person) =>
-              <Link className="link-person-list-container" to={`/messages/${person.id}`}>
-                <div key={person.id} className="person-list-container">
-                    <p>{person.name}</p>
-                </div>
-              </Link>
-              )
-              :
-              <h4>You have no messages</h4>
-            }
-        </div>
-        <div className='messages-container'>
-            <Message ownerId={id} />
-        </div>
+    <div className="messages-screen">
+      <div className="list-of-messages-container">
+        {listOfMessages.map((person) => (
+          <div
+            onClick={handleOnClick}
+            id={person.id}
+            key={person.id}
+            className="person-list-container"
+          >
+            <p>{person.name}</p>
+          </div>
+        ))}
+      </div>
+      <div className="messages-container">
+        {listOfMessages.length || ownerId ? (
+          <Message receiverId={receiverId} />
+        ) : (
+          <h4>You have no messages</h4>
+        )}
+      </div>
     </div>
-  )
+  );
 }

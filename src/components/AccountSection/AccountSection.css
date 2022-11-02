@@ -1,0 +1,39 @@
+#account-container {
+    padding: 1rem 10rem;
+}
+
+.user-info-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 25rem;
+}
+
+.user-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 20px;
+    object-fit: cover;
+    object-position: center right;
+}
+
+.user-data-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.user-data-wrapper div {
+    display: flex;
+    gap: 1rem;
+}
+
+#account-container a {
+    color: inherit;
+    font-weight: 800;
+    text-decoration: none;
+    background-color: #ffd166;
+    padding: 0.5rem 2rem;
+}

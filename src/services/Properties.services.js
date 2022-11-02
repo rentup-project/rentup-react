@@ -19,6 +19,9 @@ export const updateProperty = (id, body) =>
 export const getOwnerProperties = (user) =>
   http.get(`/properties/created/${user}`);
 
+export const getOwnerRents = (user) => 
+  http.get(`/properties/reserved/${user}`);
+
 export const deleteProperty = (id) => 
   http.delete(`/properties/delete/${id}`);
 
