@@ -15,3 +15,6 @@ export const updateFav = (body) =>
     authHttp
     .post(`/account/favs`, body);
 
+export const getNotifications = (user) => 
+    authHttp
+    .get(`/account/notifications/${user}`);

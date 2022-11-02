@@ -1,0 +1,40 @@
+.notifications-screen {
+    color: #222222;
+    margin: 0 auto;
+    max-width: 992px;
+    padding-top: 11vh;
+    min-height: 100vh;
+}
+
+.messages-container {
+    margin-top: 2rem;
+    padding: 0;
+    max-width: 992px;
+}
+
+.messages-container a{
+    color: #222222;
+    text-decoration: none;
+}
+
+.msg-container {
+    margin: 0 0;
+    padding: 1rem;
+    border-bottom: 1px solid rgb(239, 239, 239);
+}
+
+.msg-container:hover {
+    background-color: rgba(255, 209, 102, 0.5);
+}
+
+.msg-container p {
+    margin: 0.5rem;
+}
+
+.msg-p {
+    font-weight: 500;
+}
+
+.msg-time {
+    font-size: 0.8rem;
+}

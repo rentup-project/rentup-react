@@ -24,6 +24,12 @@
     cursor: pointer;
 }
 
+.notification-navbar {
+    margin: 0.5rem 2rem 0 0;
+    width: 27px;
+    cursor: pointer;
+}
+
 .close-navbar {
     width: 20px;
     cursor: pointer;
