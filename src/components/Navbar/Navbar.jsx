@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
 import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
 import logoWhite from "../../assets/images/logo-white.png";
 import logoYellow from "../../assets/images/logo-yellow.png";
+import notification from "../../assets/images/notification.png";
 import AuthContext from "../../contexts/AuthContext";
 import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
@@ -59,8 +60,14 @@ export default function Navbar() {
         </Link>
       </div>
 
-      <div onClick={handleOnClick}>
-        <img src={BtnNavbar} alt="img" className="sandwich-navbar" />
+      <div>
+        {
+          currentUser && 
+          <Link to="/notifications">
+            <img src={notification} alt='notification' className="notification-navbar" />
+          </Link>
+        }
+        <img src={BtnNavbar} alt="img" className="sandwich-navbar" onClick={handleOnClick} />
       </div>
 
       {isOpened && (

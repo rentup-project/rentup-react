@@ -10,6 +10,7 @@ import LoadingScreen from "./screens/LoadingScreen";
 import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
 import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
+import NotificationsScreen from "./screens/NotificationsScreen/NotificationsScreen";
 import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
@@ -36,6 +37,8 @@ function App() {
         {/* PAYMENTS */}
         <Route path="payment/reserve/:id" element={<PaymentScreen />} />
         <Route path="/chekout" element={<CheckoutForm />} />
+        {/* NOTIFICATIONS */}
+        <Route path="/notifications" element={<NotificationsScreen />} />
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
         {/* MISC */}
