@@ -1,0 +1,14 @@
+#submit {
+    background-color: #ffd166;
+    border: none;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 10px;
+    font-weight: 500;
+    border-radius:  0.5rem;
+}
+
+#payment-message {
+    font-size: 2rem;
+    color: red;
+}

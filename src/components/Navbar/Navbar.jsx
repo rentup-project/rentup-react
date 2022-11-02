@@ -16,7 +16,6 @@ export default function Navbar() {
   const [login, setLogin] = useState(true);
   const [message, setMessage] = useState("");
   let location = useLocation();
-  const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
 
   const userLogOut = () => {

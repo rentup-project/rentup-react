@@ -21,3 +21,6 @@ export const getOwnerProperties = (user) =>
 
 export const deleteProperty = (id) => 
   http.delete(`/properties/delete/${id}`);
+
+export const reserveProperty = (body) => 
+  http.post(`/reserve`, body);

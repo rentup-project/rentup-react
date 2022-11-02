@@ -246,6 +246,7 @@ export default function PropertiesScreen() {
                 key={property.id}
                 onMouseEnter={createBlueMarker}
                 onMouseLeave={removeBlueMarker}
+                id={`${property.lat},${property.long}`}
               >
                 <PropertyList
                   images={property.images}

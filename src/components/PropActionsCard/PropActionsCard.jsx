@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./PropActionsCard.css";
 
 export default function PropActionsCard( {property} ) {
+
   const { owner, id } = property;
 
   return (
