@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import MapboxAutocomplete from "react-mapbox-autocomplete";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "./../../contexts/AuthContext";
-import {getOneProperty} from "./../../services/Properties.services";
+import { getOneProperty } from "./../../services/Properties.services";
 import "./FormProperty.css";
 
 export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, propertyId }) {

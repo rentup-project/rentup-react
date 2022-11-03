@@ -20,6 +20,29 @@
     border-radius: 0.8rem;
 }
 
+.cursor-default {
+    display: inline-block;
+    color: black;
+    text-decoration: none;
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;   
+    gap: 0.5rem;
+    padding: 1.5rem 1rem 3rem 1rem;
+    border: 1px solid rgb(239, 239, 239);
+    border-radius: 0.8rem;
+    cursor: default;
+}
+
+.cursor-default:hover {
+    color: black;
+    text-decoration: none;
+    background-color: rgb(239, 239, 239);
+    border-radius: 0.8rem;
+}
+
 .property-card-img {
     width: 90%;
     height: 90%;

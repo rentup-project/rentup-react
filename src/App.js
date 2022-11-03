@@ -7,8 +7,8 @@ import ErrorScreen from "./screens/ErrorScreen/ErrorScreen";
 import FavsScreen from "./screens/FavsScreen/FavsScreen";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import LoadingScreen from "./screens/LoadingScreen";
-import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
 import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
+import MyRentDetailsScreen from "./screens/MyRentDetailsScreen/MyRentDetailsScreen";
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import NotificationsScreen from "./screens/NotificationsScreen/NotificationsScreen";
 import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
@@ -40,6 +40,8 @@ function App() {
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
         <Route path="/my-area/:owner" element={<MyAreaScreen />} />
+        {/* RENT DETAILS*/}
+        <Route path="/rent/details/:id" element={<MyRentDetailsScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

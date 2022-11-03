@@ -27,3 +27,9 @@ export const deleteProperty = (id) =>
 
 export const reserveProperty = (body) => 
   http.post(`/reserve`, body);
+
+export const cancelReservation = (id, user) =>
+  http.get(`/reserve/cancel/${id}`);
+
+export const createRent = (body) =>
+  http.post('/rent/create', body)
