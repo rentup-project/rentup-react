@@ -19,8 +19,8 @@ export default function PropertyCard({
 
     return (
       <Link
-        to={ reserved || rented ? `/rent/detail/${id}` : `/property/${id}` }
-        className="property-card-link"
+        to={ reserved || rented ? '#' : `/property/${id}` }
+        className={ reserved || rented ? 'cursor-default' : "property-card-link" }
         id={`${lat},${long}`}
       >
         <div
