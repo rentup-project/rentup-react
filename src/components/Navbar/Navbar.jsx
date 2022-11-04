@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
+import BtnNavbarNot from "../../assets/images/BtnNavbarNot.png";
 import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
 import logoWhite from "../../assets/images/logo-white.png";
 import logoYellow from "../../assets/images/logo-yellow.png";
-import notification from "../../assets/images/notification.png";
+import NotificationIcon from "../../assets/images/notification.png";
+import NotificationIconRing from "../../assets/images/notification-yellow.png";
 import AuthContext from "../../contexts/AuthContext";
 import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
@@ -18,14 +20,20 @@ export default function Navbar() {
   const [register, setRegister] = useState(false);
   const [login, setLogin] = useState(true);
   const [message, setMessage] = useState("");
+  const [navIcon, setNavIcon] = useState(BtnNavbar);
+  const [bellNot, setBellNot] = useState(NotificationIcon);
   let location = useLocation();
   const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     if(currentUser) {
-      socket.emit('newUser', currentUser)
+      socket.emit('newUser', currentUser);
+      socket.on("not", () => {
+        setNavIcon(BtnNavbarNot)
+        setBellNot(NotificationIconRing);
+      });
     }
-  })
+  },[currentUser])
 
   const userLogOut = () => {
     logout();
@@ -38,6 +46,12 @@ export default function Navbar() {
       setIsOpened(false);
     }
   };
+
+  const handleOnClickNotification = () => {
+    setNavIcon(BtnNavbar);
+    setBellNot(NotificationIcon);
+    setIsOpened(false);
+  }
 
   const handleChangeLogin = (emailMessage = "") => {
     if (!login) {
@@ -69,13 +83,12 @@ export default function Navbar() {
       </div>
 
       <div>
-        {
-          currentUser && 
-          <Link to="/notifications">
-            <img src={notification} alt='notification' className="notification-navbar" />
-          </Link>
-        }
-        <img src={BtnNavbar} alt="img" className="sandwich-navbar" onClick={handleOnClick} />
+        <img
+          src={navIcon}
+          alt="img"
+          className="sandwich-navbar"
+          onClick={handleOnClick}
+        />
       </div>
 
       {isOpened && (
@@ -122,6 +135,14 @@ export default function Navbar() {
               <Link to="/" onClick={handleOnClick}>
                 Home
               </Link>
+              <Link to="/notifications" onClick={handleOnClickNotification}>
+                <img
+                  src={bellNot}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>Notifications</span>
+              </Link>
               <Link to="/search" onClick={handleOnClick}>
                 Search properties
               </Link>
@@ -133,13 +154,10 @@ export default function Navbar() {
               </Link>
               <Link to="/property/create" onClick={handleOnClick}>
                 Post a property
-              </Link>              
-              <Link
-                to={"/my-area"}
-                onClick={handleOnClick}
-              >
+              </Link>
+              <Link to={"/my-area"} onClick={handleOnClick}>
                 My Area
-              </Link>              
+              </Link>
               <Link onClick={userLogOut}>Logout</Link>
             </div>
           )}

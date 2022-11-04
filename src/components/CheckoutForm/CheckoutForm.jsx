@@ -46,7 +46,7 @@ export default function CheckoutForm({ id, handleSuccessfulPayment }) {
           break;
       }
     });
-  }, [stripe, id, currentUser, navigate]);
+  }, [stripe, id, currentUser, navigate, handleSuccessfulPayment]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

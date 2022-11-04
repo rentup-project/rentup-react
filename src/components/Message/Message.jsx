@@ -5,6 +5,7 @@ import AuthContext from "../../contexts/AuthContext";
 import { createMessage, getMessages } from './../../services/Messages.services';
 import { getOneUser } from './../../services/Users.services';
 import './Message.css';
+import socket from "../../helpers/socketHelper";
 
 export default function Message({ receiverId }) {
     const [receiver, setReceiver] = useState('')
@@ -48,6 +49,7 @@ export default function Message({ receiverId }) {
         .then((res) => {
             setUpdate(true)
             setMessageToSend('')
+            socket.emit("notification", receiver.email);
         })
         .catch((err) => navigate("/error"))        
     }

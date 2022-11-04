@@ -7,7 +7,7 @@ import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
 import { getOneProperty } from './../../services/Properties.services';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Carrousel from './../../components/Carrousel/Carrousel';
-
+import socket from "../../helpers/socketHelper";
 
 const stripePromise = loadStripe("pk_test_51LxA2OAzYaaEnlBj4Br2dKk5iw4g8dqA2HdkVdV3zabPPH01r6XQ1IFGZTXZ0gPVaJuVYxG8d1Y5nMcZOURpp3BR00yH9lfgGB");
 
@@ -47,6 +47,8 @@ export default function PaymentScreen() {
   const handleSuccessfulPayment = (boolean) => {
     if(boolean) {
       setSuccessfulMessage(true)
+      console.log('owner email', property.owner.email)
+      socket.emit("notification", property.owner.email);
     } else {
       setSuccessfulMessage(false)
     }
