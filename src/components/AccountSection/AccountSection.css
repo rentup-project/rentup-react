@@ -30,10 +30,11 @@
     gap: 1rem;
 }
 
-#account-container a {
+#account-container button {
     color: inherit;
     font-weight: 800;
     text-decoration: none;
     background-color: #ffd166;
     padding: 0.5rem 2rem;
+    border: none;
 }

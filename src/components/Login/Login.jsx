@@ -1,16 +1,16 @@
 import { useFormik } from "formik";
 import { useContext, useState } from "react";
-import Input from "../Input/Input";
-import AuthContext from "../../contexts/AuthContext";
-import { login as userLogin, loginGoogle } from "../../services/Auth.services";
-import LoginSchema from "../../schemas/LoginSchema";
 import { useNavigate } from "react-router-dom";
-import './Login.css'
-import googleIcon from '../../assets/images/google-icon.png'
-import arrowIcon from '../../assets/images/arrow.png'
+import arrowIcon from "../../assets/images/arrow.png";
+import googleIcon from "../../assets/images/google-icon.png";
+import AuthContext from "../../contexts/AuthContext";
+import LoginSchema from "../../schemas/LoginSchema";
+import { login as userLogin } from "../../services/Auth.services";
+import Input from "../Input/Input";
+import "./Login.css";
 
 export default function Login({ handleChangeRegister, message }) {
-  const [mongoErr, setMongoErr] = useState(false)
+  const [mongoErr, setMongoErr] = useState(false);
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -43,7 +43,7 @@ export default function Login({ handleChangeRegister, message }) {
       .catch((err) => {
         err?.response?.data &&
           Object.keys(err.response.data).forEach((errorKey) => {
-            setMongoErr(err.response.data[errorKey])
+            setMongoErr(err.response.data[errorKey]);
           });
       })
       .finally(() => {
@@ -52,22 +52,19 @@ export default function Login({ handleChangeRegister, message }) {
   }
 
   const handleOnClick = () => {
-    loginGoogle()
-    .then(res => console.log(res, 'entra en google'))
-    .catch(err => console.log(err))
-  }
-  console.log(message)
+    window.location.assign("http://localhost:3001/api/login/google");
+  };
 
   return (
     <div className="Login">
       <h2>Login to your account</h2>
-      {
-        message === 'Message sent'
-        ? 
-        <p className="email-message">Please check your email before trying to login.</p>
-        :
+      {message === "Message sent" ? (
+        <p className="email-message">
+          Please check your email before trying to login.
+        </p>
+      ) : (
         <></>
-      }
+      )}
       <form onSubmit={handleSubmit}>
         <Input
           placeholder="Email"
@@ -96,19 +93,21 @@ export default function Login({ handleChangeRegister, message }) {
             {isSubmitting ? "Loading" : "LOGIN"}
           </button>
 
-          <p className="or-line"><span>OR</span></p>
+          <p className="or-line">
+            <span>OR</span>
+          </p>
 
           <div className="google-button" onClick={handleOnClick}>
             <div className="flex-div">
-              <img className='google-icon' src={googleIcon} alt="google icon" />
-              <p>
-                Login with Google
-              </p>
+              <img className="google-icon" src={googleIcon} alt="google icon" />
+              <p>Login with Google</p>
             </div>
-            <img className='arrow-icon' src={arrowIcon} alt="arrow icon" />
+            <img className="arrow-icon" src={arrowIcon} alt="arrow icon" />
           </div>
 
-          <p className="login-link" onClick={handleChangeRegister}>Don't have an account? <span>Register here!</span></p>
+          <p className="login-link" onClick={handleChangeRegister}>
+            Don't have an account? <span>Register here!</span>
+          </p>
         </div>
       </form>
     </div>

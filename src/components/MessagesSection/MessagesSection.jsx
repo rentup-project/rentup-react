@@ -1,15 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import Message from '../../components/Message/Message';
+import { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
-import { selectUser } from '../../services/Messages.services';
-import './MessagesScreen.css';
+import { selectUser } from "../../services/Messages.services";
+import Message from "../Message/Message";
+import "./MessagesSection.css";
 
-export default function MessagesScreen({ ownerId }) {
-  const [listOfMessages, setList] = useState([])
-  const [receiverId, setReceiverId] = useState('')
+export default function MessagesSection({ ownerId }) {
+  const [listOfMessages, setList] = useState([]);
+  const [receiverId, setReceiverId] = useState("");
   const { currentUser } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser) {
@@ -27,12 +27,12 @@ export default function MessagesScreen({ ownerId }) {
   }, [currentUser, navigate, ownerId]);
 
   const handleOnClick = (e) => {
-    const { id } = e.target
-    setReceiverId(id)
-  }
+    const { id } = e.target;
+    setReceiverId(id);
+  };
 
   return (
-    <div className="messages-screen">
+    <div className="messages-section-container">
       <div className="list-of-messages-container">
         {listOfMessages.map((person) => (
           <div

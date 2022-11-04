@@ -1,16 +1,15 @@
-.messages-screen {
-    height: 100vh;
-    padding: 9vh 0 0 0;
+.messages-section-container {
+    height: 100%;
+    margin: 1rem 10rem;
     display: flex;
     justify-content: space-between;
-    background-color: rgb(239, 239, 239);
+    border: 1px solid rgb(239, 239, 239);
 }
 
 .list-of-messages-container {
     width: 26vw;
     background-color: rgba(34, 34, 34,1);
     padding: 2rem 2rem 11rem 2rem;
-    box-shadow: 10px 0px 25px 0px rgba(0,0,0,0.42);
 }
 
 .messages-container {

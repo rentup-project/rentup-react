@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
-import AccountSection from '../../components/AccountSection/AccountSection';
-import MyProperties from '../../components/MyProperties/MyProperties';
-import PrequalificationSection from '../../components/PrequalificationSection/PrequalificationSection';
-import { useParams } from 'react-router-dom';
-import MessagesScreen from '../MessagesScreen/MessagesScreen';
-import './MyAreaScreen.css';
-import { useEffect } from 'react';
-import MyRentsSection from '../../components/MyRentsSection/MyRentsSection';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import AccountSection from "../../components/AccountSection/AccountSection";
+import MessagesSection from "../../components/MessagesSection/MessagesSection";
+import MyProperties from "../../components/MyProperties/MyProperties";
+import MyRentsSection from "../../components/MyRentsSection/MyRentsSection";
+import PrequalificationSection from "../../components/PrequalificationSection/PrequalificationSection";
+import "./MyAreaScreen.css";
 
 export default function MyAreaScreen() {
-  const [section, setSection] = useState('account');
-  const { owner } = useParams();
-  
+  const [section, setSection] = useState("account");
+  const { owner, prequalification } = useParams();
+
   const handleOnClick = (e) => {
     const { id } = e.target;
-    setSection(id)
-  }
+    setSection(id);
+  };
 
   useEffect(() => {
     if (owner) {
-      setSection('messages')
-    } 
-  }, [owner])
-    
+      setSection("messages");
+    }
+
+    if (window.location.pathname === "/my-area/prequalification") {
+      setSection("prequalification");
+    }
+  }, [owner, prequalification]);
+
   return (
     <div className="my-area-container">
       <div>
@@ -96,7 +99,7 @@ export default function MyAreaScreen() {
 
       {section === "myRents" && <MyRentsSection />}
 
-      {section === "messages" && <MessagesScreen ownerId={owner} />}
+      {section === "messages" && <MessagesSection ownerId={owner} />}
     </div>
   );
 }

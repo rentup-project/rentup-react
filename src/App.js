@@ -7,8 +7,8 @@ import ErrorScreen from "./screens/ErrorScreen/ErrorScreen";
 import FavsScreen from "./screens/FavsScreen/FavsScreen";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
 import LoadingScreen from "./screens/LoadingScreen";
-import MessagesScreen from "./screens/MessagesScreen/MessagesScreen";
-import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
+import MessagesScreen from "./components/MessagesSection/MessagesSection";
+import MyAreaScreen from "./screens/MyAreaScreen/MyAreaScreen";
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
@@ -22,6 +22,7 @@ function App() {
         {/* HOME */}
         <Route path="/" element={<HomeScreen />} />
         {/* AUTH */}
+        <Route path="/validation" element={<LoadingScreen />} />
         <Route path="/activate/:token" element={<LoadingScreen />} />
         {/* ACCOUNT */}
         <Route path="/account/favs/:user" element={<FavsScreen />} />
@@ -37,6 +38,7 @@ function App() {
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
         <Route path="/my-area/:owner" element={<MyAreaScreen />} />
+        <Route path="/my-area/prequalification" element={<MyAreaScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />
