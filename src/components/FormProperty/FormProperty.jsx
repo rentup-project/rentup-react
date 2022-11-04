@@ -493,7 +493,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Pool"
               value="Pool"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Pool") ? true : false}
+              {...(propertyData?.features?.includes("Pool") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Pool" className="form-check-label">
               Pool
@@ -507,11 +509,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Air conditioning"
               value="Air conditioning"
               onChange={handleOnChange}
-              checked={
-                propertyData?.features?.includes("Air conditioning")
-                  ? true
-                  : false
-              }
+              {...(propertyData?.features?.includes("Air conditioning") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Air conditioning" className="form-check-label">
               Air conditioning
@@ -525,7 +525,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Lyft"
               value="Lyft"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Lyft") ? true : false}
+              {...(propertyData?.features?.includes("Lyft") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Lyft" className="form-check-label">
               Lyft
@@ -539,11 +541,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Built-in cabinets"
               value="Built-in cabinets"
               onChange={handleOnChange}
-              checked={
-                propertyData?.features?.includes("Built-in cabinets")
-                  ? true
-                  : false
-              }
+              {...(propertyData?.features?.includes("Built-in cabinets") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Built-in cabinets" className="form-check-label">
               Built-in cabinets
@@ -557,7 +557,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Boxroom"
               value="Boxroom"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Boxroom") ? true : false}
+              {...(propertyData?.features?.includes("Boxroom") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Boxroom" className="form-check-label">
               Boxroom
@@ -571,7 +573,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Parking"
               value="Parking"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Parking") ? true : false}
+              {...(propertyData?.features?.includes("Parking") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Parking" className="form-check-label">
               Parking
@@ -585,7 +589,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Balcony"
               value="Balcony"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Balcony") ? true : false}
+              {...(propertyData?.features?.includes("Balcony") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Balcony" className="form-check-label">
               Balcony
@@ -599,7 +605,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Terrace"
               value="Terrace"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Terrace") ? true : false}
+              {...(propertyData?.features?.includes("Terrace") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Terrace" className="form-check-label">
               Terrace
@@ -613,7 +621,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Garden"
               value="Garden"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Garden") ? true : false}
+              {...(propertyData?.features?.includes("Garden") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Garden" className="form-check-label">
               Garden
@@ -627,11 +637,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="24-hour-security"
               value="24-hour-security"
               onChange={handleOnChange}
-              checked={
-                propertyData?.features?.includes("24-hour-security")
-                  ? true
-                  : false
-              }
+              {...(propertyData?.features?.includes("24-hour-security") && {
+                checked: true,
+              })}
             />
             <label htmlFor="24-hour-security" className="form-check-label">
               24-hour-security
@@ -645,7 +653,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Gym"
               value="Gym"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Gym") ? true : false}
+              {...(propertyData?.features?.includes("Gym") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Gym" className="form-check-label">
               Gym
@@ -659,9 +669,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Playground"
               value="Playground"
               onChange={handleOnChange}
-              checked={
-                propertyData?.features?.includes("Playground") ? true : false
-              }
+              {...(propertyData?.features?.includes("Playground") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Playground" className="form-check-label">
               Playground
@@ -675,7 +685,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Spa"
               value="Spa"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Spa") ? true : false}
+              {...(propertyData?.features?.includes("Spa") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Spa" className="form-check-label">
               Spa
@@ -689,7 +701,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
               name="Patio"
               value="Patio"
               onChange={handleOnChange}
-              checked={propertyData?.features?.includes("Patio") ? true : false}
+              {...(propertyData?.features?.includes("Patio") && {
+                checked: true,
+              })}
             />
             <label htmlFor="Patio" className="form-check-label">
               Patio

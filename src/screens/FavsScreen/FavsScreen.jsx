@@ -7,8 +7,8 @@ import { getAllFavs } from './../../services/Account.services';
 import PropertyList from '../../components/PropertyList/PropertyList';
 
 export default function FavsScreen() {
-    const [favs, setFavs] = useState();
-    const navigate = useNavigate()
+    const [favs, setFavs] = useState([]);
+    const navigate = useNavigate();
     const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
@@ -27,21 +27,22 @@ export default function FavsScreen() {
     return (
       <div className="favs-container">
         <h3>Look your favourites properties:</h3>
-        {favs?.map((fav) => (
-          <div key={fav.property.id}>
-            <PropertyList
-              images={fav.property.images}
-              address={fav.property.address}
-              bedroom={fav.property.bedroom}
-              bathroom={fav.property.bathroom}
-              price={fav.property.reservationPrice}
-              id={fav.property.id}
-              squaredMeters={fav.property.squaredMeters}
-              lat={fav.property.lat}
-              long={fav.property.long}
-            />
-          </div>
-        ))}
+        {favs.length &&
+          favs.map((fav) => (
+            <div key={fav.property?.id}>
+              <PropertyList
+                images={fav.property?.images}
+                address={fav.property?.address}
+                bedroom={fav.property?.bedroom}
+                bathroom={fav.property?.bathroom}
+                price={fav.property?.reservationPrice}
+                id={fav.property?.id}
+                squaredMeters={fav.property?.squaredMeters}
+                lat={fav.property?.lat}
+                long={fav.property?.long}
+              />
+            </div>
+          ))}
       </div>
     );
 }

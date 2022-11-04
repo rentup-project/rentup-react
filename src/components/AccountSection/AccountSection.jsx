@@ -1,14 +1,18 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import AuthContext from '../../contexts/AuthContext';
+import AccountForm from '../AccountForm/AccountForm';
 import './AccountSection.css';
-import { Link } from 'react-router-dom';
 
 export default function Account() {
+    const [edit, setEdit] = useState('');
     const { currentUser } = useContext(AuthContext);
 
+    const handleOnClick = () => {
+      setEdit(true)
+    }
+
     return (
-      currentUser && (
+      currentUser && !edit ? (
         <div id="account-container">
           <div className="user-info-header">
             <div
@@ -33,13 +37,13 @@ export default function Account() {
                 {currentUser.phoneNumber ? currentUser.phoneNumber : "-"}
               </span>
             </div>
-            <div>
-              Password:
-              <span>●●●●●●●●</span>
-            </div>
           </div>
-          <Link>Edit</Link>
+          <button onClick={handleOnClick}>Edit</button>
         </div>
-      )
+      ) : (
+        <div id="account-container">
+          <AccountForm />
+        </div>
+        )
     );
 }

@@ -23,6 +23,7 @@ function App() {
         {/* HOME */}
         <Route path="/" element={<HomeScreen />} />
         {/* AUTH */}
+        <Route path="/validation" element={<LoadingScreen />} />
         <Route path="/activate/:token" element={<LoadingScreen />} />
         {/* ACCOUNT */}
         <Route path="/account/favs/:user" element={<FavsScreen />} />
@@ -40,6 +41,7 @@ function App() {
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={<MyAreaScreen />} />
         <Route path="/my-area/:owner" element={<MyAreaScreen />} />
+        <Route path="/my-area/prequalification" element={<MyAreaScreen />} />
         {/* RENT DETAILS*/}
         <Route path="/rent/details/:id" element={<MyRentDetailsScreen />} />
         {/* MISC */}
