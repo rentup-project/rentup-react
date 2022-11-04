@@ -1,0 +1,28 @@
+.rent-details-section {
+    padding: 2rem 0;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4rem;
+    width: 80vw;
+    min-height: 65vh;
+}
+
+.rent-details-wrapper {
+    width: 100%;
+    border: 1px solid black;
+}
+
+.rent-details-section embed{
+    width: 19rem;
+    height: 29rem;
+}
+
+.rent-details-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
