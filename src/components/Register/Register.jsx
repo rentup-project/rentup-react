@@ -1,12 +1,11 @@
-import React, { useState } from "react";
 import { useFormik } from "formik";
-import Input from "../Input/Input";
+import React, { useState } from "react";
 import RegisterSchema from "../../schemas/RegisterSchema";
 import { register } from "../../services/Auth.services";
-import './Register.css'
-import { loginGoogle } from './../../services/Auth.services';
-import googleIcon from '../../assets/images/google-icon.png'
-import arrowIcon from '../../assets/images/arrow.png'
+import Input from "../Input/Input";
+import './Register.css';
+import arrowIcon from '../../assets/images/arrow.png';
+import googleIcon from '../../assets/images/google-icon.png';
 
 const INITIAL_VALUES = {
   name: "",
@@ -52,9 +51,7 @@ export default function Register({ handleChangeLogin }) {
   }
 
   const handleOnClick = () => {
-    loginGoogle()
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    window.location.assign("http://localhost:3001/api/login/google");
   }
 
   return (
