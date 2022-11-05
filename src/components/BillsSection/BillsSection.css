@@ -1,0 +1,50 @@
+.bills-section {
+    padding: 2rem 0;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 80vw;
+    min-height: 65vh;
+}
+
+.bills-container {
+    width: 50%;
+}
+
+.each-bill {
+    padding: 2rem;
+    display: flex;
+    border: 1px solid rgb(239, 239, 239);
+    gap: 2rem;
+    position: relative;
+    border-radius: 2rem;
+}
+
+.each-bill iframe {
+    height: 17rem;
+    width: 12rem;
+}
+
+.status {
+    font-weight: 500;
+    padding: 0.5rem;
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    border-radius: 0.5rem;
+}
+
+.status p {
+    margin: 0;
+}
+
+.green {
+    background-color: rgba(30, 128, 30, 0.281);
+    color: rgb(42, 114, 42);
+}
+
+.red {
+    background-color: rgba(251, 100, 100, 0.358);
+    color: rgb(255, 0, 0);
+}

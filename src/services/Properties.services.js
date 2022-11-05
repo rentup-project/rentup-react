@@ -1,6 +1,7 @@
 import createHttp from "./Base.services";
 
 const http = createHttp();
+//const noAuthHttp = createHttp();
 
 export const getOneProperty = (id) => 
   http.get(`/property/${id}`);
@@ -33,3 +34,6 @@ export const cancelReservation = (id, user) =>
 
 export const createRent = (body) =>
   http.post('/rent/create', body)
+
+export const getOneRent = (id) =>
+  http.get(`/rent/${id}`)

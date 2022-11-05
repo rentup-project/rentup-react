@@ -1,7 +1,7 @@
 import createHttp from "./Base.services";
 
 const authHttp = createHttp(true);
-const noAuthHttp = createHttp();
+//const noAuthHttp = createHttp();
 
 export const getPrequalification = (tenant) =>
     authHttp.get(`/my-area/prequalification/${tenant}`);
