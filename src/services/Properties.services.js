@@ -37,3 +37,6 @@ export const createRent = (body) =>
 
 export const getOneRent = (id) =>
   http.get(`/rent/${id}`)
+
+export const getReviews = (id) => 
+  http.get(`/property/reviews/${id}`);

@@ -1,8 +1,11 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 import Moment from "react-moment";
 import "moment-timezone";
-import { useParams } from "react-router-dom";
-import { getOneProperty } from "./../../services/Properties.services";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getOneProperty,
+  getReviews,
+} from "./../../services/Properties.services";
 import "./PropertyDetailScreen.css";
 /* IMAGES */
 import ApartmentIcon from "../../assets/images/Apartment-icon.png";
@@ -19,6 +22,7 @@ import PetIcon from "../../assets/images/Pet-icon.png";
 import ShareIcon from "../../assets/images/Share-icon.png";
 import StarBlack from "../../assets/images/Star_black.png";
 import UnFavIcon from "../../assets/images/UnFav-icon.png";
+import StarYellow from "../../assets/images/Star_yellow.png";
 /* COMPONENTS */
 import Amenity from "../../components/Amenity/Amenity";
 import Mapbox from "../../components/Mapbox/Mapbox";
@@ -37,7 +41,9 @@ export default function PropertyDetailScreen() {
   const [availability, setAvailability] = useState("");
   const [openShare, setOpenShare] = useState(false);
   const [FavImg, setFavImg] = useState(UnFavIcon);
+  const [reviews, setReviews] = useState([]);
   const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const checkAvailability = useCallback(() => {
     if (property.availabilityDate <= Date.now()) {
@@ -55,8 +61,16 @@ export default function PropertyDetailScreen() {
         setSecondImage(res.images[1]);
         checkAvailability();
       })
-      .catch((err) => console.log(err));
-  }, [id, checkAvailability]);
+      .catch((err) => navigate("/error"));
+
+    getReviews(id)
+      .then((reviews) => {
+        setReviews(reviews);
+
+        
+      })
+      .catch((err) => navigate("/error"));
+  }, [id, checkAvailability, navigate]);
 
   if (currentUser && property) {
     const userSend = currentUser.id;
@@ -70,7 +84,7 @@ export default function PropertyDetailScreen() {
           setFavImg(UnFavIcon);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => navigate("/error"));
   }
 
   const showImages = () => {
@@ -95,7 +109,7 @@ export default function PropertyDetailScreen() {
           setFavImg(FavIcon);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => navigate("/error"));
   };
 
   return allImages ? (
@@ -150,7 +164,7 @@ export default function PropertyDetailScreen() {
               }}
             ></div>
             <span>
-              <span>4,5</span>
+              {reviews && <span></span>}
               <span>•</span>
               <a href="#opinions">5 reviews</a>
             </span>
@@ -353,9 +367,23 @@ export default function PropertyDetailScreen() {
 
       <section id="opinions">
         <h4>Reviews</h4>
-        <div className="opinions-container">
-          <p>None reviews yet!</p>
-        </div>
+        {!reviews && (
+          <div className="opinions-container">
+            <p>No reviews yet!</p>
+          </div>
+        )}
+        {reviews?.map((review) => (
+          <div className="opinions-container">
+            <div className="Star-wraper">
+              {Array(review.score)
+                .fill("")
+                .map(() => (
+                  <img src={StarYellow} alt="star-logo" />
+                ))}
+            </div>
+            <div>{review.comment}</div>
+          </div>
+        ))}
       </section>
       <hr></hr>
 

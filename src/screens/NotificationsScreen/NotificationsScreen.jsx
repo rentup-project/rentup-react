@@ -1,15 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getNotifications } from '../../services/Account.services';
-import './NotificationsScreen.css';
-import AuthContext from './../../contexts/AuthContext';
 import moment from "moment";
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { getNotifications } from '../../services/Account.services';
+import AuthContext from './../../contexts/AuthContext';
+import './NotificationsScreen.css';
 
 export default function NotificationsScreen() {
-  const [notifications, setNotifications] = useState([])
+  const [notifications, setNotifications] = useState([]);
   const { currentUser } = useContext(AuthContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     if(currentUser) {
@@ -18,11 +17,20 @@ export default function NotificationsScreen() {
         if (res.length) {
           res.forEach((notification) => {
             if(notification.type === 'message') {
-              notification.message = 'You received a new message.'
+                notification.path = '/my-area/messages';
+                notification.message = 'You received a new message.';
             } else if (notification.type === 'reservation') {
-              notification.message = 'One of your properties has been reserved.'
+                notification.path = "/my-area/myRents";
+                notification.message = 'One of your properties has been reserved.'
+            } else if (notification.type === "billUploaded") {
+                notification.path = "/my-area/myRents";
+                notification.message = "You have a new bill to pay.";
+            } else if (notification.type === "billPaid") {
+                notification.path = "/my-area/myRents";
+                notification.message = "You received a new payment.";
             } else {
-              notification.message = 'You have a new bill.'
+                notification.path = "/my-area/myRents";
+                notification.message ="The owner uploaded the contract, now you can access your rent section.";
             }
           })
           setNotifications(res)
@@ -30,7 +38,7 @@ export default function NotificationsScreen() {
       })
       .catch((err) => navigate("/error"))
     }
-  }, [currentUser])
+  }, [currentUser, navigate])
 
   return (
     <div className='notifications-screen'>
@@ -42,13 +50,13 @@ export default function NotificationsScreen() {
           <h2>Notifications</h2>
           <div className="messages-container">
             {
-              notifications.map((notification) => (
-                <Link to='/my-area' key={notification.id}>
-                  <div className="msg-container">
-                    <p className='msg-p'>{notification.message}</p>
-                    <p className='msg-time'>{moment(notification.createdAt).format('DD/MM/YY - hh:mm')}</p>
-                  </div>
-                </Link>
+              notifications.map((notification) => (                
+                  <Link to={notification.path} key={notification.id}>
+                    <div className="msg-container">
+                      <p className='msg-p'>{notification.message}</p>
+                      <p className='msg-time'>{moment(notification.createdAt).format('DD/MM/YY - hh:mm')}</p>
+                    </div>
+                  </Link>
               ))
             }
           </div>

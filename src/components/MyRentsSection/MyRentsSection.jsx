@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react';
-import './MyRentsSection.css';
-import { useEffect } from 'react';
-import AuthContext from '../../contexts/AuthContext';
-import { getOwnerRents } from '../../services/Properties.services';
-import { useNavigate } from 'react-router-dom';
-import PropertyCard from '../PropertyCard/PropertyCard';
-import menuIcon from '../../assets/images/menu-icon.png'
-import { cancelReservation } from './../../services/Properties.services';
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import menuIcon from "../../assets/images/menu-icon.png";
+import AuthContext from "../../contexts/AuthContext";
+import { getReviewRent } from "../../services/MyArea.services";
+import { getOwnerRents } from "../../services/Properties.services";
+import PropertyCard from "../PropertyCard/PropertyCard";
+import { cancelReservation } from "./../../services/Properties.services";
+import "./MyRentsSection.css";
 
 export default function MyRentsSection() {
   const [rents, setRents] = useState(null);
+  const [reviewed, setReviewed] = useState("");
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -26,30 +27,43 @@ export default function MyRentsSection() {
   const hanleCancelReservation = (id) => {
     cancelReservation(id)
       .then((res) => {
-        const filtered = rents.filter(prop => prop.id !== id)
-        setRents(filtered)
+        const filtered = rents.filter((prop) => prop.id !== id);
+        setRents(filtered);
       })
-      .catch(err => navigate('/error'))
-  }
+      .catch((err) => navigate("/error"));
+  };
 
-  const redirectToForm = (id) => {
-    navigate(`/rent/details/${id}`)
-  }
+  const redirectToFormRent = (id) => {
+    navigate(`/rent/details/${id}`);
+  };
+
+  const redirectToFormReview = (id) => {
+    navigate(`/rent/review/${id}`);
+  };
 
   const handleOnClick = (e) => {
-    let getId = e.target.id
+    let getId = e.target.id;
     let elementWithId;
 
-    if (getId) {
-      elementWithId = document.querySelector(`.class${getId}`)
-    }
+    getReviewRent(getId)
+    .then((res) => {
+      if (res.length > 0) {
+        setReviewed(true);
+      } else {
+        setReviewed(false);
+      }
 
-    if (elementWithId.className.includes('opened')) {
-      elementWithId.className = `class${getId} closed`
-    } else {
-      elementWithId.className = `class${getId} opened`
-    }
-  }
+      if (getId) {
+        elementWithId = document.querySelector(`.class${getId}`);
+      }
+
+      if (elementWithId.className.includes("opened")) {
+        elementWithId.className = `class${getId} closed`;
+      } else {
+        elementWithId.className = `class${getId} opened`;
+      }
+    });
+  };
 
   return (
     <div className="my-rents-container">
@@ -68,29 +82,107 @@ export default function MyRentsSection() {
             reserved={rent.reserved}
             rented={rent.rented}
           />
-          {rent.reserved && !rent.rented && <div className="tag-status yellow-tag">Reserved</div>}
+          {rent.reserved && !rent.rented && (
+            <div className="tag-status yellow-tag">Reserved</div>
+          )}
           {rent.rented && <div className="tag-status green-tag">Rented</div>}
-          {rent.owner === currentUser.id && rent.reserved && !rent.rented &&
-            (
-              <div className="menu-icon-div">
-                <img id={rent.id} className={`menu-icon-img`} src={menuIcon} alt='menu icon' onClick={handleOnClick} />
+
+          {rent.owner === currentUser.id && rent.reserved && !rent.rented && (
+            <div className="menu-icon-div">
+              <img
+                id={rent.id}
+                className={`menu-icon-img`}
+                src={menuIcon}
+                alt="menu icon"
+                onClick={handleOnClick}
+              />
+              
                 <div className={`class${rent.id} closed`}>
-                  <button className="menu-option" onClick={() => redirectToForm(rent.id)}>Fill rent info</button>
-                  <button className="menu-option" onClick={() => hanleCancelReservation(rent.id)}>Cancel reservation</button>
+                  <button
+                    className="menu-option"
+                    onClick={() => redirectToFormRent(rent.id)}
+                  >
+                    Fill rent info
+                  </button>
+                  <button
+                    className="menu-option"
+                    onClick={() => handleCancelReservation(rent.id)}
+                  >
+                    Cancel reservation
+                  </button>
                 </div>
-              </div>
-            )
-          }
-          {rent.rented &&
-            (
-              <div className="menu-icon-div">
-                <img id={rent.id} className={`menu-icon-img`} src={menuIcon} alt='menu icon' onClick={handleOnClick} />
+              
+            </div>
+          )}
+          {rent.owner === currentUser.id && rent.rented && (
+            <div className="menu-icon-div">
+              <img
+                id={rent.id}
+                className={`menu-icon-img`}
+                src={menuIcon}
+                alt="menu icon"
+                onClick={handleOnClick}
+              />
+              
                 <div className={`class${rent.id} closed`}>
-                  <button className="menu-option" onClick={() => redirectToForm(rent.id)}>See details</button>
+                  <button
+                    className="menu-option"
+                    onClick={() => redirectToFormRent(rent.id)}
+                  >
+                    See details
+                  </button>
                 </div>
-              </div>
-            )
-          }
+              
+            </div>
+          )}
+          {rent.owner !== currentUser.id && rent.rented && !reviewed && (
+            <div className="menu-icon-div">
+              <img
+                id={rent.id}
+                className={`menu-icon-img`}
+                src={menuIcon}
+                alt="menu icon"
+                onClick={handleOnClick}
+              />
+              
+                <div className={`class${rent.id} closed`}>
+                  <button
+                    className="menu-option"
+                    onClick={() => redirectToFormRent(rent.id)}
+                  >
+                    See details
+                  </button>
+                  <button
+                    className="menu-option"
+                    onClick={() => redirectToFormReview(rent.id)}
+                  >
+                    Write a review
+                  </button>
+                </div>
+              
+            </div>
+          )}
+          {rent.owner !== currentUser.id && rent.rented && reviewed && (
+            <div className="menu-icon-div">
+              <img
+                id={rent.id}
+                className={`menu-icon-img`}
+                src={menuIcon}
+                alt="menu icon"
+                onClick={handleOnClick}
+              />
+              
+                <div className={`class${rent.id} closed`}>
+                  <button
+                    className="menu-option"
+                    onClick={() => redirectToFormRent(rent.id)}
+                  >
+                    See details
+                  </button>
+                </div>
+              
+            </div>
+          )}
         </div>
       ))}
     </div>

@@ -24,6 +24,15 @@ export default function MyAreaScreen() {
     if (window.location.pathname === "/my-area/prequalification") {
       setSection("prequalification");
     }
+
+    if (window.location.pathname === "/my-area/messages") {
+      setSection("messages");
+    }
+
+    if (window.location.pathname === "/my-area/myRents") {
+      setSection("myRents");
+    }
+    
   }, [owner, prequalification]);
 
   return (
