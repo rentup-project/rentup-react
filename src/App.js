@@ -11,7 +11,7 @@ import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
 import MyRentDetailsScreen from "./screens/MyRentDetailsScreen/MyRentDetailsScreen";
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import NotificationsScreen from "./screens/NotificationsScreen/NotificationsScreen";
-import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
+import ReservePaymentScreen from "./screens/ReservePaymentScreen/ReservePaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
 
@@ -34,7 +34,7 @@ function App() {
         <Route path="/property/edit/:id" element={<EditPropertyScreen />} />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* PAYMENTS */}
-        <Route path="payment/reserve/:id" element={<PaymentScreen />} />
+        <Route path="/payment/reserve/:id" element={<ReservePaymentScreen />} />
         <Route path="/chekout" element={<CheckoutForm />} />
         {/* NOTIFICATIONS */}
         <Route path="/notifications" element={<NotificationsScreen />} />

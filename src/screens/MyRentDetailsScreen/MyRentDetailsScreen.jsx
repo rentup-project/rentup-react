@@ -9,7 +9,7 @@ import './MyRentDetailsScreen.css';
 export default function MyRentDetailsScreen() {
   const [property, setProperty] = useState({})
   const [rent, setRent] = useState({})
-  const [section, setSection] = useState('rent-details')
+  const [section, setSection] = useState('bills')
   const navigate = useNavigate()
   const { id } = useParams()
 
@@ -20,7 +20,7 @@ export default function MyRentDetailsScreen() {
   }, [id, navigate])
 
   useEffect(() => {
-    if (property.rented) {
+    if (property?.rented) {
       getOneRent(id)
       .then(res => setRent(res))
       .catch(err => navigate('/error'))
@@ -35,7 +35,9 @@ export default function MyRentDetailsScreen() {
   return (
     <div className='rent-details-screen'>
       {
-        rent !== {} &&
+        (Object.keys(rent).length === 0) ?
+          <RentForm propertyId={id} />
+      :
         <div className='rent-details-container'>
           <ul className="btns-sections-container">
             <li
@@ -81,24 +83,19 @@ export default function MyRentDetailsScreen() {
           </ul>
         </div>
       }
+      {
+      (Object.keys(rent).length > 0) && section === "rent-details" && 
+        <RentDetailsSection 
+        rent={rent}
+        property={property}
+        />
+      }
 
-        {rent !== {} && section === "rent-details" && 
-          <RentDetailsSection 
-          rent={rent}
-          property={property}
-          />
-        }
+      {(Object.keys(rent).length > 0) && section === "bills" && <BillsSection rent={rent} />}
 
-        {rent !== {} && section === "bills" && <BillsSection rent={rent} />}
+      {(Object.keys(rent).length > 0) && section === "requests" && <div>request</div>}
 
-        {rent !== {} && section === "requests" && <div>request</div>}
-
-        {rent !== {} && section === "reviews" && <div>reviews</div>}
-
-        {
-        rent === {} &&
-        <RentForm propertyId={id} />
-        }
+      {(Object.keys(rent).length > 0) && section === "reviews" && <div>reviews</div>}
     </div>
   )
 }
