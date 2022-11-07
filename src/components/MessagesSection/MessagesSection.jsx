@@ -1,6 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../contexts/AuthContext";
+import socket from "../../helpers/socketHelper";
 import { selectUser } from "../../services/Messages.services";
 import Message from "../Message/Message";
 import "./MessagesSection.css";
@@ -11,20 +12,24 @@ export default function MessagesSection({ ownerId }) {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const updateUserList = useCallback(() => {
+    selectUser(currentUser.id)
+      .then((res) => {
+        setList(res);
+      })
+      .catch((err) => {
+        navigate("/error");
+      });
+  }, [navigate, currentUser]);
+
   useEffect(() => {
     if (currentUser) {
       if (ownerId) {
         setReceiverId(ownerId);
       }
-      selectUser(currentUser.id)
-        .then((res) => {
-          setList(res);
-        })
-        .catch((err) => {
-          navigate("/error");
-        });
+      updateUserList();
     }
-  }, [currentUser, navigate, ownerId]);
+  }, [currentUser, ownerId, updateUserList]);
 
   const handleOnClick = (e) => {
     const { id } = e.target;

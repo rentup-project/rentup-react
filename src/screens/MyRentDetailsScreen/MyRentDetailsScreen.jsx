@@ -1,31 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import BillsSection from '../../components/BillsSection/BillsSection';
-import RentForm from '../../components/RentForm/RentForm';
-import RentDetailsSection from './../../components/RentDetailsSection/RentDetailsSection';
-import { getOneProperty, getOneRent } from './../../services/Properties.services';
-import './MyRentDetailsScreen.css';
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import BillsSection from "../../components/BillsSection/BillsSection";
+import RentForm from "../../components/RentForm/RentForm";
+import RentDetailsSection from "./../../components/RentDetailsSection/RentDetailsSection";
+import {
+  getOneProperty,
+  getOneRent,
+} from "./../../services/Properties.services";
+import "./MyRentDetailsScreen.css";
 
 export default function MyRentDetailsScreen() {
-  const [property, setProperty] = useState({})
-  const [rent, setRent] = useState({})
-  const [section, setSection] = useState('rent-details')
-  const navigate = useNavigate()
-  const { id } = useParams()
+  const [property, setProperty] = useState({});
+  const [rent, setRent] = useState({});
+  const [section, setSection] = useState("rent-details");
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     getOneProperty(id)
-    .then(res => setProperty(res))
-    .catch(err => navigate('/error'))
-  }, [id, navigate])
+      .then((res) => setProperty(res))
+      .catch((err) => navigate("/error"));
+  }, [id, navigate]);
 
   useEffect(() => {
-    if (property.rented) {
+    if (property?.rented) {
       getOneRent(id)
-      .then(res => setRent(res))
-      .catch(err => navigate('/error'))
+        .then((res) => setRent(res))
+        .catch((err) => navigate("/error"));
     }
-  }, [property, id, navigate])
+  }, [property, id, navigate]);
 
   const handleOnClick = (e) => {
     const { id } = e.target;
@@ -33,15 +36,18 @@ export default function MyRentDetailsScreen() {
   };
 
   return (
-    <div className='rent-details-screen'>
-      {
-        rent !== {} &&
-        <div className='rent-details-container'>
+    <div className="rent-details-screen">
+      {Object.keys(rent).length === 0 ? (
+        <RentForm propertyId={id} />
+      ) : (
+        <div className="rent-details-container">
           <ul className="btns-sections-container">
             <li
               onClick={handleOnClick}
               className={
-                section === "rent-details" ? "section-selected" : "section-unselected"
+                section === "rent-details"
+                  ? "section-selected"
+                  : "section-unselected"
               }
               id="rent-details"
             >
@@ -50,9 +56,7 @@ export default function MyRentDetailsScreen() {
             <li
               onClick={handleOnClick}
               className={
-                section === "bills"
-                  ? "section-selected"
-                  : "section-unselected"
+                section === "bills" ? "section-selected" : "section-unselected"
               }
               id="bills"
             >
@@ -72,7 +76,9 @@ export default function MyRentDetailsScreen() {
             <li
               onClick={handleOnClick}
               className={
-                section === "reviews" ? "section-selected" : "section-unselected"
+                section === "reviews"
+                  ? "section-selected"
+                  : "section-unselected"
               }
               id="reviews"
             >
@@ -80,25 +86,22 @@ export default function MyRentDetailsScreen() {
             </li>
           </ul>
         </div>
-      }
+      )}
+      {Object.keys(rent).length > 0 && section === "rent-details" && (
+        <RentDetailsSection rent={rent} property={property} />
+      )}
 
-        {rent !== {} && section === "rent-details" && 
-          <RentDetailsSection 
-          rent={rent}
-          property={property}
-          />
-        }
+      {Object.keys(rent).length > 0 && section === "bills" && (
+        <BillsSection rent={rent} />
+      )}
 
-        {rent !== {} && section === "bills" && <BillsSection rent={rent} />}
+      {Object.keys(rent).length > 0 && section === "requests" && (
+        <div>request</div>
+      )}
 
-        {rent !== {} && section === "requests" && <div>request</div>}
-
-        {rent !== {} && section === "reviews" && <div>reviews</div>}
-
-        {
-        rent === {} &&
-        <RentForm propertyId={id} />
-        }
+      {Object.keys(rent).length > 0 && section === "reviews" && (
+        <div>reviews</div>
+      )}
     </div>
-  )
+  );
 }

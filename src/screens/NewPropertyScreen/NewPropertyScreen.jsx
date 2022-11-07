@@ -20,8 +20,8 @@ export default function NewProperty() {
     <div className="new-property-container">
       <h3>Let's post your property!</h3>
       <FormProperty 
-      mongoErr={mongoErr} 
-      handleOnCreate={handleOnSubmit} />
+        mongoErr={mongoErr} 
+        handleOnCreate={handleOnSubmit} />
     </div>
   );
 }

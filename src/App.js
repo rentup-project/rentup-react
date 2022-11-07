@@ -14,6 +14,7 @@ import NotificationsScreen from "./screens/NotificationsScreen/NotificationsScre
 import PaymentScreen from "./screens/PaymentScreen/PaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
+import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
 
 function App() {
   return (
@@ -42,8 +43,11 @@ function App() {
         <Route path="/my-area" element={<MyAreaScreen />} />
         <Route path="/my-area/:owner" element={<MyAreaScreen />} />
         <Route path="/my-area/prequalification" element={<MyAreaScreen />} />
+        <Route path="/my-area/messages" element={<MyAreaScreen />} />
+        <Route path="/my-area/myRents" element={<MyAreaScreen />} />
         {/* RENT DETAILS*/}
         <Route path="/rent/details/:id" element={<MyRentDetailsScreen />} />
+        <Route path="/rent/review/:id" element={<ReviewScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

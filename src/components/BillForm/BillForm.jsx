@@ -1,26 +1,39 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import socket from "../../helpers/socketHelper";
+import { getUserWhoRents } from '../../services/MyArea.services';
 import { createBill } from './../../services/Bills.services';
 
 export default function BillForm({ rent }) {
-    const [mongoErr, setMongoErr] = useState({})
-    const [billsInfo, setBillsInfo] = useState([])
+    const [mongoErr, setMongoErr] = useState({});
+    const [billsInfo, setBillsInfo] = useState([]);
+    const [userWhoRentsEmail, setUserWhoRentsEmail] = useState('');
+    const navigate = useNavigate();
+    const { id } = useParams();
 
     useEffect(() => {
-        setBillsInfo(prev => ({...prev, rent }))
-    }, [])
+      setBillsInfo((prev) => ({ ...prev, rent }));
+
+      getUserWhoRents(id)
+        .then((res) => setUserWhoRentsEmail(res.email))
+        .catch((err) => navigate("/error"));
+
+    }, [id, navigate, rent]);
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
         const formData = new FormData()
 
         for (let info in billsInfo) {
-            formData.append(info, billsInfo[info])
-        
+            formData.append(info, billsInfo[info])        
         }
 
         createBill(formData)
-        .then((res) => window.location.reload())
+        .then((res) => {
+            console.log(userWhoRentsEmail);
+            socket.emit("notification", userWhoRentsEmail);       
+            window.location.reload()
+        })
         .catch(err => err?.response?.data && setMongoErr(err.response.data.errors))
      }
 
@@ -31,7 +44,6 @@ export default function BillForm({ rent }) {
         } else {
             setBillsInfo({...billsInfo, [name]: value})
         }
-        console.log(billsInfo)
     }
 
   return (
@@ -40,7 +52,7 @@ export default function BillForm({ rent }) {
             <label className="form-label my-3" htmlFor="type">
                 Choose a type
             </label>
-            <select id ="type" name ="type" value={billsInfo.type} className={`form-select ${mongoErr.amount ? "is-invalid" : ""}`} onChange={handleOnChange}>
+            <select id ="type" name ="type" value={billsInfo.type} className={`form-select ${mongoErr?.amount ? "is-invalid" : ""}`} onChange={handleOnChange}>
                 <option value="water">Water</option>
                 <option value="electricity">Electricity</option>
                 <option value="gas">Gas</option>
@@ -48,8 +60,8 @@ export default function BillForm({ rent }) {
                 <option value="monthly rent">Monthly rent</option>
                 <option value="other">Other</option>
             </select>
-            {mongoErr.type && (
-                <div className="invalid-feedback">{mongoErr.type}</div>
+            {mongoErr?.type && (
+                <div className="invalid-feedback">{mongoErr?.type}</div>
             )}
         </div>
 
@@ -57,11 +69,11 @@ export default function BillForm({ rent }) {
             <label className="form-label my-3" htmlFor="amount">
                 Amount
             </label>
-            <input className={`form-control ${mongoErr.amount ? "is-invalid" : ""}`}
+            <input className={`form-control ${mongoErr?.amount ? "is-invalid" : ""}`}
             type="number" id="amount" name="amount" onChange={handleOnChange}>
             </input>
-            {mongoErr.amount && (
-                <div className="invalid-feedback">{mongoErr.amount}</div>
+            {mongoErr?.amount && (
+                <div className="invalid-feedback">{mongoErr?.amount}</div>
             )}
         </div>
 
@@ -69,11 +81,11 @@ export default function BillForm({ rent }) {
             <label className="form-label my-3" htmlFor="dueDate">
                 Due date
             </label>
-            <input className={`form-control ${mongoErr.dueDate ? "is-invalid" : ""}`}
+            <input className={`form-control ${mongoErr?.dueDate ? "is-invalid" : ""}`}
             type="date" id="dueDate" name="dueDate" onChange={handleOnChange}>
             </input>
-            {mongoErr.dueDate && (
-                <div className="invalid-feedback">{mongoErr.dueDate}</div>
+            {mongoErr?.dueDate && (
+                <div className="invalid-feedback">{mongoErr?.dueDate}</div>
             )}
         </div>
 
@@ -81,12 +93,12 @@ export default function BillForm({ rent }) {
             <label className="form-label my-3" htmlFor="paymentStatus">
                 What is the status of the payment
             </label>
-            <select id="paymentStatus" name="paymentStatus" value={billsInfo.paymentStatus} className={`form-select ${mongoErr.paymentStatus ? "is-invalid" : ""}`} onChange={handleOnChange}>
+            <select id="paymentStatus" name="paymentStatus" value={billsInfo.paymentStatus} className={`form-select ${mongoErr?.paymentStatus ? "is-invalid" : ""}`} onChange={handleOnChange}>
                 <option value="paid">Already paid</option>
                 <option value="pending payment">Pending payment</option>
             </select>
-            {mongoErr.paymentStatus && (
-                <div className="invalid-feedback">{mongoErr.paymentStatus}</div>
+            {mongoErr?.paymentStatus && (
+                <div className="invalid-feedback">{mongoErr?.paymentStatus}</div>
             )}
         </div>
 
