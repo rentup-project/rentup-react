@@ -16,6 +16,7 @@ export default function MyRentDetailsScreen() {
   const navigate = useNavigate();
   const { id } = useParams();
 
+
   useEffect(() => {
     getOneProperty(id)
       .then((res) => setProperty(res))

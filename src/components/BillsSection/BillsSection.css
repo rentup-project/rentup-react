@@ -2,34 +2,88 @@
     padding: 2rem 0;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-around;
+    align-items: center;
     width: 80vw;
     min-height: 65vh;
 }
 
-.bills-container {
-    width: 50%;
+.bills-form-container {
+    padding-bottom: 3rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgb(239, 239, 239);
+}
+
+.bills-form-container button {
+    width: 80vw;
+    background-color: #ffd166;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+}
+
+.bills-form-container button:hover {
+    background-color: #ffc337;
+}
+
+.working {
+    background-color: #222222;
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+}
+
+.working:hover {
+    background-color: #333333;
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+}
+
+.disabled {
+    cursor: default;
+    background-color: rgb(239, 239, 239);
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
 }
 
 .each-bill {
-    padding: 2rem;
+    margin: 1rem 0;
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80vw;
+    padding: 1rem;
     border: 1px solid rgb(239, 239, 239);
-    gap: 2rem;
-    position: relative;
-    border-radius: 2rem;
+    border-radius: 1rem;
 }
 
-.each-bill iframe {
-    height: 17rem;
-    width: 12rem;
+.each-bill p, .each-bill h5 {
+    margin: 0;
+    padding: 0;
 }
+
+.each-bill-info {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.each-bill-info div{
+    display: flex;
+    gap: 1rem;
+}
+
 
 .status {
+    width: 10rem;
     font-weight: 500;
-    padding: 0.5rem;
-    position: absolute;
+    padding: 0.3rem;
     bottom: 5%;
     right: 5%;
     border-radius: 0.5rem;
@@ -47,4 +101,8 @@
 .red {
     background-color: rgba(251, 100, 100, 0.358);
     color: rgb(255, 0, 0);
+}
+
+.actions-div img {
+    cursor: pointer;
 }

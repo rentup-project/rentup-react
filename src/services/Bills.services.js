@@ -8,3 +8,12 @@ export const createBill = (body) =>
 
 export const getAllBills = (id) => 
     authHttp.get(`/bills/${id}`);
+
+export const deleteBill = (id) => 
+    authHttp.delete(`/bills/delete/${id}`);
+
+export const deleteManyBills = (arr) => 
+    authHttp.delete(`/bills/delete`, {data: arr});
+
+export const updateBills = (arr) => 
+    authHttp.post(`/bills/update`, {arr});

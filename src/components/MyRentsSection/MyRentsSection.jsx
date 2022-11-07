@@ -18,14 +18,13 @@ export default function MyRentsSection() {
     if (currentUser) {
       getOwnerRents(currentUser.id)
         .then((res) => {
-          console.log(res)
-          setRents(res);
+          setRents(res)
         })
         .catch((err) => navigate("/error"));
     }
-  }, [currentUser, navigate]);
+  }, [currentUser, navigate])
 
-  const handleCancelReservation = (id) => {
+  const hanleCancelReservation = (id) => {
     cancelReservation(id)
       .then((res) => {
         const filtered = rents.filter((prop) => prop.id !== id);

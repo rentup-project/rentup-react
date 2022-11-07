@@ -24,13 +24,20 @@ export default function BillForm({ rent }) {
         e.preventDefault()
         const formData = new FormData()
 
+        if (!billsInfo.type) {
+            billsInfo.type = 'water'
+        }
+
+        if (!billsInfo.paymentStatus) {
+            billsInfo.paymentStatus = 'pending payment'
+        }
+
         for (let info in billsInfo) {
             formData.append(info, billsInfo[info])        
         }
 
         createBill(formData)
         .then((res) => {
-            console.log(userWhoRentsEmail);
             socket.emit("notification", userWhoRentsEmail);       
             window.location.reload()
         })
@@ -40,9 +47,9 @@ export default function BillForm({ rent }) {
     const handleOnChange = (e) => {
         const { name, value, type, files } = e.target
         if (type === 'file') {
-            setBillsInfo({...billsInfo, [name]: files[0]})
+            setBillsInfo({ ...billsInfo, [name]: files[0] })
         } else {
-            setBillsInfo({...billsInfo, [name]: value})
+            setBillsInfo({ ...billsInfo, [name]: value })
         }
     }
 
@@ -102,24 +109,24 @@ export default function BillForm({ rent }) {
             )}
         </div>
 
-        <div>
-            <label className="form-label my-3" htmlFor="file">
-                Upload the bill
-            </label>
-            <input
-            type="file"
-            name="file"
-            id="file"
-            onChange={handleOnChange}
-            className={`form-control ${mongoErr?.file ? "is-invalid" : ""}`}
-            multiple
-            ></input>
-            {mongoErr?.file && (
-            <div className="invalid-feedback"> {mongoErr?.file}</div>
-            )}
-        </div>
+            <div>
+                <label className="form-label my-3" htmlFor="file">
+                    Upload the bill
+                </label>
+                <input
+                    type="file"
+                    name="file"
+                    id="file"
+                    onChange={handleOnChange}
+                    className={`form-control ${mongoErr?.file ? "is-invalid" : ""}`}
+                    multiple
+                ></input>
+                {mongoErr?.file && (
+                    <div className="invalid-feedback"> {mongoErr?.file}</div>
+                )}
+            </div>
 
-        <button type="submit">Upload new bill</button>
-    </form>
-  )
+            <button type="submit">Upload new bill</button>
+        </form>
+    )
 }
