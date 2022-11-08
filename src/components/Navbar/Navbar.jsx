@@ -1,19 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import BtnNavbar from "../../assets/images/BtnNavbar.png";
 import BtnNavbarNot from "../../assets/images/BtnNavbarNot.png";
 import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
 import logoWhite from "../../assets/images/logo-white.png";
 import logoYellow from "../../assets/images/logo-yellow.png";
-import NotificationIcon from "../../assets/images/notification.png";
 import NotificationIconRing from "../../assets/images/notification-yellow.png";
+import NotificationIcon from "../../assets/images/notification.png";
 import AuthContext from "../../contexts/AuthContext";
+import socket from '../../helpers/socketHelper';
 import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './Navbar.css';
-import socket from '../../helpers/socketHelper';
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);

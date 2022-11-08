@@ -18,3 +18,6 @@ export const updateFav = (body) =>
 export const getNotifications = (user) => 
     authHttp
     .get(`/account/notifications/${user}`);
+
+export const deleteOneFav = (property, user) => 
+    authHttp.delete(`/account/fav/delete/${property}/${user}`)
