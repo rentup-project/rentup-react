@@ -24,7 +24,7 @@ export default function MyRentsSection() {
     }
   }, [currentUser, navigate])
 
-  const hanleCancelReservation = (id) => {
+  const handleCancelReservation = (id) => {
     cancelReservation(id)
       .then((res) => {
         const filtered = rents.filter((prop) => prop.id !== id);
