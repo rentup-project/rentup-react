@@ -6,10 +6,13 @@ import MyProperties from "../../components/MyProperties/MyProperties";
 import MyRentsSection from "../../components/MyRentsSection/MyRentsSection";
 import PrequalificationSection from "../../components/PrequalificationSection/PrequalificationSection";
 import "./MyAreaScreen.css";
+import AuthContext from './../../contexts/AuthContext';
+import { useContext } from "react";
 
 export default function MyAreaScreen() {
   const [section, setSection] = useState("account");
   const { owner, prequalification } = useParams();
+  const { currentUser } = useContext(AuthContext);
 
   const handleOnClick = (e) => {
     const { id } = e.target;
@@ -59,6 +62,7 @@ export default function MyAreaScreen() {
           >
             Prequalification
           </li>
+          { owner === currentUser.id && 
           <li
             onClick={handleOnClick}
             className={
@@ -70,6 +74,7 @@ export default function MyAreaScreen() {
           >
             My Properties
           </li>
+          }
           <li
             onClick={handleOnClick}
             className={

@@ -55,10 +55,6 @@ export default function PrequalificationSection() {
           Annual Salary:
           <span>{prequalification.annualSalary}</span>
         </div>
-        <div>
-          Guarantee:
-          <span>{prequalification.hasGuarantee}</span>
-        </div>
       </div>
       <button onClick={handleOnClick}>Edit</button>
     </div>

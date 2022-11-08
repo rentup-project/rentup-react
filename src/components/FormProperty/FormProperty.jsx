@@ -169,6 +169,28 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
       </div>
 
       <div>
+        <label htmlFor="tenantsQuantity" className="form-label">
+          Maximum Tenants Quantity
+        </label>
+        <input
+          value={propertyData.tenantsQuantity}
+          type="number"
+          min={15000}
+          name="tenantsQuantity"
+          id="tenantsQuantity"
+          onChange={handleOnChange}
+          className={`form-control ${
+            mongoErr?.tenantsQuantity ? "is-invalid" : ""
+          }`}
+        ></input>
+        {mongoErr?.tenantsQuantity && (
+          <div id="validationServer04Feedback" className="invalid-feedback">
+            {mongoErr?.tenantsQuantity}
+          </div>
+        )}
+      </div>
+
+      <div>
         <label htmlFor="propertyType" className="form-label">
           Type of property
         </label>
@@ -838,33 +860,6 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
             {mongoErr?.reservationPrice}
           </div>
         )}
-      </div>
-
-      <div>
-        <label htmlFor="requireGuarantee" className="form-label">
-          Guarantee
-        </label>
-        <select
-          value={propertyData.requireGuarantee}
-          name="requireGuarantee"
-          id="requireGuarantee"
-          onChange={handleOnChange}
-          className="form-select"
-          aria-describedby="validationServer04Feedback"
-        >
-          <option className="option-filter" name="selected" defaultValue>
-            Select
-          </option>
-          <option className="option-filter" name="None" defaultValue>
-            None
-          </option>
-          <option className="option-filter" name="1 month">
-            1 month
-          </option>
-          <option className="option-filter" name="2 months">
-            2 months
-          </option>
-        </select>
       </div>
 
       <button>{handleOnCreate ? "CREATE" : "EDIT"}</button>
