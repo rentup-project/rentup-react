@@ -28,7 +28,7 @@ export default function Message({ receiverId }) {
         })
         .catch((err) => console.log("2", err));
     }
-  }, [navigate, currentUser, receiverId]);
+  }, [currentUser, receiverId]);
 
   socket.on("msg", function () {
     updateMessages();

@@ -42,6 +42,8 @@ export default function PropertyDetailScreen() {
   const [openShare, setOpenShare] = useState(false);
   const [FavImg, setFavImg] = useState(UnFavIcon);
   const [reviews, setReviews] = useState([]);
+  const [countReviews, setCountReviews] = useState('');
+  const [sumReviews, setSumReviews] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -65,12 +67,16 @@ export default function PropertyDetailScreen() {
 
     getReviews(id)
       .then((reviews) => {
-        setReviews(reviews);
-
-        
+        setReviews(reviews); 
+        setCountReviews(reviews.length);              
+        setSumReviews(
+          reviews.reduce((acc, curr) => {
+            return (acc += curr.score);
+          }, 0)
+        );        
       })
       .catch((err) => navigate("/error"));
-  }, [id, checkAvailability, navigate]);
+  }, [id, checkAvailability, navigate, countReviews]);
 
   if (currentUser && property) {
     const userSend = currentUser.id;
@@ -154,20 +160,22 @@ export default function PropertyDetailScreen() {
             </span>
           </div>
           <div className="stars-container">
-            <div
-              className="review-img"
-              style={{
-                backgroundImage: `url(${StarBlack})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></div>
-            <span>
-              {reviews && <span></span>}
-              <span>•</span>
-              <a href="#opinions">5 reviews</a>
-            </span>
+            {reviews && (
+              <span>
+                <div
+                  className="review-img"
+                  style={{
+                    backgroundImage: `url(${StarBlack})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
+                <span>{sumReviews / countReviews}</span>
+                <span>•</span>
+                <a href="#opinions">{countReviews} reviews</a>
+              </span>
+            )}
           </div>
         </div>
         <div className="actions-container">
@@ -373,7 +381,7 @@ export default function PropertyDetailScreen() {
           </div>
         )}
         {reviews?.map((review) => (
-          <div className="opinions-container">
+          <div key={review.id} className="opinions-container">
             <div className="Star-wraper">
               {Array(review.score)
                 .fill("")
@@ -382,6 +390,10 @@ export default function PropertyDetailScreen() {
                 ))}
             </div>
             <div>{review.comment}</div>
+            <small>
+              {review.user.name}
+              <Moment format="MMM - YY" date={review.createdAt} />
+            </small>
           </div>
         ))}
       </section>

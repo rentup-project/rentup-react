@@ -164,39 +164,6 @@ export default function PrequalificationsForm({
           )}
         </div>
 
-        <div>
-          <label htmlFor="hasGuarantee" className="form-label">
-            Guarantee
-          </label>
-          <select
-            name="hasGuarantee"
-            id="hasGuarantee"
-            onChange={handleOnChange}
-            className={`form-select ${
-              mongoErr?.hasGuarantee ? "is-invalid" : ""
-            }`}
-            aria-describedby="validationServer04Feedback"
-            value={prequalification?.hasGuarantee}
-          >
-            <option className="option-filter" name="selected" defaultValue>
-              Select
-            </option>
-            <option className="option-filter" name="None">
-              None
-            </option>
-            <option className="option-filter" name="1 month">
-              1 month
-            </option>
-            <option className="option-filter" name="2 months">
-              2 months
-            </option>
-          </select>
-          {mongoErr?.hasGuarantee && (
-            <div id="validationServer04Feedback" className="invalid-feedback">
-              {mongoErr?.hasGuarantee}
-            </div>
-          )}
-        </div>
         <button>{action === "create" ? "SUBMIT" : "EDIT"}</button>
       </form>
     </div>
