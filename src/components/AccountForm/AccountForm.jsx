@@ -2,11 +2,19 @@ import React, { useContext, useState } from 'react';
 import AuthContext from '../../contexts/AuthContext';
 import { editUserData } from '../../services/MyArea.services';
 import './AccountForm.css';
+import { useEffect } from 'react';
 
 export default function AccountForm() {
   const [mongoErr, setMongoErr] = useState("");
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState({});
   const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (currentUser){
+      setUserData({ name: currentUser.name, phoneNumber: currentUser.phoneNumber })
+    }
+
+  }, [currentUser])
 
   const handleOnChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -32,7 +40,8 @@ export default function AccountForm() {
         window.location.reload()
       })
       .catch(
-        (err) => err?.response?.data && setMongoErr(err.response.data.errors)
+        (err) => {
+          err?.response?.data.message && setMongoErr(err.response.data.message)}
       );
   };
 
@@ -46,14 +55,16 @@ export default function AccountForm() {
             </label>
             <input
               type="text"
-              defaultValue={currentUser?.name}
+              defaultValue={userData.name}
               name="name"
               id="name"
               onChange={handleOnChange}
-              className={`form-control ${mongoErr?.name ? "is-invalid" : ""}`}
+              className={`form-control ${
+                mongoErr === "Name is required." ? "is-invalid" : ""
+              }`}
             ></input>
-            {mongoErr?.name && (
-              <div className="invalid-feedback">{mongoErr?.name}</div>
+            {mongoErr === "Name is required." && (
+              <div className="invalid-feedback">{mongoErr}</div>
             )}
           </div>
 
@@ -66,28 +77,8 @@ export default function AccountForm() {
               name="image"
               id="image"
               onChange={handleOnChange}
-              className={`form-control ${mongoErr?.image ? "is-invalid" : ""}`}
+              className="form-control"
             ></input>
-            {mongoErr?.image && (
-              <div className="invalid-feedback">{mongoErr?.image}</div>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              defaultValue={currentUser?.email}
-              name="email"
-              id="email"
-              onChange={handleOnChange}
-              className={`form-control ${mongoErr?.email ? "is-invalid" : ""}`}
-            ></input>
-            {mongoErr?.email && (
-              <div className="invalid-feedback">{mongoErr?.email}</div>
-            )}
           </div>
 
           <div>
@@ -96,17 +87,12 @@ export default function AccountForm() {
             </label>
             <input
               type="text"
-              defaultValue={currentUser?.phoneNumber}
+              defaultValue={userData.phoneNumber}
               name="phoneNumber"
               id="phoneNumber"
               onChange={handleOnChange}
-              className={`form-control ${
-                mongoErr?.phoneNumber ? "is-invalid" : ""
-              }`}
+              className="form-control"
             ></input>
-            {mongoErr?.phoneNumber && (
-              <div className="invalid-feedback">{mongoErr?.phoneNumber}</div>
-            )}
           </div>
           <button>EDIT</button>
         </form>

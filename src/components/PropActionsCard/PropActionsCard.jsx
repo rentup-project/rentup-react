@@ -74,7 +74,7 @@ export default function PropActionsCard( { property } ) {
             <span>Check the minimum requirements:</span>
             <ul>
               <li>Job duration: {requiredJobDuration}</li>
-              <li>Annual salary: {requiredAnnualSalary}</li>
+              <li>Annual salary: {requiredAnnualSalary} €</li>
               <li>Maximum tenants quantity: {tenantsQuantity}</li>
               {!petAllowed && <li>Pets doesn't allowed</li>}
             </ul>

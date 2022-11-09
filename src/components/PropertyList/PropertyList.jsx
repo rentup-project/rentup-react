@@ -23,43 +23,40 @@ export default function PropertyList(
     }, [checkAvailability]);
 
     return (
-      <div className='property-list' id={`${lat},${long}`}>
+      <div className="property-list" id={`${lat},${long}`}>
         <Carrousel imagesArr={images} />
-        <Link
-        to={`/property/${id}`}
-        className="property-link"
-        >
+        <Link to={`/property/${id}`} target="_blank" className="property-link">
           <div className="content-div">
-              <h4>{address.split(",")[0]}</h4>
-              <span>{squaredMeters} m2</span>
-              <span>•</span>
+            <h4>{address.split(",")[0]}</h4>
+            <span>{squaredMeters} m2</span>
+            <span>•</span>
+            <span>
+              {bedroom}
+              {bedroom === "1" ? " bedroom" : " bedrooms"}
+            </span>
+            <span>•</span>
+            <span>
+              {bathroom}
+              {bathroom === "1" ? " bathroom" : " bathrooms"}
+            </span>
+            <p>{price}€</p>
+            <div className="availability-container">
+              <div
+                className="calendar-img"
+                style={{
+                  backgroundImage: `url(${CalendarIcon})`,
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></div>
               <span>
-                {bedroom}
-                {bedroom === "1" ? " bedroom" : " bedrooms"}
+                {available}
+                <Moment format="MMM D" date={availability} />
               </span>
-              <span>•</span>
-              <span>
-                {bathroom}
-                {bathroom === "1" ? " bathroom" : " bathrooms"}
-              </span>
-              <p>{price}€</p>
-              <div className="availability-container">
-                <div
-                  className="calendar-img"
-                  style={{
-                    backgroundImage: `url(${CalendarIcon})`,
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}
-                ></div>
-                <span>
-                  {available}
-                  <Moment format="MMM D" date={availability} />
-                </span>
-              </div>
             </div>
-          </Link>
+          </div>
+        </Link>
       </div>
     );
 }
