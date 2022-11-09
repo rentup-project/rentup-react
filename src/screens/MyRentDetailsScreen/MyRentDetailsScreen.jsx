@@ -12,7 +12,7 @@ import "./MyRentDetailsScreen.css";
 export default function MyRentDetailsScreen() {
   const [property, setProperty] = useState({});
   const [rent, setRent] = useState({});
-  const [section, setSection] = useState("rent-details");
+  const [section, setSection] = useState("bills");
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -42,18 +42,7 @@ export default function MyRentDetailsScreen() {
         <RentForm propertyId={id} />
       ) : (
         <div className="rent-details-container">
-          <ul className="btns-sections-container">
-            <li
-              onClick={handleOnClick}
-              className={
-                section === "rent-details"
-                  ? "section-selected"
-                  : "section-unselected"
-              }
-              id="rent-details"
-            >
-              Rent Details
-            </li>
+          <ul className="btns-rent-sections-container">
             <li
               onClick={handleOnClick}
               className={
@@ -66,24 +55,13 @@ export default function MyRentDetailsScreen() {
             <li
               onClick={handleOnClick}
               className={
-                section === "requests"
+                section === "rent-details"
                   ? "section-selected"
                   : "section-unselected"
               }
-              id="requests"
+              id="rent-details"
             >
-              Requests
-            </li>
-            <li
-              onClick={handleOnClick}
-              className={
-                section === "reviews"
-                  ? "section-selected"
-                  : "section-unselected"
-              }
-              id="reviews"
-            >
-              Reviews
+              Rent Details
             </li>
           </ul>
         </div>
@@ -94,14 +72,6 @@ export default function MyRentDetailsScreen() {
 
       {Object.keys(rent).length > 0 && section === "bills" && (
         <BillsSection rent={rent} />
-      )}
-
-      {Object.keys(rent).length > 0 && section === "requests" && (
-        <div>request</div>
-      )}
-
-      {Object.keys(rent).length > 0 && section === "reviews" && (
-        <div>reviews</div>
       )}
     </div>
   );

@@ -13,7 +13,10 @@ export default function NewProperty() {
         .then((prop) => {
           navigate(`/property/${prop.id}`);
         })
-        .catch((err) => err?.response?.data && setMongoErr(err.response.data.errors));
+        .catch((err) => {
+          window.scrollTo(0, 0);
+          err?.response?.data && setMongoErr(err.response.data.errors)
+        });
   };
   
   return (

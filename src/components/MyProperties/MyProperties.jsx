@@ -56,7 +56,7 @@ export default function MyProperties() {
               <div className="delete-edit-icons-wrapper">
                 <div
                   onClick={() => handleOnEdit(prop.id)}
-                  className="calendar-img"
+                  className="edit-img"
                   style={{
                     backgroundImage: `url(${EditIcon})`,
                     backgroundRepeat: "no-repeat",
@@ -66,7 +66,7 @@ export default function MyProperties() {
                 ></div>
                 <div
                   onClick={() => handleOnDelete(prop.id)}
-                  className="calendar-img"
+                  className="trash-img"
                   style={{
                     backgroundImage: `url(${TrashIcon})`,
                     backgroundRepeat: "no-repeat",

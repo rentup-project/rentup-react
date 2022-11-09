@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AccountSection from "../../components/AccountSection/AccountSection";
 import MessagesSection from "../../components/MessagesSection/MessagesSection";
 import MyProperties from "../../components/MyProperties/MyProperties";
 import MyRentsSection from "../../components/MyRentsSection/MyRentsSection";
 import PrequalificationSection from "../../components/PrequalificationSection/PrequalificationSection";
 import "./MyAreaScreen.css";
+import AuthContext from './../../contexts/AuthContext';
+import { useContext } from "react";
+import { getOwnerProperties } from './../../services/Properties.services';
 
 export default function MyAreaScreen() {
   const [section, setSection] = useState("account");
-  const { owner, prequalification } = useParams();
+  const [hasProps, setHasProps] = useState([]);
+  const { owner } = useParams();
+  const { currentUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleOnClick = (e) => {
     const { id } = e.target;
@@ -32,8 +38,14 @@ export default function MyAreaScreen() {
     if (window.location.pathname === "/my-area/myRents") {
       setSection("myRents");
     }
+
+    if (currentUser) {
+      getOwnerProperties(currentUser.id)
+        .then((res) => setHasProps(res))
+        .catch((err) => navigate("/error"));
+    }
     
-  }, [owner, prequalification]);
+  }, [owner, currentUser, navigate]);
 
   return (
     <div className="my-area-container">
@@ -59,17 +71,19 @@ export default function MyAreaScreen() {
           >
             Prequalification
           </li>
-          <li
-            onClick={handleOnClick}
-            className={
-              section === "myProperties"
-                ? "section-selected"
-                : "section-unselected"
-            }
-            id="myProperties"
-          >
-            My Properties
-          </li>
+          {hasProps.length !== 0 && (
+            <li
+              onClick={handleOnClick}
+              className={
+                section === "myProperties"
+                  ? "section-selected"
+                  : "section-unselected"
+              }
+              id="myProperties"
+            >
+              My Properties
+            </li>
+          )}
           <li
             onClick={handleOnClick}
             className={

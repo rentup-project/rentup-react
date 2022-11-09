@@ -109,7 +109,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
       formData.append("images", image);
     }
 
-    if (handleOnCreate) {
+    if (handleOnCreate) {      
       handleOnCreate(formData);
     } else {
       handleOnEdit(formData);
@@ -1045,7 +1045,6 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
           </div>
         )}
       </div>
-
       <button>{handleOnCreate ? "CREATE" : "EDIT"}</button>
     </form>
   );

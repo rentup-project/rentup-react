@@ -11,6 +11,7 @@ import "./MyRentsSection.css";
 export default function MyRentsSection() {
   const [rents, setRents] = useState(null);
   const [reviewed, setReviewed] = useState("");
+  const [idProp, setIdProp] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -24,6 +25,20 @@ export default function MyRentsSection() {
     }
   }, [currentUser, navigate])
 
+  useEffect(() => {
+    if(idProp) {
+      getReviewRent(idProp)
+        .then((res) => {
+          if (res.length > 0) {
+            setReviewed(true);
+          } else {
+            setReviewed(false);
+          }
+        })
+        .catch((err) => navigate("/error"));
+    }    
+  }, [idProp, navigate])
+  
   const handleCancelReservation = (id) => {
     cancelReservation(id)
       .then((res) => {
@@ -44,25 +59,20 @@ export default function MyRentsSection() {
   const handleOnClick = (e) => {
     let getId = e.target.id;
     let elementWithId;
+  
+    if (getId) {
+      elementWithId = document.querySelector(`.class${getId}`);
+      setIdProp(getId);
+    }
 
-    getReviewRent(getId)
-    .then((res) => {
-      if (res.length > 0) {
-        setReviewed(true);
-      } else {
-        setReviewed(false);
-      }
-
-      if (getId) {
-        elementWithId = document.querySelector(`.class${getId}`);
-      }
-
+    if(idProp) {
       if (elementWithId.className.includes("opened")) {
         elementWithId.className = `class${getId} closed`;
       } else {
         elementWithId.className = `class${getId} opened`;
       }
-    });
+    }
+
   };
 
   return (

@@ -47,7 +47,6 @@ export default function PaymentScreen() {
   const handleSuccessfulPayment = (boolean) => {
     if (boolean) {
       setSuccessfulMessage(true)
-      console.log('owner email', property.owner.email)
       socket.emit("notification", property.owner.email);
     } else {
       setSuccessfulMessage(false)
