@@ -40,3 +40,6 @@ export const getOneRent = (id) =>
 
 export const getReviews = (id) => 
   http.get(`/property/reviews/${id}`);
+
+export const getOwnerProperty = (id) => 
+  http.get(`/property/owner/${id}`);

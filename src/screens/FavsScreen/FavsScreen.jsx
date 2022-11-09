@@ -12,17 +12,17 @@ export default function FavsScreen() {
     const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        if (currentUser) {
-            const userSend = currentUser.id;
+      window.scrollTo(0, 0);
+      if (currentUser) {
+        const userSend = currentUser.id;
 
-            getAllFavs(userSend)
-            .then((favsArr) => {
-                setFavs(favsArr);
-            })
-            .catch((err) => navigate("/error"));
-        }
-    }, [currentUser, navigate])
+        getAllFavs(userSend)
+          .then((favsArr) => {
+            setFavs(favsArr);
+          })
+          .catch((err) => navigate("/error"));
+      }
+    }, [currentUser, navigate]);
 
     const handleOnDelete = (id) => {
       deleteOneFav(id, currentUser.id)
@@ -38,7 +38,7 @@ export default function FavsScreen() {
       <div className="favs-container">
         <h3>Your favourites properties:</h3>
         <div className="favs-wrapper">
-          {favs.length &&
+          {favs.length !== 0 &&
             favs.map((fav) => (
               <div className="fav-wrapper" key={fav.id}>
                 <PropertyCard

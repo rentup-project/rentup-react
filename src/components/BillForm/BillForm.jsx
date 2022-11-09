@@ -15,10 +15,11 @@ export default function BillForm({ rent }) {
       setBillsInfo((prev) => ({ ...prev, rent }));
 
       getUserWhoRents(id)
-        .then((res) => setUserWhoRentsEmail(res.email))
-        .catch((err) => navigate("/error"));
+        .then((res) => setUserWhoRentsEmail(res.userWhoRents.email))
+        .catch((err) => navigate("/error"))
 
     }, [id, navigate, rent]);
+
 
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -38,6 +39,7 @@ export default function BillForm({ rent }) {
 
         createBill(formData)
         .then((res) => {
+            console.log(userWhoRentsEmail)
             socket.emit("notification", userWhoRentsEmail);       
             window.location.reload()
         })

@@ -24,7 +24,7 @@ export default function NotificationsScreen() {
                 notification.message = 'One of your properties has been reserved.'
             } else if (notification.type === "billUploaded") {
                 notification.path = "/my-area/myRents";
-                notification.message = "You have a new bill to pay.";
+                notification.message = "You have a new bill to check.";
             } else if (notification.type === "billPaid") {
                 notification.path = "/my-area/myRents";
                 notification.message = "You received a new payment.";

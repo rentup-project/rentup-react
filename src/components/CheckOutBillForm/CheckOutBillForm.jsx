@@ -1,15 +1,19 @@
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { updateBills } from './../../services/Bills.services';
+import socket from "../../helpers/socketHelper";
+import { getOneRent, getOwnerProperty } from './../../services/Properties.services';
 
 export default function CheckOutBillForm({ bills }) {
   const stripe = useStripe();
   const elements = useElements();
+  const [propOwner, setPropOwner] = useState('');
   const [message, setMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [ids, setIds] = useState([])
-  const navigate = useNavigate()
+  const [ids, setIds] = useState([]);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     const idsToSend = []
@@ -17,10 +21,14 @@ export default function CheckOutBillForm({ bills }) {
         bills.forEach((bill) => {
             return idsToSend.push(bill.id)
         })
-
         setIds(idsToSend)
+
+    getOwnerProperty(id)
+      .then((owner) => setPropOwner(owner))
+      .catch((err) => navigate("/error"));
     }
-}, [bills]);
+}, [bills, id, navigate]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,9 +50,12 @@ export default function CheckOutBillForm({ bills }) {
     if (paymentIntent) {
       switch (paymentIntent.status) {
         case "succeeded":
-          updateBills(ids)
-          .then((res)=> setMessage("Payment successful."))
-          .catch(err => navigate('/error'))
+          updateBills(ids, propOwner.id)
+            .then((res) => {
+              setMessage("Payment successful.");
+              socket.emit("notification", propOwner.email);
+            })
+            .catch((err) => navigate("/error"));
           break;
         case "processing":
           setMessage("Your payment is processing.");
@@ -58,7 +69,8 @@ export default function CheckOutBillForm({ bills }) {
       }
     }
 
-    if (error.type === "card_error" || error.type === "validation_error") {
+
+    if (error?.type === "card_error" || error?.type === "validation_error") {
       setMessage(error.message);
     } else {
       setMessage("An unexpected error occurred.");
