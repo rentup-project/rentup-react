@@ -15,6 +15,7 @@ import ReservePaymentScreen from "./screens/ReservePaymentScreen/ReservePaymentS
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
 import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
+import SelectVisitScreen from './screens/SelectVisitScreen/SelectVisitScreen';
 
 function App() {
   return (
@@ -48,6 +49,8 @@ function App() {
         {/* RENT DETAILS*/}
         <Route path="/rent/details/:id" element={<MyRentDetailsScreen />} />
         <Route path="/rent/review/:id" element={<ReviewScreen />} />
+        {/* VISITS */}
+        <Route path="/visits/select/:id" element={<SelectVisitScreen />} />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

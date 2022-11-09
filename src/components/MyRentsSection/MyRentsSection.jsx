@@ -38,7 +38,7 @@ export default function MyRentsSection() {
         .catch((err) => navigate("/error"));
     }    
   }, [idProp, navigate])
-
+  
   const handleCancelReservation = (id) => {
     cancelReservation(id)
       .then((res) => {

@@ -12,6 +12,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [features, setFeatures] = useState([]);
+  const [weeklyAvailability, setWeeklyAvailability] = useState([]);
   const [images, setImages] = useState([]);
   const [propertyData, setPropertyData] = useState({});
   const navigate = useNavigate();
@@ -52,7 +53,25 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
     const { name, value, type, files } = e.target;
 
     if (type === "checkbox") {
-      setFeatures([...features, value]);
+      if(
+        e.target.name === 'Monday' || e.target.name === 'Tuesday' || e.target.name === 'Wednesday' || 
+        e.target.name === 'Thursday' || e.target.name === 'Friday' || e.target.name === 'Saturday' || 
+        e.target.name === 'Sunday'
+      ) {
+        if(weeklyAvailability.includes(e.target.name)) {
+          const filtered = weeklyAvailability.filter((day) => day !== e.target.name)
+          setWeeklyAvailability(filtered);
+        } else {
+          setWeeklyAvailability([...weeklyAvailability, value]);
+        }
+      } else {
+        if(features.includes(e.target.name)) {
+          const filtered = features.filter((feature) => feature !== e.target.name)
+          setFeatures(filtered);
+        } else {
+          setFeatures([...features, value]);
+        }
+      }
     } else if (type === "file") {
       setImages(files);
     } else {
@@ -76,6 +95,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
       ...propertyData,
       address,
       features,
+      weeklyAvailability,
       owner: currentUser.id,
       lat: latitude,
       long: longitude,
@@ -862,6 +882,169 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
         )}
       </div>
 
+      <div>
+  <label className="form-label">Choose the days you are available to show your property</label>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Monday"
+              name="Monday"
+              value="Monday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Monday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Monday" className="form-check-label">
+              Monday
+            </label>
+          </div>
+        </div>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Tuesday"
+              name="Tuesday"
+              value="Tuesday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Tuesday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Tuesday" className="form-check-label">
+              Tuesday
+            </label>
+          </div>
+        </div>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Wednesday"
+              name="Wednesday"
+              value="Wednesday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Wednesday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Wednesday" className="form-check-label">
+              Wednesday
+            </label>
+          </div>
+        </div>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Thursday"
+              name="Thursday"
+              value="Thursday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Thursday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Thursday" className="form-check-label">
+              Thursday
+            </label>
+          </div>
+        </div>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Friday"
+              name="Friday"
+              value="Friday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Friday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Friday" className="form-check-label">
+              Friday
+            </label>
+          </div>
+        </div>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Saturday"
+              name="Saturday"
+              value="Saturday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Saturday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Saturday" className="form-check-label">
+              Saturday
+            </label>
+          </div>
+        </div>
+        <div className="commodities-container">
+          <div className="checkbox-wrapper form-check">
+            <input
+              type="checkbox"
+              className="form-check-input"
+              id="Sunday"
+              name="Sunday"
+              value="Sunday"
+              onChange={handleOnChange}
+              {...(propertyData?.weeklyAvailability?.includes("Sunday") && {
+                checked: true,
+              })}
+            />
+            <label htmlFor="Sunday" className="form-check-label">
+              Sunday
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="hourAvailability" className="form-label">
+          What is your time frame availability on the days chosen above?
+        </label>
+        <select
+          value={propertyData.hourAvailability}
+          name="hourAvailability"
+          id="hourAvailability"
+          onChange={handleOnChange}
+          className={`form-select ${
+            mongoErr?.hourAvailability ? "is-invalid" : ""
+          }`}
+          aria-describedby="validationServer04Feedback"
+        >
+          <option className="option-filter" name="selected" defaultValue>
+            Select
+          </option>
+          <option className="option-filter" name="Morning - from 9AM to 12PM" defaultValue>
+            Morning - from 9AM to 12PM
+          </option>
+          <option className="option-filter" name="Afternoon - from 2PM to 6PM" defaultValue>
+            Afternoon - from 2PM to 6PM
+          </option>
+          <option className="option-filter" name="Evening - from 6PM to 9PM" defaultValue>
+            Evening - from 6PM to 9PM
+          </option>
+        </select>
+        {mongoErr?.hourAvailability && (
+          <div id="validationServer04Feedback" className="invalid-feedback">
+            {mongoErr?.hourAvailability}
+          </div>
+        )}
+      </div>
       <button>{handleOnCreate ? "CREATE" : "EDIT"}</button>
     </form>
   );
