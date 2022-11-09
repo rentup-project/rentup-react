@@ -10,14 +10,14 @@ export default function EditPropertyScreen() {
     const navigate = useNavigate();
 
     const handleOnSubmit = (data) => {    
-        updateProperty(id, data)
-          .then((prop) => {
-            navigate(`/property/${prop.id}`);
-          })
-          .catch(
-            (err) =>
-              err?.response?.data && setMongoErr(err.response.data.errors)
-          );
+      updateProperty(id, data)
+        .then((prop) => {
+          navigate(`/property/${prop.id}`);
+        })
+        .catch((err) => {
+            window.scrollTo(0, 0);
+            err?.response?.data && setMongoErr(err.response.data.errors)
+        });
     };
 
     return (

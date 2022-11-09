@@ -28,21 +28,43 @@
 .actions-btn-yellow {
     background-color: #ffd166;
     border: none;
+    color: white;
     padding: 0.5rem;
+    font-weight: 500;
 }
 
 .actions-btn-blue {
     background-color: #118AB2;
+    color: white;
     border: none;
     padding: 0.5rem;
+    font-weight: 500;
+}
+
+#minimum-requirements-wrapper {
+    color: #222222; 
+}
+
+.prop-actions-container-wrapper a {
+    color: white;
+}
+
+.prop-actions-container-wrapper a:hover {
+    color: white;
 }
 
 .prop-actions-container a {
     text-align: center;
-    color: black;
+    color: none;
     text-decoration: none;
 }
 
-.prop-actions-container a:hover {
-    color: white;
+.disabled {
+    cursor: default;
+    background-color: rgb(239, 239, 239);
+    color: grey;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
 }

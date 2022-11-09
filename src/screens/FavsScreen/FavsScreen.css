@@ -1,7 +1,26 @@
 .favs-container {
-    padding-top: 9vh;
+    padding: 9vh 10rem;
 }
 
 .favs-container h3 {
     padding: 2rem 2rem;
+}
+
+.favs-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; 
+}
+
+.fav-wrapper {
+    position: relative;
+    width: fit-content;    
+}
+.trash-img {
+    position: absolute;
+    bottom: 3%;
+    right: 10%;
+    width: 1.8rem;
+    height: 1.8rem;
+    cursor: pointer;
 }
