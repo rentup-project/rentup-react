@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { AddressAutofill, config } from "@mapbox/search-js-react";
-import "./HomeScreen.css";
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HomeCard from "../../components/HomeCard/HomeCard";
 import cards from "../../data/homecards.json";
+import "./HomeScreen.css";
 /* IMAGES */
 import SearchLogo from "../../assets/images/SearchIcon.png";
-import ImgMockup from "../../assets/images/HouseMockup.jpg";
-import StarYellow from '../../assets/images/Star_yellow.png'
+import StarYellow from '../../assets/images/Star_yellow.png';
+import { getLastProperties } from './../../services/Properties.services';
 
 export default function HomeScreen() {
+  const [lastProperties, setLastProperties] = useState([])
   const [search, setSearch] = useState('')
   const navigate = useNavigate();
   const [token, setToken] = useState("");
@@ -20,6 +21,11 @@ export default function HomeScreen() {
       "pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q";
     setToken(accessToken);
     config.accessToken = accessToken;
+  }, []);
+
+  useEffect(() => {
+    getLastProperties()
+    .then((props) => setLastProperties(props))
   }, []);
 
   const handleChange = (e) => {
@@ -67,39 +73,29 @@ export default function HomeScreen() {
           </AddressAutofill>
         </form>
       </div>
-
-      <section className="last-properties">
-        <h2>Last properties posted</h2>
-        <div className="properties-container">
-          <div className="property-container">
-            <img src={ImgMockup} alt="img-mockup"></img>
-            <h4>Lorem ipsum</h4>
-            <h5>$500</h5>
-            <div className="property-detail">
-              <small>Calle XXX, City</small>
-              <small>XXm2 • XX Habitaciones • XX Baños</small>
-            </div>
+      
+      {
+        lastProperties.length !== 0 &&
+        <section className="last-properties">
+          <h2>Last properties posted</h2>
+          <div className="home-properties-container">
+            {
+              lastProperties.map(prop => (
+                <div className="home-property-container">
+                  <img src={prop.images[0]} alt="property" width="340px"/>
+                  <div>
+                    <h4>{prop.address}</h4>
+                    <h5>{prop.monthlyRent}€</h5>
+                    <div className="home-property-detail">
+                      <small>{prop.squaredMeters}m2 • {prop.bedroom} bedroom • {prop.bathroom} Baños</small>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
           </div>
-          <div className="property-container">
-            <img src={ImgMockup} alt="img-mockup"></img>
-            <h4>Lorem ipsum</h4>
-            <h5>$500</h5>
-            <div className="property-detail">
-              <small>Calle XXX, City</small>
-              <small>XXm2 • XX Habitaciones • XX Baños</small>
-            </div>
-          </div>
-          <div className="property-container">
-            <img src={ImgMockup} alt="img-mockup"></img>
-            <h4>Lorem ipsum</h4>
-            <h5>$500</h5>
-            <div className="property-detail">
-              <small>Calle XXX, City</small>
-              <small>XXm2 • XX Habitaciones • XX Baños</small>
-            </div>
-          </div>
-        </div>
-      </section>
+        </section>
+      }
 
       <section className="rentup-advantages">
         <h1>EASY</h1>
@@ -107,11 +103,11 @@ export default function HomeScreen() {
           <span>
             SEARCH
             <br />
-            VISITS
+            VISIT
             <br />
-            CONTRACTS
+            CONTRACT
             <br />
-            PAYMENTS
+            PAYMENT
             <br />
           </span>
         </div>

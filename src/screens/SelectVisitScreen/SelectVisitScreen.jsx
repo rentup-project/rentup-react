@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchVisits } from './../../services/Visits.services';
+import AuthContext from './../../contexts/AuthContext';
+import { fetchAvailableVisits, reserveVisit } from './../../services/Visits.services';
 import './SelectVisitScreen.css';
 
 export default function SelectVisitScreen() {
@@ -13,55 +14,80 @@ export default function SelectVisitScreen() {
     const [saturdayHours, setSaturdayHours] = useState([])
     const [sundayHours, setSundayHours] = useState([])
     const [visitId, setVisitId] = useState(null)
+    const [errMessage, setErrMessage] = useState(null)
     const { id } = useParams()
     const navigate = useNavigate()
+    const { currentUser } = useContext(AuthContext)
 
     useEffect(() => {
-        fetchVisits(id)
+        fetchAvailableVisits(id)
         .then(res => setVisits(res))
         .catch(err => navigate('/err'))
     }, [id, navigate])
 
-    useEffect(() => {
+    const setDays = useCallback(() => {
         if (visits.length > 0) {
-            visits.map(visit => {
+            const sorted = visits.sort((a, b) =>  a.hour - b.hour)
+            sorted.map(visit => {
                 if (visit.day === 'Monday') {
-                    setMondayHours(prev => [...prev, visit])
+                    return setMondayHours(prev => [...prev, visit])
                 } else if (visit.day === 'Tuesday') {
-                    setTuesdayHours(prev => [...prev, visit])
+                    return setTuesdayHours(prev => [...prev, visit])
                 } else if (visit.day === 'Wednesday') {
-                    setWednesdayHours(prev => [...prev, visit])
+                    return setWednesdayHours(prev => [...prev, visit])
                 }else if (visit.day === 'Thursday') {
-                    setThursdayHours(prev => [...prev, visit])
+                    return setThursdayHours(prev => [...prev, visit])
                 }else if (visit.day === 'Friday') {
-                    setFridayHours(prev => [...prev, visit])
+                    return setFridayHours(prev => [...prev, visit])
                 }else if (visit.day === 'Saturday') {
-                    setSaturdayHours(prev => [...prev, visit])
+                    return setSaturdayHours(prev => [...prev, visit])
                 } else {
-                    setSundayHours(prev => [...prev, visit])
+                    return setSundayHours(prev => [...prev, visit])
                 }
             })
         }
     }, [visits])
 
+    useEffect(() => {
+        setDays()
+    }, [setDays])
+
     const handleOnClick = (e) => {
         setVisitId(e.target.id)
     }
 
+    const handleReturn = () => {
+        navigate(`/property/${id}`)
+    }
+
     const handleOnSubmit = () => {
-        //HACER LA PETICIÓN CON EL ID DE LA VISIT Y CURRENT USER
+        if (currentUser) {
+            reserveVisit(visitId, currentUser.id, id)
+            .then(res => {
+                if (res.message) {
+                    setErrMessage(res.message)
+                } else {
+                    navigate('/my-area/visits')
+                }
+            })
+            .catch(err => navigate('/err'))
+        }
     }
 
   return (
-    <>
-        <div className='select-visit-screen'>
+    <div className='select-visit-screen'>
+        {
+            errMessage && <h5>{errMessage}</h5>
+        }
+        <div className='select-visit-screen-container'>
             {
                 visits.length > 0 && mondayHours.length > 0 && 
                 (<div className="hours-wrapper">
                     <h4>Monday</h4>
                     {
                         mondayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -74,7 +100,8 @@ export default function SelectVisitScreen() {
                     <h4>Tuesday</h4>
                     {
                         tuesdayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -87,7 +114,8 @@ export default function SelectVisitScreen() {
                     <h4>Wednesday</h4>
                     {
                         wednesdayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -100,7 +128,8 @@ export default function SelectVisitScreen() {
                     <h4>Thursday</h4>
                     {
                         thursdayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -113,7 +142,8 @@ export default function SelectVisitScreen() {
                     <h4>Friday</h4>
                     {
                         fridayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -126,7 +156,8 @@ export default function SelectVisitScreen() {
                     <h4>Saturday</h4>
                     {
                         saturdayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -139,7 +170,8 @@ export default function SelectVisitScreen() {
                     <h4>Friday</h4>
                     {
                         sundayHours.map(visit => (
-                            <div className={ visit.reserved ? `disabled` : `hour`} id={visit.id} key={`${visit.id}`} onClick={handleOnClick}>
+                            <div className={visitId === visit.id ? 'selected' : (visit.reserved ? `disabled` : `hour`)} 
+                            id={visit.id} key={`${visit.id}`} onClick={!visit.reserved ? handleOnClick : undefined}>
                                 {visit.hour}
                             </div>
                         ))
@@ -147,7 +179,10 @@ export default function SelectVisitScreen() {
                 </div>)
             }
         </div>
-        <button handleOnClick={handleOnSubmit} className={visitId ? `submit-btn` : 'disabled'}>Schedule visit</button>
-    </>
+        <div>
+            <button onClick={handleReturn} className={`submit-btn`}>Return</button>
+            <button onClick={handleOnSubmit} className={visitId ? `submit-btn` : 'disabled'}>Schedule visit</button>
+        </div>
+    </div>
   )
 }

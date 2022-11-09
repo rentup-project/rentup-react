@@ -9,6 +9,7 @@ import "./MyAreaScreen.css";
 import AuthContext from './../../contexts/AuthContext';
 import { useContext } from "react";
 import { getOwnerProperties } from './../../services/Properties.services';
+import VisitsSection from "../../components/VisitsSection/VisitsSection";
 
 export default function MyAreaScreen() {
   const [section, setSection] = useState("account");
@@ -37,6 +38,10 @@ export default function MyAreaScreen() {
 
     if (window.location.pathname === "/my-area/myRents") {
       setSection("myRents");
+    }
+
+    if (window.location.pathname === "/my-area/visits") {
+      setSection("visits");
     }
 
     if (currentUser) {
@@ -123,6 +128,8 @@ export default function MyAreaScreen() {
       {section === "myRents" && <MyRentsSection />}
 
       {section === "messages" && <MessagesSection ownerId={owner} />}
+
+      {section === "visits" && <VisitsSection />}
     </div>
   );
 }

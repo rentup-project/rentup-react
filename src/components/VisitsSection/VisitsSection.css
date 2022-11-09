@@ -1,0 +1,40 @@
+.visits-section {
+    margin: 0 auto;
+    width: 80vw;
+}
+
+.visits-section h4{
+    text-align: center;
+    margin: 2rem;
+}
+
+.each-visit-container {
+    position: relative;
+    width: 20rem;
+    height: 20rem;
+}
+
+.visit-hour-tag {
+    position: absolute;
+    bottom: 5%;
+    left: 9%;
+    background-color: rgba(30, 128, 30, 0.281);
+    padding: 0.2rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: rgb(42, 114, 42);
+}
+
+.visit-trash-icon {
+    cursor: pointer;
+    position: absolute;
+    bottom: 5%;
+    right: 9%;
+    background-color: rgba(255, 6, 6, 0.304);
+    padding: 0.2rem 0.8rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: rgb(150, 0, 0);
+}
