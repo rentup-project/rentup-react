@@ -63,7 +63,7 @@ export default function Register({ handleChangeLogin }) {
   }
 
   const handleOnClick = () => {
-    window.location.assign("http://localhost:3001/api/login/google");
+    window.location.assign("http://tame-gold-hedgehog-tux.cyclic.app/api/login/google");
   }
 
   return (
