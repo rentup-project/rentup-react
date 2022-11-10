@@ -7,3 +7,9 @@
 .actions-btn-blue {
     background-color: #118AB2;
 }
+
+@media (max-width: 992px) {
+    .map-property-detail {
+        width: 100%;
+    }
+}

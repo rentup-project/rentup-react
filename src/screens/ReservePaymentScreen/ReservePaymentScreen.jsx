@@ -57,42 +57,67 @@ export default function PaymentScreen() {
     <>
       {clientSecret && price && (
         <div className="paymentScreen">
+          {successfulMessage ? (
+            <Link to="/my-area">
+              <h2>
+                RESERVATION SUCCESSFUL! CLICK <span>HERE</span> TO GO TO YOUR
+                PERSONAL AREA
+              </h2>
+            </Link>
+          ) : (
+            <h2>
+              You are about to reserve the the place you will call home!
+              <br></br>
+              <br></br>
+              Please, verify carefully the following information:
+            </h2>
+          )}
           <div className="details-container">
-            {
-              successfulMessage ?
-                <Link to='/my-area'>
-                  <h2>RESERVATION SUCCESSFUL! CLICK <span>HERE</span> TO GO TO YOUR PERSONAL AREA</h2>
-                </Link>
-                :
-                <h2>You are about to reserve the the place you will call home!<br></br> Please verify carefully the following information.</h2>
-            }
             <div className="property-details-container">
-              <Carrousel imagesArr={property.images} width={300} height={250} />
+              <Carrousel
+                imagesArr={property.images}
+              />
               <div>
-                <p>Address: {property.address}</p>
-                <p>Bedroom: {property.bedroom}</p>
-                <p>Bathroom: {property.bathroom}</p>
-                <p>Area: {property.squaredMeters} m<sup>2</sup></p>
-                <h4>Monthly rent: {property.monthlyRent} €/month</h4>
+                <p>{property.address}</p>
+                <p>
+                  Monthly rent: <b>{property.monthlyRent} €</b>
+                </p>
+                <p>
+                  Bedroom: <b>{property.bedroom}</b>
+                </p>
+                <p>
+                  Bathroom: <b>{property.bathroom}</b>
+                </p>
+                <p>
+                  Squared Meters:{" "}
+                  <b>
+                    {property.squaredMeters} m<sup>2</sup>
+                  </b>
+                </p>
               </div>
             </div>
-            {
-              !successfulMessage &&
+            {!successfulMessage && (
               <>
-                <h2>If you agree with the above, please proceed with the payment to finish the reservation of the property.</h2>
                 <div className="payment-details-container">
                   <h6>RESERVATION PRICE: {price}€</h6>
-                  <p>*The amount paid now will be discounted from the first monthly rent. <br />
-                    *If the reservation is not accepted by the owner, the amount paid will be returned to you.</p>
+                  <p>
+                    *The amount paid now will be discounted from the first
+                    monthly rent. <br />
+                    *If the reservation is not accepted by the owner, the amount
+                    paid will be returned to you.
+                  </p>
                   <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm id={property.id} handleSuccessfulPayment={handleSuccessfulPayment} />
+                    <CheckoutForm
+                      id={property.id}
+                      handleSuccessfulPayment={handleSuccessfulPayment}
+                    />
                   </Elements>
                 </div>
               </>
-            }
+            )}
           </div>
         </div>
       )}
     </>
-  )
+  );
 }

@@ -242,7 +242,9 @@ export default function PropertyDetailScreen() {
           </h3>
         </div>
         <div className="property-info-container">
-          <span>{property.squaredMeters} m2</span>
+          <span>
+            {property.squaredMeters} m <sup>2</sup>
+          </span>
           <span>•</span>
           <span>
             {property.bedroom}
@@ -380,22 +382,23 @@ export default function PropertyDetailScreen() {
             <p>No reviews yet!</p>
           </div>
         )}
-        {reviews.length !== 0 && reviews.map((review) => (
-          <div key={review.id} className="opinions-container">
-            <div className="Star-wraper">
-              {Array(review.score)
-                .fill("")
-                .map(() => (
-                  <img src={StarYellow} alt="star-logo" />
-                ))}
+        {reviews.length !== 0 &&
+          reviews.map((review) => (
+            <div key={review.id} className="opinions-container">
+              <div className="Star-wraper">
+                {Array(review.score)
+                  .fill("")
+                  .map(() => (
+                    <img src={StarYellow} alt="star-logo" />
+                  ))}
+              </div>
+              <div>{review.comment}</div>
+              <small>
+                {review.user.name}
+                <Moment format="MMM - YY" date={review.createdAt} />
+              </small>
             </div>
-            <div>{review.comment}</div>
-            <small>
-              {review.user.name}
-              <Moment format="MMM - YY" date={review.createdAt} />
-            </small>
-          </div>
-        ))}
+          ))}
       </section>
       <hr></hr>
 
