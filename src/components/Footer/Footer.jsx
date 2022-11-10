@@ -14,10 +14,7 @@ export default function Footer() {
         <h3>Developers</h3>
         <div className="contact-info-wrapper">
           <div className="social-icons">
-            <Link
-              to="https://www.linkedin.com/in/marina-laporte-boni-/"
-              target="_blank"
-            >
+            <a href="https://www.linkedin.com/in/marina-laporte-boni-/" target="_blank">
               <div
                 className="footer-img"
                 style={{
@@ -27,16 +24,13 @@ export default function Footer() {
                   backgroundPosition: "center",
                 }}
               ></div>
-            </Link>
+            </a>
           </div>
           <span className="name-developer">Marina Laporte Böni</span>
         </div>
         <div className="contact-info-wrapper">
           <div className="social-icons">
-            <Link
-              to="https://www.linkedin.com/in/marina-blason-graviz/"
-              target="_blank"
-            >
+            <a href="https://www.linkedin.com/in/marina-blason-graviz/" target="_blank">
               <div
                 className="footer-img"
                 style={{
@@ -46,7 +40,7 @@ export default function Footer() {
                   backgroundPosition: "center",
                 }}
               ></div>
-            </Link>
+            </a>
           </div>
           <span className="name-developer">Marina Blasón Graviz</span>
         </div>
