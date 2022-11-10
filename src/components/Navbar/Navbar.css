@@ -47,7 +47,7 @@
     background-color: white;
     position: fixed;
     z-index: 10;
-    width: 35vw;
+    width: 25vw;
     min-height: 100vh;
     right: 0;
     box-shadow: -1000px 0px 200px 1000px rgb(0 0 0 / 30%);
@@ -61,19 +61,26 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-right: 45%;
 }
 
 .Navbar-auth {
     display: flex;
     flex-direction: column;
-    gap: 1rem;    
+    gap: 2rem;    
     margin-top: 2rem;
+
 }
 
 .Navbar-auth a {
     color: black;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 14rem;
+} 
+
+.Navbar-auth a span {
+    margin-top: 0.4rem;
 } 
 
 @media (max-width: 992px) {

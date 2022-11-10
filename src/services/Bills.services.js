@@ -15,5 +15,5 @@ export const deleteBill = (id) =>
 export const deleteManyBills = (arr) => 
     authHttp.delete(`/bills/delete`, {data: arr});
 
-export const updateBills = (arr) => 
-    authHttp.post(`/bills/update`, {arr});
+export const updateBills = (arr, owner) => 
+    authHttp.post(`/bills/update`, {arr, owner});

@@ -13,18 +13,17 @@ export default function FavsScreen() {
     const { currentUser } = useContext(AuthContext);
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        if (currentUser) {
-            const userSend = currentUser.id;
+      window.scrollTo(0, 0);
+      if (currentUser) {
+        const userSend = currentUser.id;
 
-            getAllFavs(userSend)
-            .then((favsArr) => {
-              console.log(favsArr)
-                setFavs(favsArr);
-            })
-            .catch((err) => navigate("/error"));
-        }
-    }, [currentUser, navigate])
+        getAllFavs(userSend)
+          .then((favsArr) => {
+            setFavs(favsArr);
+          })
+          .catch((err) => navigate("/error"));
+      }
+    }, [currentUser, navigate]);
 
     const handleOnDelete = (id) => {
       deleteOneFav(id, currentUser.id)

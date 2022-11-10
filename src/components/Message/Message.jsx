@@ -31,6 +31,7 @@ export default function Message({ receiverId }) {
   }, [currentUser, receiverId]);
 
   socket.on("msg", function () {
+    console.log('entra msg front')
     updateMessages();
   });
 
@@ -56,7 +57,7 @@ export default function Message({ receiverId }) {
       .then((res) => {
         updateMessages();
         setMessageToSend("");
-        socket.emit("notification", receiver.email);
+        //socket.emit("notification", receiver.email);
         socket.emit("message", receiver.email);
       })
       .catch((err) => navigate("/error"));

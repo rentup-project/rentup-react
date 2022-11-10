@@ -8,6 +8,7 @@ import "./HomeScreen.css";
 import SearchLogo from "../../assets/images/SearchIcon.png";
 import StarYellow from '../../assets/images/Star_yellow.png';
 import { getLastProperties } from './../../services/Properties.services';
+import Footer from "../../components/Footer/Footer";
 
 export default function HomeScreen() {
   const [lastProperties, setLastProperties] = useState([])
@@ -72,8 +73,7 @@ export default function HomeScreen() {
             />
           </AddressAutofill>
         </form>
-      </div>
-      
+      </div>      
       {
         lastProperties.length > 0 &&
         <section className="last-properties">
@@ -99,7 +99,7 @@ export default function HomeScreen() {
             }
           </div>
         </section>
-      }
+      )}
 
       <section className="rentup-advantages">
         <h1>EASY</h1>
@@ -201,6 +201,10 @@ export default function HomeScreen() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section id="footer">
+        <Footer />
       </section>
     </div>
   );

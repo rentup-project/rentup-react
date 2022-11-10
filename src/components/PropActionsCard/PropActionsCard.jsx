@@ -60,9 +60,9 @@ export default function PropActionsCard( { property } ) {
           <div>
             Please, complete the prequalifications form so you can get more
             information about this property.
-            <button className="actions-btn-blue">
+            <Link to={"/my-area/prequalification"} className="actions-btn-blue">
               Complete prequalifications
-            </button>
+            </Link>
           </div>
         )}
         {prequalification && !meetMinimumRequirements && (
@@ -81,17 +81,26 @@ export default function PropActionsCard( { property } ) {
           </div>
         )}
         <Link
-          to={`/visits/select/${id}`}
+          to={prequalification && meetMinimumRequirements
+              ? `/visits/select/${id}` : "#"}
           className={
-            meetMinimumRequirements ? "actions-btn-yellow" : "disabled"
+            prequalification && meetMinimumRequirements
+              ? "actions-btn-yellow"
+              : "disabled"
           }
         >
           Visit
         </Link>
         <Link
-          to={meetMinimumRequirements ? `/payment/reserve/${id}` : "#"}
+          to={
+            prequalification && meetMinimumRequirements
+              ? `/payment/reserve/${id}`
+              : "#"
+          }
           className={
-            meetMinimumRequirements ? "actions-btn-yellow" : "disabled"
+            prequalification && meetMinimumRequirements
+              ? "actions-btn-yellow"
+              : "disabled"
           }
         >
           Reserve this property
