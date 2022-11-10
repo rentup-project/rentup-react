@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import arrowIcon from "../../assets/images/arrow.png";
 import googleIcon from "../../assets/images/google-icon.png";
 import AuthContext from "../../contexts/AuthContext";
-import LoginSchema from "../../schemas/LoginSchema";
+import { LoginSchema } from "../../schemas/LoginSchema";
 import { login as userLogin } from "../../services/Auth.services";
 import Input from "../Input/Input";
 import "./Login.css";
