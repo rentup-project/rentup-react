@@ -1,9 +1,9 @@
 .messages-section-container {
-    height: 100%;
-    margin: 1rem 10rem;
     display: flex;
-    justify-content: space-between;
-    border: 1px solid rgb(239, 239, 239);
+    justify-content: center;
+    height: 75vh;
+    width: 80vw;
+    margin: 1rem auto;
 }
 
 .list-of-messages-container {
