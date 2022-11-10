@@ -17,7 +17,7 @@ import {
 import CloseBtnNav from "../../assets/images/CloseBtnNavbar.png";
 
 export default function Share({ property, handleClick }) {
-    const ShareURL = `http://localhost:3000/property/${property.id}`;
+    const ShareURL = `${process.env.CLIENT_URL}/property/${property.id}`;
 
     return (
       <div className="Share-container">

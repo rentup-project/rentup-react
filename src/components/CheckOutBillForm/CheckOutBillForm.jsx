@@ -42,7 +42,7 @@ export default function CheckOutBillForm({ bills }) {
     const { paymentIntent, error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `http://localhost:3000/error`,
+        return_url: `${process.env.CLIENT_URL}/error`,
       },
       redirect: "if_required"
     });

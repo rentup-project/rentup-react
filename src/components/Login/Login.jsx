@@ -62,7 +62,7 @@ export default function Login({ handleChangeRegister, message }) {
   }
 
   const handleOnClick = () => {
-    window.location.assign("http://tame-gold-hedgehog-tux.cyclic.app/api/login/google");
+    window.location.assign(`${process.env.SERVER_URL}/login/google`);
   };
 
   return (
