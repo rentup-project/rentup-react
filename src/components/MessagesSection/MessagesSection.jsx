@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ghostImage from '../../assets/images/ghost-image.png';
 import AuthContext from "../../contexts/AuthContext";
-import socket from "../../helpers/socketHelper";
 import { selectUser } from "../../services/Messages.services";
 import Message from "../Message/Message";
 import "./MessagesSection.css";
@@ -38,25 +38,33 @@ export default function MessagesSection({ ownerId }) {
 
   return (
     <div className="messages-section-container">
-      <div className="list-of-messages-container">
-        {listOfMessages.map((person) => (
-          <div
-            onClick={handleOnClick}
-            id={person.id}
-            key={person.id}
-            className="person-list-container"
-          >
-            <p>{person.name}</p>
+      {
+        listOfMessages.length > 0 && !receiverId ? 
+        <>
+          <div className="list-of-messages-container">
+            {listOfMessages.map((person) => (
+              <div
+                onClick={handleOnClick}
+                id={person.id}
+                key={person.id}
+                className="person-list-container"
+              >
+                <p>{person.name}</p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      <div className="messages-container">
-        {listOfMessages.length || ownerId ? (
-          <Message receiverId={receiverId} />
-        ) : (
-          <h4>You have no messages</h4>
-        )}
-      </div>
+          <div className="messages-container">
+            {listOfMessages.length || ownerId &&
+              <Message receiverId={receiverId} />
+            }
+          </div>
+        </>
+        :
+        <div className='no-content-div'>
+          <h4>You have no messages yet. Go talk to someone!</h4>
+          <img src={ghostImage} alt="ghost" />
+        </div>
+      }
     </div>
   );
 }

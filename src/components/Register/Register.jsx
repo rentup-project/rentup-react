@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import RegisterSchema from "../../schemas/RegisterSchema";
+import { RegisterSchema } from "../../schemas/RegisterSchema";
 import { register } from "../../services/Auth.services";
 import Input from "../Input/Input";
 import './Register.css';

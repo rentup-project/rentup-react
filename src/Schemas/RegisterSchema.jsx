@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 import ERRORS from "../constants/FormErrors";
 
-const RegisterSchema = Yup.object().shape({
+export const RegisterSchema = Yup.object().shape({
   name: Yup.string()
     .required(ERRORS.ERROR_REQUIRED),
   email: Yup.string()
@@ -11,5 +11,3 @@ const RegisterSchema = Yup.object().shape({
     .min(8, ERRORS.ERROR_PASSWORD_LENGTH)
     .required(ERRORS.ERROR_REQUIRED),
 });
-
-export default RegisterSchema;
