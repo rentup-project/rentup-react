@@ -143,7 +143,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="filter-form" onSubmit={handleSubmit}>
       <div className="filter-title">
         <h2>Filter</h2>
         <img src={CloseBtnFilter} alt="close" onClick={closeFilter} />
@@ -152,53 +152,65 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         <div className="min-max-filter">
           <h4>Monthly Rent</h4>
           <div>
-            <p>FROM</p>
-            <input
-              onChange={handleOnChange}
-              type="number"
-              name="minPrice"
-              placeholder="Min price"
-              min="0"
-              value={formData.minPrice && formData.minPrice}
-            />
-            <p>TO</p>
-            <input
-              onChange={handleOnChange}
-              type="number"
-              name="maxPrice"
-              placeholder="Max price"
-              min="0"
-              value={formData.maxPrice && formData.maxPrice}
-            />
+            <div>
+              <label className="form-label">FROM</label>
+              <input
+                className="form-control"
+                onChange={handleOnChange}
+                type="number"
+                name="minPrice"
+                placeholder="Min price"
+                min="0"
+                value={formData.minPrice && formData.minPrice}
+              />
+            </div>
+            <div>
+              <label className="form-label">TO</label>
+              <input
+                className="form-control"
+                onChange={handleOnChange}
+                type="number"
+                name="maxPrice"
+                placeholder="Max price"
+                min="0"
+                value={formData.maxPrice && formData.maxPrice}
+              />
+            </div>
           </div>
         </div>
         <div className="min-max-filter">
           <h4>Squared Meters</h4>
           <div>
-            <p>FROM</p>
-            <input
-              onChange={handleOnChange}
-              type="number"
-              name="minMeters"
-              placeholder="Min size"
-              min="0"
-              value={formData.minMeters && formData.minMeters}
-            />
-            <p>TO</p>
-            <input
-              onChange={handleOnChange}
-              type="number"
-              name="maxMeters"
-              placeholder="Max size"
-              min="0"
-              value={formData.maxMeters && formData.maxMeters}
-            />
+            <div>
+              <label className="form-label">FROM</label>
+              <input
+                className="form-control"
+                onChange={handleOnChange}
+                type="number"
+                name="minMeters"
+                placeholder="Min size"
+                min="0"
+                value={formData.minMeters && formData.minMeters}
+              />
+            </div>
+            <div>
+              <label className="form-label">TO</label>
+              <input
+                className="form-control"
+                onChange={handleOnChange}
+                type="number"
+                name="maxMeters"
+                placeholder="Max size"
+                min="0"
+                value={formData.maxMeters && formData.maxMeters}
+              />
+            </div>
           </div>
         </div>
         <div className="select-filter">
-          <h4>Bedrooms</h4>
+          <label className="form-label">Bedrooms</label>
           <div>
-            <select onChange={handleOnChange} name="bedrooms" id="bedrooms" value={bedroomSelect}>
+            <select className="form-select" onChange={handleOnChange} name="bedrooms" id="bedrooms" value={bedroomSelect}>
               <option className="option-filter" name="selected">
                 Select
               </option>
@@ -221,9 +233,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Bathrooms</h4>
+          <label className="form-label">Bathrooms</label>
           <div>
-            <select onChange={handleOnChange} name="bathrooms" id="bathrooms" value={bathroomSelect}>
+            <select className="form-select" onChange={handleOnChange} name="bathrooms" id="bathrooms" value={bathroomSelect}>
               <option className="option-filter" name="selected">
                 Select
               </option>
@@ -243,9 +255,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Furniture</h4>
+          <label className="form-label">Furniture</label>
           <div>
-            <select onChange={handleOnChange} name="furnitures" id="furnitures" value={furnitureSelect}>
+            <select className="form-select" onChange={handleOnChange} name="furnitures" id="furnitures" value={furnitureSelect}>
               <option className="option-filter" name="selected">
                 Select
               </option>
@@ -262,9 +274,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Orientation</h4>
+          <label className="form-label">Orientation</label>
           <div>
-            <select
+            <select className="form-select"
               onChange={handleOnChange}
               name="orientationType"
               id="orientationType"
@@ -283,9 +295,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Pets allowed</h4>
+          <label className="form-label">Pets allowed</label>
           <div>
-            <select onChange={handleOnChange} name="petAllowedInfo" id="petAllowedInfo" value={petAllowedInfoSelect}>
+            <select className="form-select" onChange={handleOnChange} name="petAllowedInfo" id="petAllowedInfo" value={petAllowedInfoSelect}>
               <option className="option-filter" name="selected">
                 Select
               </option>
@@ -299,9 +311,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Heating</h4>
+          <label className="form-label">Heating</label>
           <div>
-            <select onChange={handleOnChange} name="heatingType" id="heatingType" value={heatingTypeSelect}>
+            <select className="form-select" onChange={handleOnChange} name="heatingType" id="heatingType" value={heatingTypeSelect}>
               <option className="option-filter" name="selected">
                 Select
               </option>
@@ -318,9 +330,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Property Type</h4>
+          <label className="form-label">Property Type</label>
           <div>
-            <select
+            <select className="form-select"
               onChange={handleOnChange}
               name="propertyTypeInfo"
               id="propertyTypeInfo"
@@ -339,9 +351,9 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className={`select-filter ${formData.propertyTypeInfo === 'Apartment' ? '' : 'hide'}`}>
-          <h4>Floor</h4>
+          <label className="form-label">Floor</label>
           <div>
-            <select onChange={handleOnChange} name="floorInfo" id="floorInfo" value={floorInfoSelect}>
+            <select className="form-select" onChange={handleOnChange} name="floorInfo" id="floorInfo" value={floorInfoSelect}>
               <option className="option-filter" name="selected" defaultValue>
                 Select
               </option>
@@ -358,9 +370,10 @@ export default function Filter({ city, closeFilter, getFilterData }) {
           </div>
         </div>
         <div className="select-filter">
-          <h4>Availability</h4>
+          <label className="form-label">Availability</label>
           <div>
             <select
+              className="form-select"
               onChange={handleOnChange}
               name="availabilityDateInfo"
               id="availabilityDateInfo"
@@ -380,7 +393,7 @@ export default function Filter({ city, closeFilter, getFilterData }) {
         </div>
       </div>
       <div>
-        <button>FILTER</button>
+        <button className="submit-filter-button">FILTER</button>
       </div>
     </form>
   );

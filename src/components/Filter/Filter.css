@@ -1,6 +1,11 @@
+.filter-form {
+    width: 98%;
+}
+
 .Filter {
+    margin: 0 2rem;
     overflow-y: scroll;
-    height: 400px;
+    height: 55vh;
 }
 
 .filter-title {
@@ -30,8 +35,6 @@
 
 .min-max-filter div {
     margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
 }
 
 .select-filter {
@@ -48,4 +51,44 @@
 
 .hide {
     display: none;
+}
+
+.submit-filter-button {
+    font-weight: 500;
+    width: 96%;
+    margin: 1rem;
+    background-color: #ffd166;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+}
+
+@media (max-width: 992px) {
+    .filter-title {
+        width: 90vw;
+        margin: 0.8rem;
+        padding: 0.5rem;
+    }
+    
+    .Filter {
+        width: 90vw;
+        height: 58vh;
+        margin: 1rem;
+    }
+
+    .min-max-filter {
+        padding: 1rem 0;
+        border-bottom: 1px solid rgb(239, 239, 239);
+    }
+    
+    .min-max-filter div {
+        margin-top: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .min-max-filter div p {
+        margin: 0;
+    }
 }

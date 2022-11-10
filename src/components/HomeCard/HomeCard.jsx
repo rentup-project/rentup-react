@@ -19,7 +19,7 @@ export default function HomeCard({ color, img_url, number, position, left, title
       </div>
     </div>
   ) : (
-    <div className="homeCard fade-in-bottom">
+    <div className="homeCard fade-in-bottom reverse-small">
       <div className="card-text">
         <h2>{number}</h2>
         <h3>{title}</h3>
