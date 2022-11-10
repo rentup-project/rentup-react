@@ -5,8 +5,8 @@
         "number": "01",
         "position": "position-left",
         "left": true,
-        "title": "Why chose Rentup?",
-        "text": "Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa."
+        "title": "Why choose Rentup?",
+        "text": "Well... At Rentup we show the best properties available. Also, we make it sooo easy for you. You can schedule a visit, reserve a property and even rent it without having to see it. But how?"
     },
     {
         "color": "#FFD166",
@@ -15,7 +15,7 @@
         "position": "position-rigth",
         "left": false,
         "title": "Easy to rent",
-        "text": "Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa."
+        "text": "When you register at Rentup, we ask our you to complete a prequalification form. The owner tell us what are the minimun requirements for renting their properties. So, when you find a property you like and you meet the requirements, you can reserve it online."
     },
     {
         "color": "#FFD166",
@@ -24,6 +24,6 @@
         "position": "position-left",
         "left": true,
         "title": "Easy to manage",
-        "text": "Dictumst vestibulum rhoncus est pellentesque elit ullamcorper dignissim cras tincidunt lobortis feugiat vivamus at augue eget arcu dictum varius duis at consectetur lorem donec massa."
+        "text": "You can manage visits, properties and even rents in my-area section. When a rent is created, you'll have all the information about it in your area, you can even pay bills throught our platform. CAN YOU BELIEVE IT?"
     }
 ]
