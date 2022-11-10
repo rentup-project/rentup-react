@@ -26,7 +26,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     getLastProperties()
-    .then((props) => setLastProperties(props))
+    .then((props) => console.log(props))
   }, []);
 
   const handleChange = (e) => {
@@ -99,7 +99,7 @@ export default function HomeScreen() {
             }
           </div>
         </section>
-      )}
+      }
 
       <section className="rentup-advantages">
         <h1>EASY</h1>
