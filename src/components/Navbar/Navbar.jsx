@@ -1,18 +1,25 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import BtnNavbar from "../../assets/images/BtnNavbar.png";
-import BtnNavbarNot from "../../assets/images/BtnNavbarNot.png";
-import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
-import logoWhite from "../../assets/images/logo-white.png";
-import logoYellow from "../../assets/images/logo-yellow.png";
-import NotificationIconRing from "../../assets/images/notification-yellow.png";
-import NotificationIcon from "../../assets/images/notification.png";
 import AuthContext from "../../contexts/AuthContext";
 import socket from '../../helpers/socketHelper';
 import { logout } from '../../store/AccessTokenStore';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './Navbar.css';
+/* IMAGES */
+import BtnNavbar from "../../assets/images/BtnNavbar.png";
+import BtnNavbarNot from "../../assets/images/BtnNavbarNot.png";
+import CloseBtnNav from '../../assets/images/CloseBtnNavbar.png';
+import logoWhite from "../../assets/images/logo-white.png";
+import logoYellow from "../../assets/images/logo-yellow.png";
+import NotificationIconRing from "../../assets/images/navbar/Not-ring-icon.png";
+import NotificationIcon from "../../assets/images/navbar/Not-icon.png";
+import HomeIcon from '../../assets/images/navbar/Home-icon.png';
+import SearchNavIcon from '../../assets/images/navbar/Search-icon.png';
+import FavNavICon from '../../assets/images/navbar/Fav-icon.png';
+import PostNavIcon from '../../assets/images/navbar/Post-icon.png';
+import MyAreaIcon from '../../assets/images/navbar/MyArea-icon.png';
+import LogoutIcon from '../../assets/images/navbar/Logout-icon.png';
 
 export default function Navbar() {
   const [isOpened, setIsOpened] = useState(false);
@@ -132,7 +139,12 @@ export default function Navbar() {
           {currentUser && (
             <div className="Navbar-auth">
               <Link to="/" onClick={handleOnClick}>
-                Home
+                <img
+                  src={HomeIcon}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>Home</span>
               </Link>
               <Link to="/notifications" onClick={handleOnClickNotification}>
                 <img
@@ -143,21 +155,48 @@ export default function Navbar() {
                 <span>Notifications</span>
               </Link>
               <Link to="/search" onClick={handleOnClick}>
-                Search properties
+                <img
+                  src={SearchNavIcon}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>Search properties</span>
               </Link>
               <Link
                 to={`/account/favs/${currentUser.id}`}
                 onClick={handleOnClick}
               >
-                Favourite properties
+                <img
+                  src={FavNavICon}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>Favourite properties</span>
               </Link>
               <Link to="/property/create" onClick={handleOnClick}>
-                Post a property
+                <img
+                  src={PostNavIcon}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>Post a property</span>
               </Link>
               <Link to={"/my-area"} onClick={handleOnClick}>
-                My Area
+                <img
+                  src={MyAreaIcon}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>My Area</span>
               </Link>
-              <Link onClick={userLogOut}>Logout</Link>
+              <Link onClick={userLogOut}>
+                <img
+                  src={LogoutIcon}
+                  alt="notification"
+                  className="notification-navbar"
+                />
+                <span>Logout</span>
+              </Link>
             </div>
           )}
         </div>

@@ -57,7 +57,7 @@ export default function Login({ handleChangeRegister, message }) {
 
   return (
     <div className="Login">
-      <h2>Login to your account</h2>
+      <h2>Login</h2>
       {message === "Message sent" ? (
         <p className="email-message">
           Please check your email before trying to login.

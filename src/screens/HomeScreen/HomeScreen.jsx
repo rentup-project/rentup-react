@@ -8,6 +8,7 @@ import "./HomeScreen.css";
 import SearchLogo from "../../assets/images/SearchIcon.png";
 import StarYellow from '../../assets/images/Star_yellow.png';
 import { getLastProperties } from './../../services/Properties.services';
+import Footer from "../../components/Footer/Footer";
 
 export default function HomeScreen() {
   const [lastProperties, setLastProperties] = useState([])
@@ -73,29 +74,29 @@ export default function HomeScreen() {
           </AddressAutofill>
         </form>
       </div>
-      
-      {
-        lastProperties.length !== 0 &&
+
+      {lastProperties.length !== 0 && (
         <section className="last-properties">
           <h2>Last properties posted</h2>
           <div className="home-properties-container">
-            {
-              lastProperties.map(prop => (
-                <div className="home-property-container">
-                  <img src={prop.images[0]} alt="property" width="340px"/>
-                  <div>
-                    <h4>{prop.address}</h4>
-                    <h5>{prop.monthlyRent}€</h5>
-                    <div className="home-property-detail">
-                      <small>{prop.squaredMeters}m2 • {prop.bedroom} bedroom • {prop.bathroom} Baños</small>
-                    </div>
+            {lastProperties.map((prop) => (
+              <div className="home-property-container">
+                <img src={prop.images[0]} alt="property" width="340px" />
+                <div>
+                  <h4>{prop.address}</h4>
+                  <h5>{prop.monthlyRent}€</h5>
+                  <div className="home-property-detail">
+                    <small>
+                      {prop.squaredMeters}m2 • {prop.bedroom} bedroom •{" "}
+                      {prop.bathroom} Baños
+                    </small>
                   </div>
                 </div>
-              ))
-            }
+              </div>
+            ))}
           </div>
         </section>
-      }
+      )}
 
       <section className="rentup-advantages">
         <h1>EASY</h1>
@@ -203,6 +204,10 @@ export default function HomeScreen() {
             </div>
           </div>
         </div>
+      </section>
+
+      <section id="footer">
+        <Footer />
       </section>
     </div>
   );
