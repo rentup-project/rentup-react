@@ -3,7 +3,7 @@ import { getAccessToken, logout } from "../store/AccessTokenStore";
 
 const createHttp = (useAccessToken = false) => {
   const http = axios.create({
-    baseURL: "https://tame-gold-hedgehog-tux.cyclic.app/api",
+    baseURL: process.env.SERVER_URL,
 });
 
 http.interceptors.request.use((request) => {

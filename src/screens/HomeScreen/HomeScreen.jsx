@@ -26,7 +26,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     getLastProperties()
-    .then((props) => console.log(props))
+    .then((props) => setLastProperties(props))
   }, []);
 
   const handleChange = (e) => {
