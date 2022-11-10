@@ -3,11 +3,21 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import arrowIcon from "../../assets/images/arrow.png";
 import googleIcon from "../../assets/images/google-icon.png";
+import ERRORS from "../../constants/FormErrors";
 import AuthContext from "../../contexts/AuthContext";
-import { LoginSchema } from "../../schemas/LoginSchema";
 import { login as userLogin } from "../../services/Auth.services";
 import Input from "../Input/Input";
+import * as Yup from "yup";
 import "./Login.css";
+
+const loginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email(ERRORS.ERROR_LOGIN)
+    .required(ERRORS.ERROR_LOGIN),
+  password: Yup.string()
+    .min(8, ERRORS.ERROR_LOGIN)
+    .required(ERRORS.ERROR_LOGIN),
+});
 
 export default function Login({ handleChangeRegister, message }) {
   const [mongoErr, setMongoErr] = useState(false);
@@ -29,7 +39,7 @@ export default function Login({ handleChangeRegister, message }) {
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
-    validationSchema: LoginSchema,
+    validationSchema: loginSchema,
     validateOnChange: false,
   });
 
