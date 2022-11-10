@@ -4,6 +4,7 @@ import AuthContext from './../../contexts/AuthContext';
 import { deleteVisit, getUserVisits } from './../../services/Visits.services';
 import PropertyCard from './../PropertyCard/PropertyCard';
 import './VisitsSection.css';
+import ghostImage from '../../assets/images/ghost-image.png';
 //import trashIcon from '../../assets/images/Trash-icon.png';
 
 export default function VisitsSection() {
@@ -30,7 +31,11 @@ export default function VisitsSection() {
     <div className="visits-section">
         {
             myVisits.length === 0 &&
-            <h4>You have no scheduled visits at the moment.</h4>
+            <div className='no-content-div'>
+                <h4>You have no scheduled visits at the moment.</h4>
+                <img src={ghostImage} alt="ghost" />
+            </div>
+            
         }
         {
             myVisits.length !== 0 && myVisits.map(visit => (

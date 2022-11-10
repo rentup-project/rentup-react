@@ -1,12 +1,13 @@
 .favs-container {
-    padding: 9vh 10rem;
-}
-
-.favs-container h3 {
-    padding: 2rem 2rem;
+    padding-top: 11vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .favs-wrapper {
+    margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem; 

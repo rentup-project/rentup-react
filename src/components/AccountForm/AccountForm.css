@@ -1,4 +1,4 @@
-.user-data-container  {
+.user-data-container {
     margin-top: 1rem;
     width: 25rem;
 }
@@ -11,4 +11,11 @@
     padding: 0.5rem 2rem;
     border: none;
     margin-top: 1rem;
+}
+
+@media (max-width: 992px) {
+    .user-data-container {
+        padding-right: 2rem;
+        width: 100vw;
+    }
 }

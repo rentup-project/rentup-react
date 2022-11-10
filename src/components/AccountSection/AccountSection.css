@@ -7,6 +7,8 @@
     justify-content: space-between;
     align-items: center;
     width: 25rem;
+    border-bottom: 1px solid rgb(239, 239, 239);
+    padding-bottom: 2px;
 }
 
 .user-img {
@@ -22,7 +24,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin: 3rem 1rem;
 }
 
 .user-data-wrapper div {
@@ -37,4 +39,28 @@
     background-color: #ffd166;
     padding: 0.5rem 2rem;
     border: none;
+    width: 8rem;
+}
+
+@media (max-width: 992px) {
+    #account-container {
+        padding: 1rem;
+        width: 100vw;
+    }
+
+    .user-info-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+    .user-data-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        margin: 3rem 1rem;
+    }
 }

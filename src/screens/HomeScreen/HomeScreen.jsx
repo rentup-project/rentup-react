@@ -1,6 +1,6 @@
 import { AddressAutofill, config } from "@mapbox/search-js-react";
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import HomeCard from "../../components/HomeCard/HomeCard";
 import cards from "../../data/homecards.json";
 import "./HomeScreen.css";
@@ -73,27 +73,30 @@ export default function HomeScreen() {
             />
           </AddressAutofill>
         </form>
-      </div>
-
-      {lastProperties.length !== 0 && (
+      </div>      
+      {
+        lastProperties.length > 0 &&
         <section className="last-properties">
           <h2>Last properties posted</h2>
           <div className="home-properties-container">
-            {lastProperties.map((prop) => (
-              <div className="home-property-container">
-                <img src={prop.images[0]} alt="property" width="340px" />
-                <div>
-                  <h4>{prop.address}</h4>
-                  <h5>{prop.monthlyRent}€</h5>
-                  <div className="home-property-detail">
-                    <small>
-                      {prop.squaredMeters}m2 • {prop.bedroom} bedroom •{" "}
-                      {prop.bathroom} Baños
-                    </small>
+            {
+              lastProperties.map(prop => (
+                <Link to={`/property/${prop.id}`}>
+                <div className="home-property-container">
+                  <img src={prop.images[0]} alt="property" width="340px"/>
+                  <div>
+                    <h4>{prop.address}</h4>
+                    <div className="home-property-details-container">
+                      <div className="home-property-detail">
+                        <small>{prop.squaredMeters}m2 • {prop.bedroom} bedroom • {prop.bathroom} Baños</small>
+                      </div>
+                      <h5>{prop.monthlyRent}€</h5>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+                </Link>
+              ))
+            }
           </div>
         </section>
       )}
@@ -149,9 +152,7 @@ export default function HomeScreen() {
                 <img src={StarYellow} alt="star-logo" />
               </div>
               <p>
-                ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-                et deleniti nesciunt sint eligendi reprehenderit reiciendis,
-                quibusdam illo. ❞
+                ❝I highly recommend Rentup. It was so easy to post a property and after that, all the proccess from visits to managing bills. Everything in one place.❞
               </p>
             </div>
           </div>
@@ -173,9 +174,7 @@ export default function HomeScreen() {
                 <img src={StarYellow} alt="star-logo" />
               </div>
               <p>
-                ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-                et deleniti nesciunt sint eligendi reprehenderit reiciendis,
-                quibusdam illo. ❞
+                ❝I found the perfect apartment at Rentup. I could schedule a visit, and reserve. Everything online.❞
               </p>
             </div>
           </div>
@@ -197,9 +196,7 @@ export default function HomeScreen() {
                 <img src={StarYellow} alt="star-logo" />
               </div>
               <p>
-                ❝ Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus
-                et deleniti nesciunt sint eligendi reprehenderit reiciendis,
-                quibusdam illo. ❞
+                ❝Renting through Rentup was so easy. Now I can pay all my bills and talk to the owner of the property online.❞
               </p>
             </div>
           </div>

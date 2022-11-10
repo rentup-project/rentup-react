@@ -1,9 +1,9 @@
 .property-search {
     width: 100vw;
-    height: 85vh;
-    background-image: url('../../assets/images/BannerHome.jpg');
+    height: 90vh;
+    background-image: url('../../assets/images/techos.jpg');
     background-size: cover;
-    background-position: 50%;
+    background-position: bottom;
     margin-top: -9vh;
     margin-bottom: 2.5rem;
     text-align: center;
@@ -64,7 +64,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     gap: 2rem;
-    width: 100%;
+    width: 90%;
     color: #636366;
 }
 
@@ -76,6 +76,11 @@
     cursor: pointer;
 }
 
+.home-properties-container a {
+    text-decoration: none;
+    color: #222222;
+}
+
 .home-property-container img {
     width: 340px;
     border-radius: 10px;
@@ -83,12 +88,17 @@
 }
 
 .home-property-container h4{
-    font-size: 1.3rem;
+    font-size: 1rem;
 }
 
 .home-property-container h5{
     font-size: 1.1rem;
     font-weight: 600;
+}
+
+.home-property-details-container {
+    display: flex;
+    justify-content: space-between;
 }
 
 .home-property-detail {
@@ -137,6 +147,7 @@
 /* RENTUP REVIEWS */
 
 .rentup-reviews {
+    margin-top: 2rem;
     padding: 2rem 0;
     background-color: rgb(30,30,30);
     color: white;
@@ -149,6 +160,7 @@
 .reviews-container {
     display: flex;
     justify-content: space-around;
+    align-items: center;
     flex-wrap: wrap;
 }
 
@@ -197,6 +209,10 @@
     .reviews-container {
         display: flex;
         flex-direction: column;
+    }
+
+    .review-detail {
+        width: 90%;
     }
 }
 

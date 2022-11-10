@@ -26,3 +26,29 @@
 .content-div span {
     margin-left: 0.4rem;
 }
+
+
+@media (max-width: 992px) {
+    .property-list {
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 1rem;
+        height: fit-content;
+        padding: 2rem;
+    }
+
+    .property-list:hover {
+        background-color: white;
+    }
+
+    .content-div span {
+        margin-left: 0;
+        font-size: 0.9rem;
+    }
+
+    .content-div h4 {
+        font-size: 1rem;
+    }
+}
