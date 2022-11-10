@@ -50,5 +50,11 @@
 #copyright {
     position: absolute;
     bottom: 2%;
-    right: 45%;
+    right: 45vw;
+}
+
+@media (max-width:992px) {
+    #copyright {
+    right: 30vw;
+    }    
 }

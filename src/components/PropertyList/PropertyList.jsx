@@ -28,7 +28,9 @@ export default function PropertyList(
         <Link to={`/property/${id}`} target="_blank" className="property-link">
           <div className="content-div">
             <h4>{address.split(",")[0]}</h4>
-            <span>{squaredMeters} m2</span>
+            <span>
+              {squaredMeters} m<sup>2</sup>
+            </span>
             <span> • </span>
             <span>
               {bedroom}
@@ -40,7 +42,7 @@ export default function PropertyList(
               {bathroom === "1" ? " bathroom" : " bathrooms"}
             </span>
             <p>{price}€</p>
-            <div className="availability-container">
+            <div className="availability-search-list-container">
               <div
                 className="calendar-img"
                 style={{

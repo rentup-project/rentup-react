@@ -25,7 +25,12 @@ export default function PropActionsCard( { property } ) {
         .then((res) => setPrequalification(res))
         .catch((err) => navigate('/error'));
 
-      if (prequalification) {
+    }
+  },[currentUser, navigate])
+
+
+  useEffect(() => {
+    if (prequalification) {
         if (
           requiredJobDuration === "More than 3 months" ||
           (requiredJobDuration === "One year" &&
@@ -49,9 +54,7 @@ export default function PropActionsCard( { property } ) {
       } else {
         setMeetMinimumRequirements(false);
       }
-    }
-  },[currentUser, navigate, petAllowed, requiredJobDuration, requiredAnnualSalary, tenantsQuantity])
-
+  }, [petAllowed, prequalification, requiredAnnualSalary, requiredJobDuration, tenantsQuantity])
 
   return (
     <div className="prop-actions-container">

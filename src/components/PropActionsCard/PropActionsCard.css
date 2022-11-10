@@ -68,3 +68,14 @@
     border-radius: 0.5rem;
     font-weight: 500;
 }
+
+@media (max-width: 992px) {
+
+    .prop-actions-container {
+        position: static;
+        width: 20rem;
+        height: fit-content;
+        margin-bottom: 3rem;
+    }
+
+}

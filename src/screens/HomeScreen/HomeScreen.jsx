@@ -99,7 +99,7 @@ export default function HomeScreen() {
             }
           </div>
         </section>
-      )}
+      }
 
       <section className="rentup-advantages">
         <h1>EASY</h1>
