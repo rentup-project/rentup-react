@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import arrowIcon from "../../assets/images/arrow.png";
 import googleIcon from "../../assets/images/google-icon.png";
 import AuthContext from "../../contexts/AuthContext";
-import { LoginSchema } from "../../schemas/LoginSchema";
+import { loginSchema } from "../../schemas/loginSchema";
 import { login as userLogin } from "../../services/Auth.services";
 import Input from "../Input/Input";
 import "./Login.css";
@@ -29,7 +29,7 @@ export default function Login({ handleChangeRegister, message }) {
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
-    validationSchema: LoginSchema,
+    validationSchema: loginSchema,
     validateOnChange: false,
   });
 

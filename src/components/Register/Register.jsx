@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import { RegisterSchema } from "../../schemas/RegisterSchema";
+import { registerSchema } from "../../schemas/registerSchema";
 import { register } from "../../services/Auth.services";
 import Input from "../Input/Input";
 import './Register.css';
@@ -29,7 +29,7 @@ export default function Register({ handleChangeLogin }) {
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
-    validationSchema: RegisterSchema,
+    validationSchema: registerSchema,
     validateOnChange: false,
   });
 
