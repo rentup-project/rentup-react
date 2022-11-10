@@ -26,7 +26,6 @@ export default function Account() {
             ></div>
             <h3>{currentUser.name}</h3>
           </div>
-          <hr></hr>
           <div className="user-data-wrapper">
             <div>
               Email:<span>{currentUser.email}</span>
@@ -37,8 +36,8 @@ export default function Account() {
                 {currentUser.phoneNumber ? currentUser.phoneNumber : "-"}
               </span>
             </div>
-          </div>
           <button onClick={handleOnClick}>Edit</button>
+          </div>
         </div>
       ) : (
         <div id="account-container">

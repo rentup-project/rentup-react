@@ -29,5 +29,12 @@
     cursor: pointer;
 }
 
+@media (max-width: 992px) {
+    .my-properties-container {
+        padding: 1rem;
+    }
 
-
+    .my-properties-wrapper {
+        justify-content: center;
+    }
+}

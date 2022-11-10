@@ -7,9 +7,10 @@ import { getOwnerRents } from "../../services/Properties.services";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import { cancelReservation } from "./../../services/Properties.services";
 import "./MyRentsSection.css";
+import ghostImage from '../../assets/images/ghost-image.png'
 
 export default function MyRentsSection() {
-  const [rents, setRents] = useState(null);
+  const [rents, setRents] = useState([]);
   const [reviewed, setReviewed] = useState("");
   const [idProp, setIdProp] = useState('');
   const { currentUser } = useContext(AuthContext);
@@ -77,7 +78,8 @@ export default function MyRentsSection() {
 
   return (
     <div className="my-rents-container">
-      {rents?.map((rent) => (
+      {rents.length > 0 ?
+       rents.map((rent) => (
         <div className="my-rent-wrapper" key={rent.id}>
           <PropertyCard
             images={rent.images}
@@ -194,7 +196,12 @@ export default function MyRentsSection() {
             </div>
           )}
         </div>
-      ))}
+      )):
+      <div className='no-content-div'>
+        <h4>You have no rents.</h4>
+        <img src={ghostImage} alt="ghost" />
+      </div>
+    }
     </div>
   );
 }

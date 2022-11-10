@@ -29,12 +29,12 @@ export default function PropertyList(
           <div className="content-div">
             <h4>{address.split(",")[0]}</h4>
             <span>{squaredMeters} m2</span>
-            <span>•</span>
+            <span> • </span>
             <span>
               {bedroom}
               {bedroom === "1" ? " bedroom" : " bedrooms"}
             </span>
-            <span>•</span>
+            <span> • </span>
             <span>
               {bathroom}
               {bathroom === "1" ? " bathroom" : " bathrooms"}

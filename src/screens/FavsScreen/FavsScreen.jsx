@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import ghostImage from '../../assets/images/ghost-image.png';
 import TrashIcon from "../../assets/images/Trash-icon.png";
 import PropertyCard from '../../components/PropertyCard/PropertyCard';
 import AuthContext from "../../contexts/AuthContext";
@@ -18,6 +19,7 @@ export default function FavsScreen() {
 
             getAllFavs(userSend)
             .then((favsArr) => {
+              console.log(favsArr)
                 setFavs(favsArr);
             })
             .catch((err) => navigate("/error"));
@@ -36,9 +38,17 @@ export default function FavsScreen() {
 
     return (
       <div className="favs-container">
-        <h3>Your favourites properties:</h3>
+        {
+          favs.length !== 0 ?
+          <h3>Your favourites properties</h3>
+          :
+          <div className='no-content-div'>
+              <h4>You have no favourites yet. Go find them!</h4>
+              <img src={ghostImage} alt="ghost" />
+          </div>
+        }
         <div className="favs-wrapper">
-          {favs.length &&
+          {favs.length !== 0 &&
             favs.map((fav) => (
               <div className="fav-wrapper" key={fav.id}>
                 <PropertyCard

@@ -9,6 +9,7 @@ import {
 } from "../../services/Properties.services";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import "./MyProperties.css";
+import ghostImage from '../../assets/images/ghost-image.png'
 
 export default function MyProperties() {
   const [properties, setproperties] = useState("");
@@ -36,9 +37,11 @@ export default function MyProperties() {
   };
 
   return (
-    properties && (
-      <div className="my-properties-container">
-        <div className="my-properties-wrapper">
+    <div className="my-properties-container">
+      {
+        properties.length > 0 ?
+        (
+          <div className="my-properties-wrapper">
           {properties.map((prop) => (
             <div className="my-property-wrapper" key={prop.id}>
               <PropertyCard
@@ -78,7 +81,15 @@ export default function MyProperties() {
             </div>
           ))}
         </div>
-      </div>
-    )
-  );
+        )
+        :
+        (
+          <div className='no-content-div'>
+            <h4>You have no properties available.</h4>
+            <img src={ghostImage} alt="ghost" />
+          </div>
+        )
+      }
+    </div>
+  )
 }

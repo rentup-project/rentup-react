@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ghostImage from '../../assets/images/ghost-image.png';
 import { getNotifications } from '../../services/Account.services';
 import AuthContext from './../../contexts/AuthContext';
 import './NotificationsScreen.css';
@@ -43,8 +44,11 @@ export default function NotificationsScreen() {
   return (
     <div className='notifications-screen'>
       {
-        notifications === [] ? 
-        <h2>You have no notifications</h2>
+        notifications.length === 0 ? 
+          <div className='no-content-div'>
+            <h4>You have no notifications.</h4>
+            <img src={ghostImage} alt="ghost" />
+          </div>
         :
         <>
           <h2>Notifications</h2>

@@ -55,8 +55,8 @@ export default function PrequalificationSection() {
           Annual Salary:
           <span>{prequalification.annualSalary} €</span>
         </div>
+        <button onClick={handleOnClick}>Edit</button>
       </div>
-      <button onClick={handleOnClick}>Edit</button>
     </div>
   ) : (
     <div id="prequalification-container">

@@ -3,6 +3,7 @@ import moment from 'moment';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import FilterIcon from '../../assets/images/filter-icon.png';
+import ghostImage from '../../assets/images/ghost-image.png';
 import YellowSearchIcon from '../../assets/images/yellow-search-icon.png';
 import Filter from "../../components/Filter/Filter";
 import PropertyList from '../../components/PropertyList/PropertyList';
@@ -152,6 +153,7 @@ export default function PropertiesScreen() {
   };
 
   const changeSortByState = (e) => { //HANDLE THE SORT OF ALL PROPERTIES
+    setPagination(1)
     if (e.target.selectedIndex === 4) {
       properties.sort((a, b) => b.squaredMeters - a.squaredMeters)
       setSortBy('size-biggest')
@@ -208,39 +210,39 @@ export default function PropertiesScreen() {
         </form>
         <button className="btn-filter" onClick={openFilterPage}>
           <img src={FilterIcon} alt="filter-icon" />
-          Filter
+          <span>Filter</span>
         </button>
       </div>
       <div>
         <div className="city-title-sort">
           <h2>{search}</h2>
           <div className='sort-div'>
-            <p>
-              Sort by:
-            </p>
+            <label className='form-label'>
+              Sort by
+            </label>
             <form>
-              <select id="sortByBtn" onChange={changeSortByState}>
+              <select id="sortByBtn"  className="form-control form-control-sm" onChange={changeSortByState}>
                 <option name="date: most recent first" defaultValue>
-                  Date - most recent first
+                  Most recent
                 </option>
                 <option name="price: lowest first">
-                  Price - lowest first
+                  Cheapest
                 </option>
                 <option name="price: highest first">
-                  Price - highest first
+                  Most expensive
                 </option>
                 <option name="price: lowest first">
-                  Size - smallest first
+                  Smallest
                 </option>
                 <option name="price: highest first">
-                  Size - biggest first
+                  Biggest
                 </option>
               </select>
             </form>
           </div>
         </div>
         <div className="property-list-container">
-          {propertiesToShow &&
+          {propertiesToShow.length > 0 &&
             propertiesToShow.map((property) => (
               <div
                 key={property.id}
@@ -262,6 +264,13 @@ export default function PropertiesScreen() {
                 />
               </div>
             ))}
+            {
+              propertiesToShow.length === 0 && 
+              <div className='no-content-div'>
+                  <h4>No properties available. Please try again.</h4>
+                  <img src={ghostImage} alt="ghost" />
+              </div>
+            }
         </div>
         <div className='pagination-container'>
           {

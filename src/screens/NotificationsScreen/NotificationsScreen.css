@@ -38,3 +38,16 @@
 .msg-time {
     font-size: 0.8rem;
 }
+
+@media (max-width: 992px) {
+    .notifications-screen {
+        width: 100vw;
+        min-height: 100vh;
+        padding-top: 12vh;
+    }
+
+    .messages-container {
+        margin-top: 1rem;
+        width: 100vw;
+    }
+}
