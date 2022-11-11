@@ -163,7 +163,7 @@ export default function Navbar() {
                 <span>Search properties</span>
               </Link>
               <Link
-                to={`/account/favs/${currentUser.id}`}
+                to={`/account/favs`}
                 onClick={handleOnClick}
               >
                 <img

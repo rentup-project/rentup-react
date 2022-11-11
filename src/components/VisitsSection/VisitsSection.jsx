@@ -5,7 +5,7 @@ import { deleteVisit, getUserVisits } from './../../services/Visits.services';
 import PropertyCard from './../PropertyCard/PropertyCard';
 import './VisitsSection.css';
 import ghostImage from '../../assets/images/ghost-image.png';
-//import trashIcon from '../../assets/images/Trash-icon.png';
+import trashIcon from '../../assets/images/Trash-icon.png';
 
 export default function VisitsSection() {
     const [myVisits, setMyVisits] = useState([])
@@ -57,7 +57,7 @@ export default function VisitsSection() {
                         {visit.day} at {visit.hour}
                     </div>
                     <div className='visit-trash-icon' id={visit.id} onClick={handleOnClick}>
-                        Cancel
+                        <img src={trashIcon} alt="trash" width='30px'/>
                     </div>
                 </div>
             ))

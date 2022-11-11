@@ -52,7 +52,7 @@ export default function NotificationsScreen() {
         :
         <>
           <h2>Notifications</h2>
-          <div className="messages-container">
+          <div className="notification-messages-container">
             {
               notifications.map((notification) => (                
                   <Link to={notification.path} key={notification.id}>

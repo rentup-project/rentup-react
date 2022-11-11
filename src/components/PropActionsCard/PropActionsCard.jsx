@@ -88,8 +88,8 @@ export default function PropActionsCard( { property } ) {
             </ul>
           </div>
         )}
-        <div>
 
+        <div>
           <Link
             to={
               prequalification && meetMinimumRequirements
@@ -118,12 +118,14 @@ export default function PropActionsCard( { property } ) {
           >
             Reserve this property
           </Link>
-          <Link
-            to={currentUser ? `/my-area/${owner}` : "#"}
-            className={currentUser ? "actions-btn-blue" : "disabled"}
+          {
+          owner && 
+          <Link to={currentUser ? `/my-area/${owner.id}` : "#"}
+          className={currentUser ? "actions-btn-blue" : "disabled"}
           >
             Contact
           </Link>
+          }
         </div>
       </div>
     </div>

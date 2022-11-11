@@ -60,14 +60,16 @@ export default function PrequalificationSection() {
     </div>
   ) : (
     <div id="prequalification-container">
-      <span>
-        Hi! You haven't completed the prequalification form yet. Please do it,
-        it only takes 2 minutes.
-      </span>
-      <PrequalificationsForm
-        onPrequalificationModified={fetchPrequalification}
-        action={edit ? "edit" : "create"}
-      />
+      <div className="prequalification-container-form">
+        <span>
+          Hi! You haven't completed the prequalification form yet. Please do it,
+          it only takes 2 minutes.
+        </span>
+        <PrequalificationsForm
+          onPrequalificationModified={fetchPrequalification}
+          action={edit ? "edit" : "create"}
+        />
+      </div>
     </div>
   );
 }

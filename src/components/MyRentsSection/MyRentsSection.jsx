@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import ghostImage from '../../assets/images/ghost-image.png';
 import menuIcon from "../../assets/images/menu-icon.png";
 import AuthContext from "../../contexts/AuthContext";
 import { getReviewRent } from "../../services/MyArea.services";
@@ -7,7 +8,6 @@ import { getOwnerRents } from "../../services/Properties.services";
 import PropertyCard from "../PropertyCard/PropertyCard";
 import { cancelReservation } from "./../../services/Properties.services";
 import "./MyRentsSection.css";
-import ghostImage from '../../assets/images/ghost-image.png'
 
 export default function MyRentsSection() {
   const [rents, setRents] = useState([]);
@@ -198,7 +198,7 @@ export default function MyRentsSection() {
         </div>
       )):
       <div className='no-content-div'>
-        <h4>You have no rents.</h4>
+        <h4>You have no rents at the moment.</h4>
         <img src={ghostImage} alt="ghost" />
       </div>
     }

@@ -12,37 +12,45 @@ export default function Account() {
     }
 
     return (
-      currentUser && !edit ? (
-        <div id="account-container">
-          <div className="user-info-header">
-            <div
-              className="user-img"
-              style={{
-                backgroundImage: `url(${currentUser.image})`,
-                backgroundRepeat: "no-repeat",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            ></div>
-            <h3>{currentUser.name}</h3>
-          </div>
-          <div className="user-data-wrapper">
-            <div>
-              Email:<span>{currentUser.email}</span>
+      <div className='account-section'>
+        {
+          currentUser && !edit ? 
+          (
+            <div id="account-container">
+              <div className="user-info-header">
+                <div
+                  className="user-img"
+                  style={{
+                    backgroundImage: `url(${currentUser.image})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></div>
+                <h3>{currentUser.name}</h3>
+              </div>
+              <div className="user-data-wrapper">
+                <div>
+                  Email:<span>{currentUser.email}</span>
+                </div>
+                <div>
+                  Phone number:
+                  <span>
+                    {currentUser.phoneNumber ? currentUser.phoneNumber : "-"}
+                  </span>
+                </div>
+              <button onClick={handleOnClick}>Edit</button>
+              </div>
             </div>
-            <div>
-              Phone number:
-              <span>
-                {currentUser.phoneNumber ? currentUser.phoneNumber : "-"}
-              </span>
+          ) 
+          : 
+          (
+            <div id="account-container">
+              <AccountForm />
             </div>
-          <button onClick={handleOnClick}>Edit</button>
-          </div>
-        </div>
-      ) : (
-        <div id="account-container">
-          <AccountForm />
-        </div>
-        )
-    );
+          )
+        }
+
+      </div>
+    )
 }
