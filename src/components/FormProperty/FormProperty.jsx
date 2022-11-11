@@ -15,6 +15,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
   const [weeklyAvailability, setWeeklyAvailability] = useState([]);
   const [images, setImages] = useState([]);
   const [propertyData, setPropertyData] = useState({});
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext);
 
@@ -48,6 +49,10 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
     setLatitude(lat);
     setLongitude(lng);
   };
+
+  const handleOnClick = () => {
+    setLoading(true)
+  }
 
   const handleOnChange = (e) => {
     const { name, value, type, files } = e.target;
@@ -1045,7 +1050,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
           </div>
         )}
       </div>
-      <button>{handleOnCreate ? "CREATE" : "EDIT"}</button>
+      <button onClick={handleOnClick}>{loading ? 'Loading...' : (handleOnCreate ? "CREATE" : "EDIT")}</button>
     </form>
   );
 }
