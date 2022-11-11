@@ -16,7 +16,7 @@
 }
 
 .bills-form-container button {
-    width: 80vw;
+    width: 45vw;
     background-color: #ffd166;
     border: none;
     padding: 0.7rem;
@@ -25,6 +25,31 @@
 
 .bills-form-container button:hover {
     background-color: #ffc337;
+}
+
+.bills-btns-container .bills-btns{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.bills-btns-container .bills-btns button {
+    width: 15rem;
+    height: 3rem;
+}
+
+.bills-btns-container .bills-btns div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0;
+    height: 3rem;
+    background-color:  #ffd166;
+    border-radius: 0.5rem;
+    width: 15rem;
+    font-weight: 500;
 }
 
 .working {
@@ -43,7 +68,7 @@
     border-radius: 0.5rem;
 }
 
-.disabled {
+.disabledBill {
     cursor: default;
     background-color: rgb(239, 239, 239);
     color: white;
@@ -53,11 +78,12 @@
 }
 
 .each-bill {
+    position: relative;
     margin: 1rem 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80vw;
+    width: 65vw;
     padding: 1rem;
     border: 1px solid rgb(239, 239, 239);
     border-radius: 1rem;
@@ -71,25 +97,43 @@
 .each-bill-info {
     display: flex;
     align-items: center;
-    gap: 3rem;
+    gap: 2.2rem;
 }
 
-.each-bill-info div{
+.each-bill-info div {
     display: flex;
+    align-items: center;
     gap: 1rem;
 }
 
+.each-bill-info h5, p, time {
+    font-size: 1rem;
+}
+
+.each-bill-to-pay {
+    position: relative;
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 65vw;
+    padding: 1rem;
+    border: 1px solid rgb(239, 239, 239);
+    border-radius: 1rem;
+}
 
 .status {
+    position: absolute;
+    right: 5%;
     width: 10rem;
     font-weight: 500;
-    padding: 0.3rem;
-    bottom: 5%;
-    right: 5%;
+    padding: 0.3rem;  
     border-radius: 0.5rem;
 }
 
 .status p {
+    text-align: center;
+    font-size: 0.8rem;
     margin: 0;
 }
 
@@ -105,4 +149,63 @@
 
 .actions-div img {
     cursor: pointer;
+}
+
+@media (max-width: 992px) {
+
+    .bills-container, .bills-payment-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .bills-btns-container .bills-btns{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .bills-form-container button {
+        width: 80vw;
+    }
+
+    .each-bill {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+        padding: 2rem;
+    }
+
+    .each-bill-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2.2rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .status {
+        position: absolute;
+        right: 5%;
+        bottom: 3%;
+    }
+
+    .actions-div form input {
+        position: absolute;
+        left: 15%;
+        bottom: 5%;
+    }
+
+    .each-bill-to-pay {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+    }
 }

@@ -1,5 +1,10 @@
 .rent-details-screen {
     padding-top: 11vh;
+    width: 100vw;
+}
+
+.rent-details-container {
+    width: 100%;
 }
 
 .btns-rent-sections-container {
@@ -7,4 +12,10 @@
     justify-content: space-around;
     list-style: none;
     padding: 3rem 10rem 0 10rem;    
+}
+
+@media (max-width: 992px) {
+    .btns-rent-sections-container {
+        padding: 0;
+    }
 }

@@ -2,6 +2,7 @@
     background-color: #ffd166;
     border: none;
     width: 100%;
+    height: 3rem;
     margin-top: 2rem;
     padding: 10px;
     font-weight: 500;
@@ -9,6 +10,5 @@
 }
 
 #payment-message {
-    font-size: 2rem;
     color: red;
 }

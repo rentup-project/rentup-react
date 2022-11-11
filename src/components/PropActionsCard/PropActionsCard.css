@@ -11,17 +11,20 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    padding-top: 2rem;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 12px;
-    padding: 24px;
+    padding: 1.5rem;
     background-color: white;
     box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
+    width: 100%;
+    color: #222222; 
 }
 
 .prop-actions-container div {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    width: 100%;
     gap: 1rem;
 }
 
@@ -31,6 +34,7 @@
     color: white;
     padding: 0.5rem;
     font-weight: 500;
+    border-radius: 0.5rem;
 }
 
 .actions-btn-blue {
@@ -39,17 +43,30 @@
     border: none;
     padding: 0.5rem;
     font-weight: 500;
+    border-radius: 0.5rem;
 }
 
-#minimum-requirements-wrapper {
-    color: #222222; 
+.disabled {
+    cursor: default;
+    background-color: rgb(239, 239, 239);
+    color: grey;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
 }
 
-.prop-actions-container-wrapper a {
+#minimum-requirements-wrapper span, #minimum-requirements-wrapper ul {
+   width: 100%
+}
+
+.prop-actions-container-wrapper div a {
     color: white;
+    width: 75%;
+    margin-bottom: 0rem;
 }
 
-.prop-actions-container-wrapper a:hover {
+.prop-actions-container-wrapper div a:hover {
     color: white;
 }
 
@@ -59,23 +76,17 @@
     text-decoration: none;
 }
 
-.disabled {
-    cursor: default;
-    background-color: rgb(239, 239, 239);
-    color: grey;
-    border: none;
-    padding: 0.7rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
-}
-
 @media (max-width: 992px) {
 
     .prop-actions-container {
         position: static;
-        width: 20rem;
+        width: 88vw;
         height: fit-content;
         margin-bottom: 3rem;
     }
 
+    .prop-actions-container-wrapper div a {
+        width: 15rem;
+        margin-bottom: 0rem;
+    }
 }

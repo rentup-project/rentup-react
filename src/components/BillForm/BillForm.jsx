@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import socket from "../../helpers/socketHelper";
 import { getUserWhoRents } from '../../services/MyArea.services';
 import { createBill } from './../../services/Bills.services';
+import './BillForm.css';
 
 export default function BillForm({ rent }) {
     const [mongoErr, setMongoErr] = useState({});
@@ -56,7 +57,7 @@ export default function BillForm({ rent }) {
     }
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={handleOnSubmit} id="bill-form-container">
         <div>
             <label className="form-label my-3" htmlFor="type">
                 Choose a type
@@ -100,7 +101,7 @@ export default function BillForm({ rent }) {
 
         <div>
             <label className="form-label my-3" htmlFor="paymentStatus">
-                What is the status of the payment
+                Payment status
             </label>
             <select id="paymentStatus" name="paymentStatus" value={billsInfo.paymentStatus} className={`form-select ${mongoErr?.paymentStatus ? "is-invalid" : ""}`} onChange={handleOnChange}>
                 <option value="paid">Already paid</option>
@@ -111,24 +112,24 @@ export default function BillForm({ rent }) {
             )}
         </div>
 
-            <div>
-                <label className="form-label my-3" htmlFor="file">
-                    Upload the bill
-                </label>
-                <input
-                    type="file"
-                    name="file"
-                    id="file"
-                    onChange={handleOnChange}
-                    className={`form-control ${mongoErr?.file ? "is-invalid" : ""}`}
-                    multiple
-                ></input>
-                {mongoErr?.file && (
-                    <div className="invalid-feedback"> {mongoErr?.file}</div>
-                )}
-            </div>
-
-            <button type="submit">Upload new bill</button>
-        </form>
+        <div>
+            <label className="form-label my-3" htmlFor="file">
+                Bill file
+            </label>
+            <input
+                type="file"
+                name="file"
+                id="file"
+                onChange={handleOnChange}
+                className={`form-control ${mongoErr?.file ? "is-invalid" : ""}`}
+                multiple
+            ></input>
+            {mongoErr?.file && (
+                <div className="invalid-feedback"> {mongoErr?.file}</div>
+            )}
+        </div>
+        
+        <button type="submit">Upload new bill</button>        
+    </form>
     )
 }

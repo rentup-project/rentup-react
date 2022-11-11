@@ -258,7 +258,7 @@ export default function PropertyDetailScreen() {
         </div>
       </header>
       <hr></hr>
-      {currentUser && <PropActionsCard property={property} />}
+      <PropActionsCard property={property} />
       <section className="features">
         <h4>Features</h4>
         <div className="features-container">
@@ -394,8 +394,8 @@ export default function PropertyDetailScreen() {
               </div>
               <div>{review.comment}</div>
               <small>
-                {review.user.name}
                 <Moment format="MMM - YY" date={review.createdAt} />
+                {review.user.name}
               </small>
             </div>
           ))}

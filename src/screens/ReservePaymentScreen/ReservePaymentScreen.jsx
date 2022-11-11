@@ -59,10 +59,10 @@ export default function PaymentScreen() {
         <div className="paymentScreen">
           {successfulMessage ? (
             <Link to="/my-area">
-              <h2>
-                RESERVATION SUCCESSFUL! CLICK <span>HERE</span> TO GO TO YOUR
-                PERSONAL AREA
-              </h2>
+              <h2>RESERVATION SUCCESSFUL!</h2>
+              <span>
+                <b>Click here</b> to go to your personal area.
+              </span>
             </Link>
           ) : (
             <h2>
@@ -74,9 +74,9 @@ export default function PaymentScreen() {
           )}
           <div className="details-container">
             <div className="property-details-container">
-              <Carrousel
-                imagesArr={property.images}
-              />
+              <div className="carrousel-payment-reserve">
+                <Carrousel imagesArr={property.images} />
+              </div>
               <div>
                 <p>{property.address}</p>
                 <p>
@@ -97,23 +97,21 @@ export default function PaymentScreen() {
               </div>
             </div>
             {!successfulMessage && (
-              <>
-                <div className="payment-details-container">
-                  <h6>RESERVATION PRICE: {price}€</h6>
-                  <p>
-                    *The amount paid now will be discounted from the first
-                    monthly rent. <br />
-                    *If the reservation is not accepted by the owner, the amount
-                    paid will be returned to you.
-                  </p>
-                  <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm
-                      id={property.id}
-                      handleSuccessfulPayment={handleSuccessfulPayment}
-                    />
-                  </Elements>
-                </div>
-              </>
+              <div className="payment-details-container">
+                <h6>RESERVATION PRICE: {price}€</h6>
+                <p>
+                  *The amount paid now will be discounted from the first monthly
+                  rent. <br />
+                  *If the reservation is not accepted by the owner, the amount
+                  paid will be returned to you.
+                </p>
+                <Elements options={options} stripe={stripePromise}>
+                  <CheckoutForm
+                    id={property.id}
+                    handleSuccessfulPayment={handleSuccessfulPayment}
+                  />
+                </Elements>
+              </div>
             )}
           </div>
         </div>

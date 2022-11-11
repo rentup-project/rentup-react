@@ -7,19 +7,31 @@
     color: black;
     text-decoration: none;
     cursor: default;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1rem;
 }
 
-.paymentScreen h2{
+.paymentScreen h2 {
     font-size: 1.5rem;
     text-align: center;
     margin: 2rem 0 2rem 0;
     width: 100vw;
 }
 
-.paymentScreen h2 span{
-    font-size: 1.5rem;
+.paymentScreen span {
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100vw;
+}
+
+.paymentScreen a span b {
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100vw;
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: underline;    
 }
 
 .details-container {
@@ -29,30 +41,33 @@
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 1rem;
+    margin-bottom: 1rem;
 }
 
 .property-details-container {
+    height: 87vh;
+    height: 100%;
     width: 40vw;
+    max-width: 30vw;
+    border-radius: 2rem;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 1rem;
     background-color: rgb(239, 239, 239);
-    padding: 2rem 1rem 1rem 4rem;
-    border-radius: 2rem;
+    padding: 3rem 3rem 0.6rem 3rem;
+}
+
+.property-details-container .carrousel-payment-reserve {
+    margin-left: 1.9rem;
 }
 
 .payment-details-container {
+    height: 87vh;
+    width: 40vw;
+    max-width: 30vw;
     border-radius: 2rem;
     background-color:  #222222;
     padding: 3rem;
-    width: 40vw;
-    max-width: 900px;
-    margin-bottom: 2rem;
-}
-
-.display-carrousel-small {
-    display: none;
 }
 
 .payment-details-container h6 {
@@ -67,15 +82,10 @@
 }
 
 @media (max-width: 992px) {
+    
     .property-details-container, .payment-details-container {
-        width:95vw;
-    }
-
-    .display-carrousel-large {
-        display: none;
-    }
-
-    .display-carrousel-small {
-        display: flex;
+        width: 100vw;
+        max-width: 95vw;
+        margin-right: 0.5rem;
     }
 }
