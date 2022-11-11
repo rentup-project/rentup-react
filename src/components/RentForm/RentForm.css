@@ -1,7 +1,11 @@
 .rent-form {
-    max-width: 992px;
+    width: 100vw;
     display: flex;
     justify-content: center;
+}
+
+.rent-form-container {
+    width: 30%;
 }
 
 .rent-submit-btn {
@@ -10,4 +14,10 @@
     background-color: #ffd166;
     padding: 0.5rem 2rem;
     border: none;
+}
+
+@media (max-width: 992px) {
+    .rent-form-container {
+        width: 85%;
+    }
 }

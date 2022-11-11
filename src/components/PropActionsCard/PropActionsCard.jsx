@@ -24,7 +24,6 @@ export default function PropActionsCard( { property } ) {
       getPrequalification(currentUser.id)
         .then((res) => setPrequalification(res))
         .catch((err) => navigate('/error'));
-
     }
   },[currentUser, navigate])
 
@@ -59,7 +58,13 @@ export default function PropActionsCard( { property } ) {
   return (
     <div className="prop-actions-container">
       <div className="prop-actions-container-wrapper">
-        {!prequalification && (
+        {!currentUser && (
+          <div>
+            Hey! If you want to do take any action related to this property, you
+            have to login.
+          </div>
+        )}
+        {currentUser && !prequalification && (
           <div>
             Please, complete the prequalifications form so you can get more
             information about this property.
@@ -68,7 +73,7 @@ export default function PropActionsCard( { property } ) {
             </Link>
           </div>
         )}
-        {prequalification && !meetMinimumRequirements && (
+        {currentUser && prequalification && !meetMinimumRequirements && (
           <div id="minimum-requirements-wrapper">
             <p>
               Unfortunately, you don't meet the minimum requirements to rent
@@ -83,37 +88,45 @@ export default function PropActionsCard( { property } ) {
             </ul>
           </div>
         )}
-        <Link
-          to={prequalification && meetMinimumRequirements
-              ? `/visits/select/${id}` : "#"}
-          className={
-            prequalification && meetMinimumRequirements
-              ? "actions-btn-yellow"
-              : "disabled"
-          }
-        >
-          Visit
-        </Link>
-        <Link
-          to={
-            prequalification && meetMinimumRequirements
-              ? `/payment/reserve/${id}`
-              : "#"
-          }
-          className={
-            prequalification && meetMinimumRequirements
-              ? "actions-btn-yellow"
-              : "disabled"
-          }
-        >
-          Reserve this property
-        </Link>
-        {
+
+        <div>
+          <Link
+            to={
+              prequalification && meetMinimumRequirements
+                ? `/visits/select/${id}`
+                : "#"
+            }
+            className={
+              prequalification && meetMinimumRequirements
+                ? "actions-btn-yellow"
+                : "disabled"
+            }
+          >
+            Visit
+          </Link>
+          <Link
+            to={
+              prequalification && meetMinimumRequirements
+                ? `/payment/reserve/${id}`
+                : "#"
+            }
+            className={
+              prequalification && meetMinimumRequirements
+                ? "actions-btn-yellow"
+                : "disabled"
+            }
+          >
+            Reserve this property
+          </Link>
+          {
           owner && 
-        <Link to={`/my-area/${owner.id}`} className="actions-btn-blue">
-          Contact
-        </Link>
-        }
+          <Link to={currentUser ? `/my-area/${owner.id}` : "#"}
+          className={currentUser ? "actions-btn-blue" : "disabled"}
+          >
+            Contact
+          </Link>
+          }
+        </div>
       </div>
     </div>
   );

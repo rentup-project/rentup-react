@@ -179,8 +179,8 @@ export default function SelectVisitScreen() {
                 </div>)
             }
         </div>
-        <div>
-            <button onClick={handleReturn} className={`submit-btn`}>Return</button>
+        <div id="btns-visit-wrapper">
+            <button onClick={handleReturn} className={`submit-btn`}>Go back</button>
             <button onClick={handleOnSubmit} className={visitId ? `submit-btn` : 'disabled'}>Schedule visit</button>
         </div>
     </div>

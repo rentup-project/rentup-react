@@ -45,27 +45,27 @@ export default function BillsPayment({ billsToPay, rent }) {
 
   return (
     <>
-    {
-    clientSecret &&
+      {clientSecret && (
         <div className="bills-payment-screen">
-                <>
-                    <div className="bills-payment-container">
-                        {
-                            billsToPay.map(bill => (
-                                <div className="each-bill" key={bill.id}>
-                                    <p>Id: {bill.id}</p>
-                                    <p>Type: {bill.type}</p>
-                                    <p>Amount: {bill.amount}€</p>
-                                </div>
-                            ))
-                        }
-                    </div>
-                    <Elements options={options} stripe={stripePromise}>
-                        <CheckOutBillForm bills={billsToPay} rent={rent}/>
-                    </Elements>
-                </>
+          <>
+            <div className="bills-payment-container">
+              {billsToPay.map((bill) => (
+                <div className="each-bill-to-pay" key={bill.id}>
+                  <div>
+                    <b>Type:</b> {bill.type}
+                  </div>
+                  <div>
+                    <b>Amount:</b> {bill.amount}€
+                  </div>
+                </div>
+              ))}
+            </div>
+            <Elements options={options} stripe={stripePromise}>
+              <CheckOutBillForm bills={billsToPay} rent={rent} />
+            </Elements>
+          </>
         </div>
-    }
+      )}
     </>
-  )
+  );
 }
