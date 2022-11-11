@@ -68,7 +68,7 @@ export default function PropActionsCard( { property } ) {
           <div>
             Please, complete the prequalifications form so you can get more
             information about this property.
-            <Link to={"/my-area/prequalification"} className="actions-btn-blue">
+            <Link to={"/my-area/prequalification"} target="_blank" className="actions-btn-blue">
               Complete prequalifications
             </Link>
           </div>

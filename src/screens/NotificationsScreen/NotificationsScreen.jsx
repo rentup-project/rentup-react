@@ -1,10 +1,16 @@
 import moment from "moment";
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ghostImage from '../../assets/images/ghost-image.png';
 import { getNotifications } from '../../services/Account.services';
 import AuthContext from './../../contexts/AuthContext';
 import './NotificationsScreen.css';
+/* IMAGES */
+import ghostImage from "../../assets/images/ghost-image.png";
+import BillPaidIcon from '../../assets/images/nofitications/BillPaid-icon.png';
+import NewBillIcon from '../../assets/images/nofitications/NewBill-icon.png';
+import MessageIcon from '../../assets/images/nofitications/Message-icon.png';
+import ReserveIcon from '../../assets/images/nofitications/Reserve-icon.png';
+import ContractIcon from '../../assets/images/nofitications/Contract-icon.png';
 
 export default function NotificationsScreen() {
   const [notifications, setNotifications] = useState([]);
@@ -42,30 +48,93 @@ export default function NotificationsScreen() {
   }, [currentUser, navigate])
 
   return (
-    <div className='notifications-screen'>
-      {
-        notifications.length === 0 ? 
-          <div className='no-content-div'>
-            <h4>You have no notifications.</h4>
-            <img src={ghostImage} alt="ghost" />
-          </div>
-        :
+    <div className="notifications-screen">
+      {notifications.length === 0 ? (
+        <div className="no-content-div">
+          <h4>You have no notifications.</h4>
+          <img src={ghostImage} alt="ghost" />
+        </div>
+      ) : (
         <>
           <h2>Notifications</h2>
           <div className="notification-messages-container">
-            {
-              notifications.map((notification) => (                
-                  <Link to={notification.path} key={notification.id}>
-                    <div className="msg-container">
-                      <p className='msg-p'>{notification.message}</p>
-                      <p className='msg-time'>{moment(notification.createdAt).format('DD/MM/YY - hh:mm')}</p>
-                    </div>
-                  </Link>
-              ))
-            }
+            {notifications.map((notification) => (
+              <>
+                <Link id="notification-icon-wrapper" to={notification.path} key={notification.id}>
+                  {notification.type === "message" && (
+                    <div
+                      className="notification-icon"
+                      style={{
+                        backgroundImage: `url(${MessageIcon})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  )}
+
+                  {notification.type === "billPaid" && (
+                    <div
+                      className="notification-icon"
+                      style={{
+                        backgroundImage: `url(${BillPaidIcon})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  )}
+
+                  {notification.type === "billUploaded" && (
+                    <div
+                      className="notification-icon"
+                      style={{
+                        backgroundImage: `url(${NewBillIcon})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  )}
+
+                  {notification.type === "reservation" && (
+                    <div
+                      className="notification-icon"
+                      style={{
+                        backgroundImage: `url(${ReserveIcon})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  )}
+
+                  {notification.type === "rent" && (
+                    <div
+                      className="notification-icon"
+                      style={{
+                        backgroundImage: `url(${ContractIcon})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  )}
+
+                  <div className="msg-container">
+                    <p className="msg-p">{notification.message}</p>
+                    <p className="msg-time">
+                      {moment(notification.createdAt).format(
+                        "DD/MM/YY - hh:mm"
+                      )}
+                    </p>
+                  </div>
+                </Link>
+              </>
+            ))}
           </div>
         </>
-      }
+      )}
     </div>
-  )
+  );
 }
