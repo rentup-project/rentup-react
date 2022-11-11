@@ -17,12 +17,8 @@ export default function LoadingScreen() {
       if (token) {
         activateAccount(token)
           .then((res) => {
-            if (res.status === 202) {
-              navigate("/");
-            }
-            navigate("/login");
+            navigate("/");
           })
-          .catch(navigate("/login"));
       } else {
         const accessToken = Object.fromEntries(new URLSearchParams(location.search));
         login(accessToken.callbackToken);
