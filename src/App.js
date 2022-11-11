@@ -49,16 +49,8 @@ function App() {
         } />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* PAYMENTS */}
-        <Route path="/payment/reserve/:id" element={
-          <ProtectedRoute>
-            <ReservePaymentScreen />
-          </ProtectedRoute>
-        } />
-        <Route path="/chekout" element={
-          <ProtectedRoute>
-            <CheckoutForm />
-          </ProtectedRoute>
-        } />
+        <Route path="/payment/reserve/:id" element={<ReservePaymentScreen />} />
+        <Route path="/chekout" element={<CheckoutForm />} />
         {/* NOTIFICATIONS */}
         <Route path="/notifications" element={
           <ProtectedRoute>
