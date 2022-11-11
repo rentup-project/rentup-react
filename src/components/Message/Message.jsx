@@ -57,7 +57,7 @@ export default function Message({ receiverId }) {
         updateMessages();
         setMessageToSend("");
         socket.emit("notification", receiver.email);
-        socket.emit("message", receiver.email);
+        //socket.emit("message", receiver.email);
       })
       .catch((err) => navigate("/error"));
   };
