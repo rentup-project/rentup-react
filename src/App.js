@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./App.css";
 import CheckoutForm from "./components/CheckoutForm/CheckoutForm";
 import Navbar from "./components/Navbar/Navbar";
+//import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import EditPropertyScreen from "./screens/EditPropertyScreen/EditPropertyScreen";
 import ErrorScreen from "./screens/ErrorScreen/ErrorScreen";
 import FavsScreen from "./screens/FavsScreen/FavsScreen";
@@ -11,12 +12,11 @@ import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
 import MyRentDetailsScreen from "./screens/MyRentDetailsScreen/MyRentDetailsScreen";
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";
 import NotificationsScreen from "./screens/NotificationsScreen/NotificationsScreen";
-import ReservePaymentScreen from "./screens/ReservePaymentScreen/ReservePaymentScreen";
 import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
+import ReservePaymentScreen from "./screens/ReservePaymentScreen/ReservePaymentScreen";
 import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
 import SelectVisitScreen from './screens/SelectVisitScreen/SelectVisitScreen';
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -30,22 +30,22 @@ function App() {
         <Route path="/activate/:token" element={<LoadingScreen />} />
         {/* ACCOUNT */}
         <Route path="/account/favs" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <FavsScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         {/* PROPERTIES */}
         <Route path="/search" element={<PropertiesScreen />} />
         <Route path="/search/:search" element={<PropertiesScreen />} />
         <Route path="/property/create" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <NewProperty />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/property/edit/:id" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <EditPropertyScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* PAYMENTS */}
@@ -53,52 +53,52 @@ function App() {
         <Route path="/chekout" element={<CheckoutForm />} />
         {/* NOTIFICATIONS */}
         <Route path="/notifications" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <NotificationsScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         {/* MY PERSONAL AREA */}
         <Route path="/my-area" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <MyAreaScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/my-area/:owner" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <MyAreaScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/my-area/prequalification" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <MyAreaScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/my-area/messages" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <MyAreaScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/my-area/myRents" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <MyAreaScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         {/* RENT DETAILS*/}
         <Route path="/rent/details/:id" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <MyRentDetailsScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         <Route path="/rent/review/:id" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <ReviewScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         {/* VISITS */}
         <Route path="/visits/select/:id" element={
-          <ProtectedRoute>
+          //<ProtectedRoute>
             <SelectVisitScreen />
-          </ProtectedRoute>
+          //</ProtectedRoute>
         } />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />

@@ -276,9 +276,9 @@ export default function PropertiesScreen() {
           {
             lastPage > 1 &&
             <ul className="pagination-ul">
-              <li className={`pagination-li ${pagination === 1 && 'disabled'}`} onClick={changePagination}
+              <li className={`pagination-li ${pagination === 1 && 'disabled-pagination'}`} onClick={changePagination}
                 value={pagination - 1}>Previous</li>
-              <li className={`pagination-li ${pagination === lastPage && 'disabled'}`} onClick={changePagination}
+              <li className={`pagination-li ${pagination === lastPage && 'disabled-pagination'}`} onClick={changePagination}
                 value={pagination + 1}>Next</li>
             </ul>
           }
