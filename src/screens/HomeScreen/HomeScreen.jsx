@@ -18,8 +18,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const accessToken =
-      "pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q";
+    const accessToken = process.env.REACT_APP_MAP_TOKEN;
     setToken(accessToken);
     config.accessToken = accessToken;
   }, []);
@@ -81,7 +80,7 @@ export default function HomeScreen() {
           <div className="home-properties-container">
             {
               lastProperties.map(prop => (
-                <Link to={`/property/${prop.id}`}>
+                <Link to={`/property/${prop.id}`} key={prop.id}>
                 <div className="home-property-container">
                   <img src={prop.images[0]} alt="property" width="340px"/>
                   <div>

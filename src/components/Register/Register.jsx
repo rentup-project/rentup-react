@@ -63,7 +63,7 @@ export default function Register({ handleChangeLogin }) {
   }
 
   const handleOnClick = () => {
-    window.location.assign(`${process.env.SERVER_URL}/login/google`);
+    window.location.assign(`${process.env.REACT_APP_SERVER_URL}/login/google`);
   }
 
   return (
