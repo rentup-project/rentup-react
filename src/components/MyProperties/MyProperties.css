@@ -1,5 +1,11 @@
 .my-properties-container {
-   padding: 1rem 10rem;
+    display: flex;
+    justify-content: center;
+    margin: 1rem auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 80vw;
 }
 
 .my-properties-wrapper {
@@ -14,12 +20,12 @@
 }
 
 .delete-edit-icons-wrapper {
+    width: 82%;
     position: absolute;
     bottom: 3%;
-    right: 10%;
+    right: 5%;
     display: flex;
     justify-content: space-between;
-    width: 80%;
     gap: 2rem;
 }
 

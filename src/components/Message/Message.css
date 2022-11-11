@@ -1,10 +1,16 @@
+.messages-wrapper {
+    height: 65vh;
+    position: relative;
+}
+
 /* HIDE SCROLLBAR */
 
 .messages-scroll-container {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-.messages-scroll-container::-webkit-scrollbar { 
+
+.messages-scroll-container::-webkit-scrollbar {
     display: none;
 }
 
@@ -13,7 +19,8 @@
 .messages-scroll-container {
     display: flex;
     flex-direction: column-reverse;
-    height: 55vh;
+    margin-top: 0.5rem;
+    height: 75%;
     overflow-y: scroll;
 }
 
@@ -35,7 +42,7 @@
     margin-bottom: 0.5rem;
 }
 
-.timestamp span{
+.timestamp span {
     font-size: 0.7rem;
 }
 
@@ -51,9 +58,10 @@
 /* FORM */
 
 .messages-form {
-    width: 61vw;
-    position: fixed;
-    bottom: 10%;
+    width: 100%;
+    position: absolute;
+    bottom: 2%;
+    height: 23%;
     display: flex;
     justify-content: center;
 }
@@ -68,6 +76,7 @@
 }
 
 .messages-form button {
+    width: 10%;
     font-weight: 700;
     border: none;
     background-color: rgb(239, 239, 239, 0.8);
@@ -75,4 +84,18 @@
     border-top-right-radius: 1rem;
     border-left: 2px solid rgb(219, 219, 219);
     padding: 1rem;
+}
+
+@media (max-width: 992px) {
+    .each-message {
+        width: 80%;
+    }
+
+    .mine {
+        margin-left: 20%;
+    }
+
+    .messages-form button {
+        width: 30%;
+    }
 }

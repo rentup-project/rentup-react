@@ -1,48 +1,62 @@
-.messages-section-container {
+.ghost-message-container {
     display: flex;
     justify-content: center;
-    height: 75vh;
     width: 80vw;
     margin: 1rem auto;
 }
 
+.messages-section-container {
+    display: flex;
+    justify-content: space-between;
+    height: 65vh;
+    width: 80vw;
+    margin: 2rem auto;
+}
+
 .list-of-messages-container {
-    width: 26vw;
-    background-color: rgba(34, 34, 34,1);
-    padding: 2rem 2rem 11rem 2rem;
+    width: 24%;
+    border-radius: 2rem;
+    border: 1px solid  rgb(239, 239, 239);
+    padding: 1rem;
 }
 
 .messages-container {
-    width: 74vw;
-    background-color: white;
-    padding: 2rem 2rem 11rem 2rem;
+    width: 75%;
 }
 
 .person-list-container {
     height: 4rem;
     margin-bottom: 20px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.474);
     display: flex;
     align-items: center;
     padding: 10px;
-    box-shadow: 10px 0px 25px 0px rgba(0,0,0,1);
 }
 
 .person-list-container:hover {
-    background-color: #ffd166;
-}
-
-.link-person-list-container{
-    font-weight: 500;
-    text-transform: uppercase;
-    color: black;
-    text-decoration: none;
-}
-
-.link-person-list-container:hover {
-    color: black;
+    border-radius: 0.5rem;
+    background-color:  rgb(239, 239, 239);
 }
 
 .person-list-container p{
     margin: 0;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 992px) {
+    .messages-section-container {
+        width: 98vw;
+        margin-top: 0;
+    }
+
+    .list-of-messages-container {
+        width: 24%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .list-of-messages-container {
+        border-radius: 0.5rem;
+    }
 }

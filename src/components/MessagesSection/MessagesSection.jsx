@@ -8,7 +8,7 @@ import "./MessagesSection.css";
 
 export default function MessagesSection({ ownerId }) {
   const [listOfMessages, setList] = useState([]);
-  const [receiverId, setReceiverId] = useState("");
+  const [receiverId, setReceiverId] = useState(null);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -18,10 +18,10 @@ export default function MessagesSection({ ownerId }) {
         setList(res);
       })
       .catch((err) => {
-        navigate("/error");
+        navigate('/error')
       });
-  }, [navigate, currentUser]);
-
+    }, [navigate, currentUser]);
+    
   useEffect(() => {
     if (currentUser) {
       if (ownerId) {
@@ -37,33 +37,37 @@ export default function MessagesSection({ ownerId }) {
   };
 
   return (
-    <div className="messages-section-container">
+    <div className={!receiverId && listOfMessages.length === 0 ? "ghost-message-container" : "messages-section-container"}>
       {
-        listOfMessages.length > 0 && !receiverId ? 
-        <>
-          <div className="list-of-messages-container">
-            {listOfMessages.map((person) => (
-              <div
-                onClick={handleOnClick}
-                id={person.id}
-                key={person.id}
-                className="person-list-container"
-              >
-                <p>{person.name}</p>
-              </div>
-            ))}
-          </div>
-          <div className="messages-container">
-            {listOfMessages.length || ownerId &&
-              <Message receiverId={receiverId} />
-            }
-          </div>
-        </>
-        :
+        !receiverId && listOfMessages.length === 0 ?
         <div className='no-content-div'>
-          <h4>You have no messages yet. Go talk to someone!</h4>
+          <h4>You have no messages. Go talk to someone!</h4>
           <img src={ghostImage} alt="ghost" />
         </div>
+        :
+        <>
+        <div className="list-of-messages-container">
+          {
+            listOfMessages.length > 0 && listOfMessages.map((person) => (
+            <div
+              onClick={handleOnClick}
+              id={person.id}
+              key={person.id}
+              className="person-list-container"
+            >
+              <p onClick={handleOnClick}
+              id={person.id}>{person.name}</p>
+            </div>
+          ))}
+        </div>
+          
+        <div className="messages-container">
+          {
+            receiverId && 
+            <Message receiverId={receiverId} />
+          }
+        </div>
+        </>
       }
     </div>
   );
