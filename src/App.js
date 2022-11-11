@@ -16,6 +16,7 @@ import PropertiesScreen from "./screens/PropertiesScreen/PropertiesScreen";
 import PropertyDetailScreen from "./screens/PropertyDetailScreen/PropertyDetailScreen";
 import ReviewScreen from "./screens/ReviewScreen/ReviewScreen";
 import SelectVisitScreen from './screens/SelectVisitScreen/SelectVisitScreen';
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 function App() {
   return (
@@ -28,29 +29,85 @@ function App() {
         <Route path="/validation" element={<LoadingScreen />} />
         <Route path="/activate/:token" element={<LoadingScreen />} />
         {/* ACCOUNT */}
-        <Route path="/account/favs/:user" element={<FavsScreen />} />
+        <Route path="/account/favs" element={
+          <ProtectedRoute>
+            <FavsScreen />
+          </ProtectedRoute>
+        } />
         {/* PROPERTIES */}
         <Route path="/search" element={<PropertiesScreen />} />
         <Route path="/search/:search" element={<PropertiesScreen />} />
-        <Route path="/property/create" element={<NewProperty />} />
-        <Route path="/property/edit/:id" element={<EditPropertyScreen />} />
+        <Route path="/property/create" element={
+          <ProtectedRoute>
+            <NewProperty />
+          </ProtectedRoute>
+        } />
+        <Route path="/property/edit/:id" element={
+          <ProtectedRoute>
+            <EditPropertyScreen />
+          </ProtectedRoute>
+        } />
         <Route path="/property/:id" element={<PropertyDetailScreen />} />
         {/* PAYMENTS */}
-        <Route path="/payment/reserve/:id" element={<ReservePaymentScreen />} />
-        <Route path="/chekout" element={<CheckoutForm />} />
+        <Route path="/payment/reserve/:id" element={
+          <ProtectedRoute>
+            <ReservePaymentScreen />
+          </ProtectedRoute>
+        } />
+        <Route path="/chekout" element={
+          <ProtectedRoute>
+            <CheckoutForm />
+          </ProtectedRoute>
+        } />
         {/* NOTIFICATIONS */}
-        <Route path="/notifications" element={<NotificationsScreen />} />
+        <Route path="/notifications" element={
+          <ProtectedRoute>
+            <NotificationsScreen />
+          </ProtectedRoute>
+        } />
         {/* MY PERSONAL AREA */}
-        <Route path="/my-area" element={<MyAreaScreen />} />
-        <Route path="/my-area/:owner" element={<MyAreaScreen />} />
-        <Route path="/my-area/prequalification" element={<MyAreaScreen />} />
-        <Route path="/my-area/messages" element={<MyAreaScreen />} />
-        <Route path="/my-area/myRents" element={<MyAreaScreen />} />
+        <Route path="/my-area" element={
+          <ProtectedRoute>
+            <MyAreaScreen />
+          </ProtectedRoute>
+        } />
+        <Route path="/my-area/:owner" element={
+          <ProtectedRoute>
+            <MyAreaScreen />
+          </ProtectedRoute>
+        } />
+        <Route path="/my-area/prequalification" element={
+          <ProtectedRoute>
+            <MyAreaScreen />
+          </ProtectedRoute>
+        } />
+        <Route path="/my-area/messages" element={
+          <ProtectedRoute>
+            <MyAreaScreen />
+          </ProtectedRoute>
+        } />
+        <Route path="/my-area/myRents" element={
+          <ProtectedRoute>
+            <MyAreaScreen />
+          </ProtectedRoute>
+        } />
         {/* RENT DETAILS*/}
-        <Route path="/rent/details/:id" element={<MyRentDetailsScreen />} />
-        <Route path="/rent/review/:id" element={<ReviewScreen />} />
+        <Route path="/rent/details/:id" element={
+          <ProtectedRoute>
+            <MyRentDetailsScreen />
+          </ProtectedRoute>
+        } />
+        <Route path="/rent/review/:id" element={
+          <ProtectedRoute>
+            <ReviewScreen />
+          </ProtectedRoute>
+        } />
         {/* VISITS */}
-        <Route path="/visits/select/:id" element={<SelectVisitScreen />} />
+        <Route path="/visits/select/:id" element={
+          <ProtectedRoute>
+            <SelectVisitScreen />
+          </ProtectedRoute>
+        } />
         {/* MISC */}
         <Route path="/error" element={<ErrorScreen />} />
         <Route path="*" element={<Navigate to="/error" replace />} />

@@ -24,14 +24,13 @@ export default function Message({ receiverId }) {
             .then((res) => {
               setMessages(res);
             })
-            .catch((err) => console.log("1", err));
+            .catch((err) => navigate('/error'));
         })
-        .catch((err) => console.log("2", err));
+        .catch((err) => navigate('/error'));
     }
-  }, [currentUser, receiverId]);
+  }, [currentUser, receiverId, navigate]);
 
   socket.on("msg", function () {
-    console.log('entra msg front')
     updateMessages();
   });
 
@@ -57,7 +56,7 @@ export default function Message({ receiverId }) {
       .then((res) => {
         updateMessages();
         setMessageToSend("");
-        //socket.emit("notification", receiver.email);
+        socket.emit("notification", receiver.email);
         socket.emit("message", receiver.email);
       })
       .catch((err) => navigate("/error"));
@@ -65,7 +64,7 @@ export default function Message({ receiverId }) {
 
   return (
     receiverId && (
-      <div>
+      <div className="messages-wrapper">
         <div className="messages-scroll-container">
           {[...messages].map((msg) => (
             <div

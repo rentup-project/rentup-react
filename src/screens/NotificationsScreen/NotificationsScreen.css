@@ -6,13 +6,13 @@
     min-height: 100vh;
 }
 
-.messages-container {
+.notification-messages-container {
     margin-top: 2rem;
     padding: 0;
     max-width: 992px;
 }
 
-.messages-container a{
+.notification-messages-container a{
     color: #222222;
     text-decoration: none;
 }
@@ -46,7 +46,7 @@
         padding-top: 12vh;
     }
 
-    .messages-container {
+    .notification-messages-container {
         margin-top: 1rem;
         width: 100vw;
     }

@@ -1,10 +1,11 @@
 .my-rents-container {
   display: flex;
   justify-content: center;
-  padding: 1rem 10rem;
+  margin: 1rem auto;
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 80vw;
 }
 
 .my-rent-wrapper {

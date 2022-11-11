@@ -108,9 +108,12 @@ export default function PropActionsCard( { property } ) {
         >
           Reserve this property
         </Link>
-        <Link to={`/my-area/${owner}`} className="actions-btn-blue">
+        {
+          owner && 
+        <Link to={`/my-area/${owner.id}`} className="actions-btn-blue">
           Contact
         </Link>
+        }
       </div>
     </div>
   );
