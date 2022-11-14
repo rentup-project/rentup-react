@@ -23,45 +23,54 @@ export default function VisitsSection() {
     const handleOnClick = (e) => {
         const id = e.target.id
         deleteVisit(id)
-        .then(res => window.reload())
+        .then(res => {
+            const filtered = myVisits.filter((visit) => visit.id !== id)
+            setMyVisits(filtered)
+        })
         .catch(err => navigate('/error'))
     }
 
   return (
     <div className="visits-section">
-        {
-            myVisits.length === 0 &&
-            <div className='no-content-div'>
-                <h4>You have no scheduled visits at the moment.</h4>
-                <img src={ghostImage} alt="ghost" />
+      {myVisits.length === 0 && (
+        <div className="no-content-div">
+          <h4>You have no scheduled visits at the moment.</h4>
+          <img src={ghostImage} alt="ghost" />
+        </div>
+      )}
+      {myVisits.length !== 0 &&
+        myVisits.map((visit) => (
+          <div className="each-visit-container" key={visit.id}>
+            <PropertyCard
+              images={visit.property.images}
+              address={visit.property.address}
+              bedroom={visit.property.bedroom}
+              bathroom={visit.property.bathroom}
+              id={visit.property.id}
+              squaredMeters={visit.property.squaredMeters}
+              lat={visit.property.lat}
+              long={visit.property.long}
+              price={visit.property.monthlyRent}
+              reserved={visit.property.reserved}
+              rented={visit.property.rented}
+            />
+            <div className="visit-hour-tag">
+              {visit.day} at {visit.hour}
             </div>
-            
-        }
-        {
-            myVisits.length !== 0 && myVisits.map(visit => (
-                <div className="each-visit-container" key={visit.id}>
-                    <PropertyCard 
-                    images={visit.property.images}
-                    address={visit.property.address}
-                    bedroom={visit.property.bedroom}
-                    bathroom={visit.property.bathroom}
-                    id={visit.property.id}
-                    squaredMeters={visit.property.squaredMeters}
-                    lat={visit.property.lat}
-                    long={visit.property.long}
-                    price={visit.property.monthlyRent}
-                    reserved={visit.property.reserved}
-                    rented={visit.property.rented}
-                    />
-                    <div className='visit-hour-tag'>
-                        {visit.day} at {visit.hour}
-                    </div>
-                    <div className='visit-trash-icon' id={visit.id} onClick={handleOnClick}>
-                        <img src={trashIcon} alt="trash" width='30px'/>
-                    </div>
-                </div>
-            ))
-        }
+            <div
+              className="visit-trash-icon"
+              onClick={handleOnClick}
+            >
+              <img
+                src={trashIcon}
+                id={visit.id}
+                alt="trash"
+                width="30px"
+                onClick={handleOnClick}
+              />
+            </div>
+          </div>
+        ))}
     </div>
-  )
+  );
 }

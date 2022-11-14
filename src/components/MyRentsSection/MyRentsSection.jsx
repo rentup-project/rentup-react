@@ -27,8 +27,8 @@ export default function MyRentsSection() {
   }, [currentUser, navigate])
 
   useEffect(() => {
-    if(idProp) {
-      getReviewRent(idProp)
+    if(idProp && currentUser) {
+      getReviewRent(idProp, currentUser.id)
         .then((res) => {
           if (res.length > 0) {
             setReviewed(true);
@@ -38,7 +38,7 @@ export default function MyRentsSection() {
         })
         .catch((err) => navigate("/error"));
     }    
-  }, [idProp, navigate])
+  }, [idProp, navigate, currentUser])
   
   const handleCancelReservation = (id) => {
     cancelReservation(id)
@@ -73,7 +73,6 @@ export default function MyRentsSection() {
         elementWithId.className = `class${getId} opened`;
       }
     }
-
   };
 
   return (
@@ -94,9 +93,11 @@ export default function MyRentsSection() {
             reserved={rent.reserved}
             rented={rent.rented}
           />
+
           {rent.reserved && !rent.rented && (
             <div className="tag-status yellow-tag">Reserved</div>
           )}
+
           {rent.rented && <div className="tag-status green-tag">Rented</div>}
 
           {rent.owner === currentUser.id && rent.reserved && !rent.rented && (
@@ -107,25 +108,24 @@ export default function MyRentsSection() {
                 src={menuIcon}
                 alt="menu icon"
                 onClick={handleOnClick}
-              />
-              
-                <div className={`class${rent.id} closed`}>
-                  <button
-                    className="menu-option"
-                    onClick={() => redirectToFormRent(rent.id)}
-                  >
-                    Fill rent info
-                  </button>
-                  <button
-                    className="menu-option"
-                    onClick={() => handleCancelReservation(rent.id)}
-                  >
-                    Cancel reservation
-                  </button>
-                </div>
-              
+              />              
+              <div className={`class${rent.id} closed`}>
+                <button
+                  className="menu-option"
+                  onClick={() => redirectToFormRent(rent.id)}
+                >
+                  Fill rent info
+                </button>
+                <button
+                  className="menu-option"
+                  onClick={() => handleCancelReservation(rent.id)}
+                >
+                  Cancel reservation
+                </button>
+              </div>              
             </div>
           )}
+
           {rent.owner === currentUser.id && rent.rented && (
             <div className="menu-icon-div">
               <img
@@ -135,18 +135,17 @@ export default function MyRentsSection() {
                 alt="menu icon"
                 onClick={handleOnClick}
               />
-              
-                <div className={`class${rent.id} closed`}>
-                  <button
-                    className="menu-option"
-                    onClick={() => redirectToFormRent(rent.id)}
-                  >
-                    See details
-                  </button>
-                </div>
-              
+              <div className={`class${rent.id} closed`}>
+                <button
+                  className="menu-option"
+                  onClick={() => redirectToFormRent(rent.id)}
+                >
+                  See details
+                </button>
+              </div>              
             </div>
           )}
+
           {rent.owner !== currentUser.id && rent.rented && !reviewed && (
             <div className="menu-icon-div">
               <img
@@ -155,25 +154,24 @@ export default function MyRentsSection() {
                 src={menuIcon}
                 alt="menu icon"
                 onClick={handleOnClick}
-              />
-              
-                <div className={`class${rent.id} closed`}>
-                  <button
-                    className="menu-option"
-                    onClick={() => redirectToFormRent(rent.id)}
-                  >
-                    See details
-                  </button>
-                  <button
-                    className="menu-option"
-                    onClick={() => redirectToFormReview(rent.id)}
-                  >
-                    Write a review
-                  </button>
-                </div>
-              
+              />              
+              <div className={`class${rent.id} closed`}>
+                <button
+                  className="menu-option"
+                  onClick={() => redirectToFormRent(rent.id)}
+                >
+                  See details
+                </button>
+                <button
+                  className="menu-option"
+                  onClick={() => redirectToFormReview(rent.id)}
+                >
+                  Write a review
+                </button>
+              </div>              
             </div>
           )}
+
           {rent.owner !== currentUser.id && rent.rented && reviewed && (
             <div className="menu-icon-div">
               <img
@@ -182,25 +180,27 @@ export default function MyRentsSection() {
                 src={menuIcon}
                 alt="menu icon"
                 onClick={handleOnClick}
-              />
-              
-                <div className={`class${rent.id} closed`}>
-                  <button
-                    className="menu-option"
-                    onClick={() => redirectToFormRent(rent.id)}
-                  >
-                    See details
-                  </button>
-                </div>
-              
+              />              
+              <div className={`class${rent.id} closed`}>
+                <button
+                  className="menu-option"
+                  onClick={() => redirectToFormRent(rent.id)}
+                >
+                  See details
+                </button>
+              </div>              
             </div>
           )}
+
         </div>
-      )):
-      <div className='no-content-div'>
-        <h4>You have no rents at the moment.</h4>
-        <img src={ghostImage} alt="ghost" />
-      </div>
+      ))
+      :
+      (
+        <div className='no-content-div'>
+          <h4>You have no rents at the moment.</h4>
+          <img src={ghostImage} alt="ghost" />
+        </div>
+      )
     }
     </div>
   );
