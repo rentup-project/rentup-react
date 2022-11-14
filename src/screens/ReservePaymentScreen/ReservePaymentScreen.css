@@ -45,8 +45,7 @@
 }
 
 .property-details-container {
-    height: 87vh;
-    height: 100%;
+    max-height: 83vh;
     width: 40vw;
     max-width: 30vw;
     border-radius: 2rem;
@@ -62,7 +61,7 @@
 }
 
 .payment-details-container {
-    height: 87vh;
+    max-height: 83vh;
     width: 40vw;
     max-width: 30vw;
     border-radius: 2rem;

@@ -21,4 +21,4 @@ export const getUserWhoRents = (id) => authHttp.get(`/rent/userWhoRents/${id}`);
 
 export const createReview = (body) => authHttp.post("/my-area/review", body);
 
-export const getReviewRent = (id) => authHttp.get(`/my-area/review/status/${id}`);
+export const getReviewRent = (id, user) => authHttp.get(`/my-area/review/status/${id}/${user}`);

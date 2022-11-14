@@ -55,7 +55,7 @@ export default function FavsScreen() {
                   address={fav.property?.address}
                   bedroom={fav.property?.bedroom}
                   bathroom={fav.property?.bathroom}
-                  price={fav.property?.reservationPrice}
+                  price={fav.property?.monthlyRent}
                   id={fav.property?.id}
                   squaredMeters={fav.property?.squaredMeters}
                   lat={fav.property?.lat}

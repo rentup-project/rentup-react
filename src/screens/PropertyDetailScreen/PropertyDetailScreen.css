@@ -176,6 +176,7 @@ hr {
     flex-direction: column;
     gap: 0.8rem;
     padding: 2rem 0;
+    max-width: 30rem;
 }
 
 .opinions-container small{
