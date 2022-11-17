@@ -163,6 +163,10 @@
 }
 
 @media (max-width: 992px) {
+    .PropertiesScreen {
+        padding-top: 7vh;
+    }
+    
     .map-container {
         display: none;
     }
