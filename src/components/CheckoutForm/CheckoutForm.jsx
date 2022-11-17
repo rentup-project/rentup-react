@@ -60,7 +60,7 @@ export default function CheckoutForm({ id, handleSuccessfulPayment }) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${process.env.REACT_APP_CLIENT_URL}/payment/reserve/${id}`
+        return_url: `http://localhost:3000/payment/reserve/${id}`
       },
     });
 
