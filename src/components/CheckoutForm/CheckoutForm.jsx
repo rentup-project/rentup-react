@@ -75,18 +75,16 @@ export default function CheckoutForm({ id, handleSuccessfulPayment }) {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      {
-        !message && (
-          <>
+      {!message && (
+        <>
           <PaymentElement id="payment-element" />
           <button disabled={isLoading || !stripe || !elements} id="submit">
             <span id="button-text">
-              {isLoading ? <div className="spinner" id="spinner"></div> : "PAY"}
+              {isLoading ? <span class="loader"></span> : "PAY"}
             </span>
           </button>
-          </>
-        )
-      }
+        </>
+      )}
       {message && <div id="payment-message">{message}</div>}
     </form>
   );

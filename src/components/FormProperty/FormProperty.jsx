@@ -116,8 +116,10 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
 
     if (handleOnCreate) {      
       handleOnCreate(formData);
+      setLoading(false);
     } else {
       handleOnEdit(formData);
+      setLoading(false);
     }
   };
 
@@ -888,7 +890,9 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
       </div>
 
       <div>
-  <label className="form-label">Choose the days you are available to show your property</label>
+        <label className="form-label">
+          Choose the days you are available to show your property
+        </label>
         <div className="commodities-container">
           <div className="checkbox-wrapper form-check">
             <input
@@ -1034,13 +1038,25 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
           <option className="option-filter" name="selected" defaultValue>
             Select
           </option>
-          <option className="option-filter" name="Morning - from 9AM to 12PM" defaultValue>
+          <option
+            className="option-filter"
+            name="Morning - from 9AM to 12PM"
+            defaultValue
+          >
             Morning - from 9AM to 12PM
           </option>
-          <option className="option-filter" name="Afternoon - from 2PM to 6PM" defaultValue>
+          <option
+            className="option-filter"
+            name="Afternoon - from 2PM to 6PM"
+            defaultValue
+          >
             Afternoon - from 2PM to 6PM
           </option>
-          <option className="option-filter" name="Evening - from 6PM to 9PM" defaultValue>
+          <option
+            className="option-filter"
+            name="Evening - from 6PM to 9PM"
+            defaultValue
+          >
             Evening - from 6PM to 9PM
           </option>
         </select>
@@ -1050,7 +1066,15 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
           </div>
         )}
       </div>
-      <button onClick={handleOnClick}>{loading ? 'Loading...' : (handleOnCreate ? "CREATE" : "EDIT")}</button>
+      <button onClick={handleOnClick}>
+        {loading ? (
+          <span class="loader"></span>
+        ) : handleOnCreate ? (
+          "CREATE"
+        ) : (
+          "EDIT"
+        )}
+      </button>
     </form>
   );
 }

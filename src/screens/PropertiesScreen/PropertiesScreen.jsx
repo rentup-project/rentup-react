@@ -24,6 +24,7 @@ export default function PropertiesScreen() {
   const [pagination, setPagination] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [totalProperties, setTotalProperties] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { search } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -102,9 +103,12 @@ export default function PropertiesScreen() {
     if (pagination && properties) {
       let initial = ((pagination - 1) * propertiesPerPage);
       let final = ((pagination - 1) * propertiesPerPage) + propertiesPerPage;
-      let pieceOfPpropertiesToShow = [...properties].slice(initial, final)
+      let pieceOfPpropertiesToShow = [...properties].slice(initial, final);
 
-      setPropertiesToShow(pieceOfPpropertiesToShow)
+      setPropertiesToShow(pieceOfPpropertiesToShow);
+      setLoading(false)
+    } else {
+      setLoading(true)
     }
   }, [properties, pagination, sortBy, propertiesPerPage]) //no añadir blueMarker al array de dependencias
 
@@ -216,33 +220,29 @@ export default function PropertiesScreen() {
       <div>
         <div className="city-title-sort">
           <h2>{search}</h2>
-          <div className='sort-div'>
-            <label className='form-label'>
-              Sort by
-            </label>
+          <div className="sort-div">
+            <label className="form-label">Sort by</label>
             <form>
-              <select id="sortByBtn"  className="form-control form-control-sm" onChange={changeSortByState}>
+              <select
+                id="sortByBtn"
+                className="form-control form-control-sm"
+                onChange={changeSortByState}
+              >
                 <option name="date: most recent first" defaultValue>
                   Most recent
                 </option>
-                <option name="price: lowest first">
-                  Cheapest
-                </option>
-                <option name="price: highest first">
-                  Most expensive
-                </option>
-                <option name="price: lowest first">
-                  Smallest
-                </option>
-                <option name="price: highest first">
-                  Biggest
-                </option>
+                <option name="price: lowest first">Cheapest</option>
+                <option name="price: highest first">Most expensive</option>
+                <option name="price: lowest first">Smallest</option>
+                <option name="price: highest first">Biggest</option>
               </select>
             </form>
           </div>
         </div>
         <div className="property-list-container">
-          {propertiesToShow.length > 0 &&
+          {loading && <span class="loader"></span>}
+          {!loading &&
+            propertiesToShow.length > 0 &&
             propertiesToShow.map((property) => (
               <div
                 key={property.id}
@@ -264,24 +264,36 @@ export default function PropertiesScreen() {
                 />
               </div>
             ))}
-            {
-              propertiesToShow.length === 0 && 
-              <div className='no-content-div'>
-                  <h4>No properties available. Please try again.</h4>
-                  <img src={ghostImage} alt="ghost" />
-              </div>
-            }
+          {!loading && propertiesToShow.length === 0 && (
+            <div className="no-content-div">
+              <h4>No properties available. Please try again.</h4>
+              <img src={ghostImage} alt="ghost" />
+            </div>
+          )}
         </div>
-        <div className='pagination-container'>
-          {
-            lastPage > 1 &&
+        <div className="pagination-container">
+          {lastPage > 1 && (
             <ul className="pagination-ul">
-              <li className={`pagination-li ${pagination === 1 && 'disabled-pagination'}`} onClick={changePagination}
-                value={pagination - 1}>Previous</li>
-              <li className={`pagination-li ${pagination === lastPage && 'disabled-pagination'}`} onClick={changePagination}
-                value={pagination + 1}>Next</li>
+              <li
+                className={`pagination-li ${
+                  pagination === 1 && "disabled-pagination"
+                }`}
+                onClick={changePagination}
+                value={pagination - 1}
+              >
+                Previous
+              </li>
+              <li
+                className={`pagination-li ${
+                  pagination === lastPage && "disabled-pagination"
+                }`}
+                onClick={changePagination}
+                value={pagination + 1}
+              >
+                Next
+              </li>
             </ul>
-          }
+          )}
         </div>
       </div>
       <div ref={mapContainer} className="map-container" />

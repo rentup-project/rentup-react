@@ -100,7 +100,7 @@ export default function Login({ handleChangeRegister, message }) {
             className="login-button"
             disabled={isSubmitting}
           >
-            {isSubmitting ? "Loading" : "LOGIN"}
+            {isSubmitting ? <span class="loader"></span> : "LOGIN"}
           </button>
 
           <p className="or-line">

@@ -24,7 +24,9 @@ export default function MessagesSection({ ownerId }) {
     
   useEffect(() => {
     if (currentUser) {
+      console.log(currentUser)
       if (ownerId) {
+        console.log(ownerId, 'entra')
         setReceiverId(ownerId);
       }
       updateUserList();

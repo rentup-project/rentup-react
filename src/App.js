@@ -7,7 +7,7 @@ import EditPropertyScreen from "./screens/EditPropertyScreen/EditPropertyScreen"
 import ErrorScreen from "./screens/ErrorScreen/ErrorScreen";
 import FavsScreen from "./screens/FavsScreen/FavsScreen";
 import HomeScreen from "./screens/HomeScreen/HomeScreen";
-import LoadingScreen from "./screens/LoadingScreen";
+import LoadingScreen from "./screens/LoadingScreen/LoadingScreen";
 import MyAreaScreen from './screens/MyAreaScreen/MyAreaScreen';
 import MyRentDetailsScreen from "./screens/MyRentDetailsScreen/MyRentDetailsScreen";
 import NewProperty from "./screens/NewPropertyScreen/NewPropertyScreen";

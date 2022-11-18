@@ -37,6 +37,7 @@
 
 .menu-icon-div {
   position: absolute;
+  z-index: 4;
   bottom: 3%;
   right: 9.5%;
 }

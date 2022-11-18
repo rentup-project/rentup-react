@@ -1,11 +1,12 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { activateAccount } from '../services/Auth.services';
+import { activateAccount } from '../../services/Auth.services';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import AuthContext from './../contexts/AuthContext';
+import AuthContext from '../../contexts/AuthContext';
 import { useLocation } from 'react-router-dom';
+import './LoadingScreen.css';
 
 export default function LoadingScreen() {
     const { token } = useParams()
@@ -26,7 +27,5 @@ export default function LoadingScreen() {
       }
     }, [token, navigate, location.search, login])
 
-  return (
-    <div>Loading...</div>
-  )
+  return <span class="loader"></span>;
 }
