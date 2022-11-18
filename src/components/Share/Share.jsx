@@ -17,17 +17,19 @@ import {
 import CloseBtnNav from "../../assets/images/CloseBtnNavbar.png";
 
 export default function Share({ property, handleClick }) {
-    const ShareURL = `${process.env.REACT_APP_CLIENT_URL}/property/${property.id}`;
+    const ShareURL = `http://localhost:3000/property/${property.id}`;
 
     return (
       <div className="Share-container">
-        <img
-          src={CloseBtnNav}
-          alt="btn-close"
-          className="close-share-options"
-          onClick={handleClick}
-        />
-        <h3>Share this property on</h3>
+        <div className="share-top-div">
+          <h3>Share this property on</h3>
+          <img
+            src={CloseBtnNav}
+            alt="btn-close"
+            className="close-share-options"
+            onClick={handleClick}
+          />
+        </div>
         <div className="Share-prop-info">
           <img src={property.images[0]} alt="property-img" />
           <h6>{property.address}</h6>

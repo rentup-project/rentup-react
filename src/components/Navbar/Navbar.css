@@ -90,6 +90,11 @@
 
     .Navbar {
         padding: 0 1rem;
+        height: 7vh;
+    }
+
+    .logo-navbar {
+        width: 130px;
     }
 }
 

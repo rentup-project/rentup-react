@@ -1,5 +1,5 @@
 import axios from 'axios';
-const accessToken = process.env.REACT_APP_MAP_TOKEN
+const accessToken = "pk.eyJ1IjoibmluYWxib25pIiwiYSI6ImNsOWNuYXppYjBrNmYzcG9laHA3MTN3bTQifQ.90TcbIeqC9bJYExbkEto4Q";
 
 
 const http = axios.create({
