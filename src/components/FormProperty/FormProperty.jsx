@@ -570,16 +570,16 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
             <input
               type="checkbox"
               className="form-check-input"
-              id="Lyft"
-              name="Lyft"
-              value="Lyft"
+              id="Lift"
+              name="Lift"
+              value="Lift"
               onChange={handleOnChange}
-              {...(propertyData?.features?.includes("Lyft") && {
+              {...(propertyData?.features?.includes("Lift") && {
                 checked: true,
               })}
             />
-            <label htmlFor="Lyft" className="form-check-label">
-              Lyft
+            <label htmlFor="Lift" className="form-check-label">
+              Lift
             </label>
           </div>
           <div className="checkbox-wrapper form-check">
