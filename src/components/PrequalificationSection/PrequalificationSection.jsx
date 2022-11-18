@@ -10,6 +10,7 @@ export default function PrequalificationSection() {
   const [formCompleted, setFormCompleted] = useState("");
   const [edit, setEdit] = useState("");
   const [prequalification, setPrequalification] = useState("");
+  const [loading, setLoading] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -20,13 +21,16 @@ export default function PrequalificationSection() {
 
   const fetchPrequalification = useCallback(() => {
     if (currentUser) {
+      setLoading(true);
       getPrequalification(currentUser.id)
         .then((form) => {
           if (form) {
             setFormCompleted(true);
             setPrequalification(form);
+            setLoading(false);
           } else {
             setFormCompleted(false);
+            setLoading(false);
           }
         })
         .catch((err) => navigate("/error"));
@@ -37,39 +41,51 @@ export default function PrequalificationSection() {
     fetchPrequalification();
   }, [fetchPrequalification]);
 
-  return formCompleted ? (
-    <div id="prequalification-container">
-      <div className="prequalification-data-wrapper">
-        <div>
-          Tenants Quantity:<span>{prequalification.tenantsQuantity}</span>
+  return (
+    <>
+      {loading && (
+        <div className="spinner-container">
+          <span className="loader"></span>
         </div>
-        <div>
-          Pets:
-          <span>{prequalification.hasPet}</span>
+      )}
+  
+      {!loading && formCompleted && (
+        <div id="prequalification-container">
+          <div className="prequalification-data-wrapper">
+            <div>
+              Tenants Quantity:<span>{prequalification.tenantsQuantity}</span>
+            </div>
+            <div>
+              Pets:
+              <span>{prequalification.hasPet}</span>
+            </div>
+            <div>
+              Job Duration:
+              <span>{prequalification.jobDuration}</span>
+            </div>
+            <div>
+              Annual Salary:
+              <span>{prequalification.annualSalary} €</span>
+            </div>
+            <button onClick={handleOnClick}>Edit</button>
+          </div>
         </div>
-        <div>
-          Job Duration:
-          <span>{prequalification.jobDuration}</span>
+      )}
+  
+      {!loading && !formCompleted && (
+        <div id="prequalification-container">
+          <div className="prequalification-container-form">
+            <span>
+              Hi! You haven't completed the prequalification form yet. Please do it,
+              it only takes 2 minutes.
+            </span>
+            <PrequalificationsForm
+              onPrequalificationModified={fetchPrequalification}
+              action={edit ? "edit" : "create"}
+            />
+          </div>
         </div>
-        <div>
-          Annual Salary:
-          <span>{prequalification.annualSalary} €</span>
-        </div>
-        <button onClick={handleOnClick}>Edit</button>
-      </div>
-    </div>
-  ) : (
-    <div id="prequalification-container">
-      <div className="prequalification-container-form">
-        <span>
-          Hi! You haven't completed the prequalification form yet. Please do it,
-          it only takes 2 minutes.
-        </span>
-        <PrequalificationsForm
-          onPrequalificationModified={fetchPrequalification}
-          action={edit ? "edit" : "create"}
-        />
-      </div>
-    </div>
-  );
+      )}
+    </>
+  )
 }

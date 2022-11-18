@@ -9,6 +9,7 @@ import "./MessagesSection.css";
 export default function MessagesSection({ ownerId }) {
   const [listOfMessages, setList] = useState([]);
   const [receiverId, setReceiverId] = useState(null);
+  const [loading, setLoading] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -16,6 +17,7 @@ export default function MessagesSection({ ownerId }) {
     selectUser(currentUser.id)
       .then((res) => {
         setList(res);
+        setLoading(false);
       })
       .catch((err) => {
         navigate('/error')
@@ -24,9 +26,9 @@ export default function MessagesSection({ ownerId }) {
     
   useEffect(() => {
     if (currentUser) {
-      console.log(currentUser)
+      setLoading(true);
+
       if (ownerId) {
-        console.log(ownerId, 'entra')
         setReceiverId(ownerId);
       }
       updateUserList();
@@ -39,38 +41,49 @@ export default function MessagesSection({ ownerId }) {
   };
 
   return (
-    <div className={!receiverId && listOfMessages.length === 0 ? "ghost-message-container" : "messages-section-container"}>
-      {
-        !receiverId && listOfMessages.length === 0 ?
-        <div className='no-content-div'>
+    <div
+      className={
+        !receiverId && listOfMessages.length === 0
+          ? "ghost-message-container"
+          : "messages-section-container"
+      }
+    >
+      {loading && (
+        <div className="spinner-container">
+          <span className="loader"></span>
+        </div>
+      )}
+
+      {!loading && !receiverId && listOfMessages.length === 0 && (
+        <div className="no-content-div">
           <h4>You have no messages. Go talk to someone!</h4>
           <img src={ghostImage} alt="ghost" />
         </div>
-        :
+      )}
+      
+      {!loading && listOfMessages.length > 0 && (
         <>
-        <div className="list-of-messages-container">
-          {
-            listOfMessages.length > 0 && listOfMessages.map((person) => (
-            <div
-              onClick={handleOnClick}
-              id={person.id}
-              key={person.id}
-              className="person-list-container"
-            >
-              <p onClick={handleOnClick}
-              id={person.id}>{person.name}</p>
-            </div>
-          ))}
-        </div>
-          
-        <div className="messages-container">
-          {
-            receiverId && 
-            <Message receiverId={receiverId} />
-          }
-        </div>
+          <div className="list-of-messages-container">
+            {listOfMessages.length > 0 &&
+              listOfMessages.map((person) => (
+                <div
+                  onClick={handleOnClick}
+                  id={person.id}
+                  key={person.id}
+                  className="person-list-container"
+                >
+                  <p onClick={handleOnClick} id={person.id}>
+                    {person.name}
+                  </p>
+                </div>
+              ))}
+          </div>
+
+          <div className="messages-container">
+            {receiverId && <Message receiverId={receiverId} />}
+          </div>
         </>
-      }
+      )}
     </div>
   );
 }

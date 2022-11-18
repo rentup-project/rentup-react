@@ -105,6 +105,14 @@
     margin-top: 140px;
 }
 
+.spinner-container {
+    height: 53vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 /* FILTER PAGE */
 
 .filter-page {

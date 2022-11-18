@@ -14,14 +14,16 @@ import ContractIcon from '../../assets/images/nofitications/Contract-icon.png';
 
 export default function NotificationsScreen() {
   const [notifications, setNotifications] = useState([]);
+  const [loading, setLoading] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if(currentUser) {
+      setLoading(true);
       getNotifications(currentUser.id)
       .then((res) => {
-        if (res.length) {
+        if (res.length) {          
           res.forEach((notification) => {
             if(notification.type === 'message') {
                 notification.path = '/my-area/messages';
@@ -37,10 +39,13 @@ export default function NotificationsScreen() {
                 notification.message = "You received a new payment.";
             } else {
                 notification.path = "/my-area/myRents";
-                notification.message ="The owner uploaded the contract, now you can access your rent section.";
+                notification.message ="The owner uploaded the contract.";
             }
           })
-          setNotifications(res)
+          setNotifications(res);
+          setLoading(false);
+        } else {
+         setLoading(true);
         }
       })
       .catch((err) => navigate("/error"))
@@ -49,77 +54,89 @@ export default function NotificationsScreen() {
 
   return (
     <div className="notifications-screen">
-      {notifications.length === 0 ? (
+      <h2>Notifications</h2>
+      {loading && (
+        <div className="spinner-container">
+          <span className="loader"></span>
+        </div>
+      )}
+      {!loading && notifications.length === 0 && (
         <div className="no-content-div">
           <h4>You have no notifications.</h4>
           <img src={ghostImage} alt="ghost" />
         </div>
-      ) : (
+      )}
+      {!loading && notifications.length > 0 && (
         <>
-          <h2>Notifications</h2>
           <div className="notification-messages-container">
             {notifications.map((notification) => (
               <>
-                <Link id="notification-icon-wrapper" to={notification.path} key={notification.id}>
-                  {notification.type === "message" && (
-                    <div
-                      className="notification-icon"
-                      style={{
-                        backgroundImage: `url(${MessageIcon})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
-                  )}
+                <Link
+                  id="notification-icon-wrapper"
+                  to={notification.path}
+                  key={notification.id}
+                >
+                <div id="notification-img-wrapper">
+                    {notification.type === "message" && (
+                      <div
+                        className="notification-icon"
+                        style={{
+                          backgroundImage: `url(${MessageIcon})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                    )}
 
-                  {notification.type === "billPaid" && (
-                    <div
-                      className="notification-icon"
-                      style={{
-                        backgroundImage: `url(${BillPaidIcon})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
-                  )}
+                    {notification.type === "billPaid" && (
+                      <div
+                        className="notification-icon"
+                        style={{
+                          backgroundImage: `url(${BillPaidIcon})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                    )}
 
-                  {notification.type === "billUploaded" && (
-                    <div
-                      className="notification-icon"
-                      style={{
-                        backgroundImage: `url(${NewBillIcon})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
-                  )}
+                    {notification.type === "billUploaded" && (
+                      <div
+                        className="notification-icon"
+                        style={{
+                          backgroundImage: `url(${NewBillIcon})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                    )}
 
-                  {notification.type === "reservation" && (
-                    <div
-                      className="notification-icon"
-                      style={{
-                        backgroundImage: `url(${ReserveIcon})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
-                  )}
+                    {notification.type === "reservation" && (
+                      <div
+                        className="notification-icon"
+                        style={{
+                          backgroundImage: `url(${ReserveIcon})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                    )}
 
-                  {notification.type === "rent" && (
-                    <div
-                      className="notification-icon"
-                      style={{
-                        backgroundImage: `url(${ContractIcon})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                      }}
-                    ></div>
-                  )}
+                    {notification.type === "rent" && (
+                      <div
+                        className="notification-icon"
+                        style={{
+                          backgroundImage: `url(${ContractIcon})`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                    )}
+                </div>
 
                   <div className="msg-container">
                     <p className="msg-p">{notification.message}</p>

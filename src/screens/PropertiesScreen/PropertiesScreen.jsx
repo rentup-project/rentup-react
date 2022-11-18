@@ -24,7 +24,7 @@ export default function PropertiesScreen() {
   const [pagination, setPagination] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [totalProperties, setTotalProperties] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState('');
   const { search } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -104,11 +104,10 @@ export default function PropertiesScreen() {
       let initial = ((pagination - 1) * propertiesPerPage);
       let final = ((pagination - 1) * propertiesPerPage) + propertiesPerPage;
       let pieceOfPpropertiesToShow = [...properties].slice(initial, final);
-
       setPropertiesToShow(pieceOfPpropertiesToShow);
-      setLoading(false)
+      setLoading(false);
     } else {
-      setLoading(true)
+      setLoading(true);
     }
   }, [properties, pagination, sortBy, propertiesPerPage]) //no añadir blueMarker al array de dependencias
 
@@ -240,7 +239,11 @@ export default function PropertiesScreen() {
           </div>
         </div>
         <div className="property-list-container">
-          {loading && <span class="loader"></span>}
+          {loading && (
+            <div className="spinner-container">
+              <span className="loader"></span>
+            </div>
+          )}
           {!loading &&
             propertiesToShow.length > 0 &&
             propertiesToShow.map((property) => (
@@ -266,13 +269,14 @@ export default function PropertiesScreen() {
             ))}
           {!loading && propertiesToShow.length === 0 && (
             <div className="no-content-div">
-              <h4>No properties available. Please try again.</h4>
+              <h4>No properties are available here.</h4>
+              <h4>Try in another location!</h4>
               <img src={ghostImage} alt="ghost" />
             </div>
           )}
         </div>
         <div className="pagination-container">
-          {lastPage > 1 && (
+          {!loading && lastPage > 1 && (
             <ul className="pagination-ul">
               <li
                 className={`pagination-li ${

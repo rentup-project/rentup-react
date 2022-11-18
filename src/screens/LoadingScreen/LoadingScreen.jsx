@@ -27,5 +27,5 @@ export default function LoadingScreen() {
       }
     }, [token, navigate, location.search, login])
 
-  return <span class="loader"></span>;
+  return <span className="loader"></span>;
 }

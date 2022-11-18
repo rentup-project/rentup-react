@@ -8,15 +8,20 @@ import ghostImage from '../../assets/images/ghost-image.png';
 import trashIcon from '../../assets/images/Trash-icon.png';
 
 export default function VisitsSection() {
-    const [myVisits, setMyVisits] = useState([])
-    const { currentUser } = useContext(AuthContext)
-    const navigate = useNavigate()
+    const [myVisits, setMyVisits] = useState([]);
+    const [loading, setLoading] = useState('');
+    const { currentUser } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if(currentUser) {
-            getUserVisits(currentUser.id)
-            .then(res => setMyVisits(res))
-            .catch(err => navigate('/error'))
+          setLoading(true);
+          getUserVisits(currentUser.id)
+          .then(res => {
+            setMyVisits(res);
+            setLoading(false);
+          })
+          .catch(err => navigate('/error'))
         }
     }, [currentUser, navigate])
 
@@ -24,21 +29,28 @@ export default function VisitsSection() {
         const id = e.target.id
         deleteVisit(id)
         .then(res => {
-            const filtered = myVisits.filter((visit) => visit.id !== id)
-            setMyVisits(filtered)
+            const filtered = myVisits.filter((visit) => visit.id !== id);
+            setMyVisits(filtered);
         })
         .catch(err => navigate('/error'))
     }
 
   return (
     <div className="visits-section">
-      {myVisits.length === 0 && (
+      {loading && (
+        <div className="spinner-container">
+          <span className="loader"></span>
+        </div>
+      )}
+
+      {!loading && myVisits.length === 0 && (
         <div className="no-content-div">
           <h4>You have no scheduled visits at the moment.</h4>
           <img src={ghostImage} alt="ghost" />
         </div>
       )}
-      {myVisits.length !== 0 &&
+      {!loading &&
+        myVisits.length !== 0 &&
         myVisits.map((visit) => (
           <div className="each-visit-container" key={visit.id}>
             <PropertyCard
@@ -57,10 +69,7 @@ export default function VisitsSection() {
             <div className="visit-hour-tag">
               {visit.day} at {visit.hour}
             </div>
-            <div
-              className="visit-trash-icon"
-              onClick={handleOnClick}
-            >
+            <div className="visit-trash-icon" onClick={handleOnClick}>
               <img
                 src={trashIcon}
                 id={visit.id}

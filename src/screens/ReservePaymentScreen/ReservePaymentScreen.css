@@ -64,6 +64,7 @@
     max-height: 83vh;
     width: 40vw;
     max-width: 30vw;
+    height: 83vh;
     border-radius: 2rem;
     background-color:  #222222;
     padding: 3rem;
@@ -78,6 +79,13 @@
     font-size: 0.8rem;
     color: white;
     margin-bottom: 2rem;
+}
+
+@media (max-width: 1250px) {
+
+    .payment-details-container p {
+        margin-bottom: 0;
+    }
 }
 
 @media (max-width: 992px) {

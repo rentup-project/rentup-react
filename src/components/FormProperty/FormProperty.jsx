@@ -1068,7 +1068,7 @@ export default function FormProperty({ mongoErr, handleOnEdit, handleOnCreate, p
       </div>
       <button onClick={handleOnClick}>
         {loading ? (
-          <span class="loader"></span>
+          <div className="loader-small"></div>
         ) : handleOnCreate ? (
           "CREATE"
         ) : (

@@ -1,11 +1,12 @@
 .my-properties-container {
     display: flex;
-    justify-content: center;
+    justify-content: center;    
     margin: 1rem auto;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     width: 80vw;
+    padding: 0 3rem;
 }
 
 .my-properties-wrapper {

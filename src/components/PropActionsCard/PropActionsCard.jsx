@@ -60,15 +60,19 @@ export default function PropActionsCard( { property } ) {
       <div className="prop-actions-container-wrapper">
         {!currentUser && (
           <div>
-            Hey! If you want to do take any action related to this property, you
-            have to login.
+            Hey! If you want to take any action related to this property, you
+            have to log in.
           </div>
         )}
         {currentUser && !prequalification && (
           <div>
             Please, complete the prequalifications form so you can get more
             information about this property.
-            <Link to={"/my-area/prequalification"} target="_blank" className="actions-btn-blue">
+            <Link
+              to={"/my-area/prequalification"}
+              target="_blank"
+              className="actions-btn-blue"
+            >
               Complete prequalifications
             </Link>
           </div>
@@ -118,14 +122,14 @@ export default function PropActionsCard( { property } ) {
           >
             Reserve this property
           </Link>
-          {
-          owner && 
-          <Link to={currentUser ? `/my-area/${owner.id}` : "#"}
-          className={currentUser ? "actions-btn-blue" : "disabled"}
-          >
-            Contact
-          </Link>
-          }
+          {owner && (
+            <Link
+              to={currentUser ? `/my-area/${owner.id}` : "#"}
+              className={currentUser ? "actions-btn-blue" : "disabled"}
+            >
+              Contact
+            </Link>
+          )}
         </div>
       </div>
     </div>

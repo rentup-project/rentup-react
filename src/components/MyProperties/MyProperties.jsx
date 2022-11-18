@@ -12,14 +12,22 @@ import "./MyProperties.css";
 import ghostImage from '../../assets/images/ghost-image.png'
 
 export default function MyProperties() {
-  const [properties, setproperties] = useState("");
+  const [properties, setProperties] = useState([]);
+  const [loading, setLoading] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (currentUser){
+      setLoading(true);
+
       getOwnerProperties(currentUser.id)
-        .then((res) => (res ? setproperties(res) : setproperties("")))
+        .then((res) => {
+          if(res) {
+            setProperties(res);
+            setLoading(false);
+          }
+        }) 
         .catch((err) => navigate("/error"));
     }
   }, [navigate, currentUser]);
@@ -31,17 +39,21 @@ export default function MyProperties() {
   const handleOnDelete = (id) => {
     deleteProperty(id)
       .then((propDeleted) => {
-        setproperties(properties.filter((prop) => prop.id !== propDeleted.id));
+        setProperties(properties.filter((prop) => prop.id !== propDeleted.id));
       })
       .catch((err) => navigate("/error"));
   };
 
   return (
     <div className="my-properties-container">
-      {
-        properties.length > 0 ?
-        (
-          <div className="my-properties-wrapper">
+      {loading && (
+        <div className="spinner-container">
+          <span className="loader"></span>
+        </div>
+      )}
+
+      {!loading && properties.length > 0 && (
+        <div className="my-properties-wrapper">
           {properties.map((prop) => (
             <div className="my-property-wrapper" key={prop.id}>
               <PropertyCard
@@ -81,15 +93,14 @@ export default function MyProperties() {
             </div>
           ))}
         </div>
-        )
-        :
-        (
-          <div className='no-content-div'>
-            <h4>You have no properties available.</h4>
-            <img src={ghostImage} alt="ghost" />
-          </div>
-        )
-      }
+      )}
+      
+      {!loading && properties.length === 0 && (
+        <div className="no-content-div">
+          <h4>You have no properties available.</h4>
+          <img src={ghostImage} alt="ghost" />
+        </div>
+      )}
     </div>
-  )
+  );
 }

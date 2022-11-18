@@ -7,7 +7,7 @@ import BoxRoomIcon from "../../assets/images/services-images/Boxroom-icon.png";
 import CabinetsIcon from "../../assets/images/services-images/Cabinets-icon.png";
 import GardenIcon from "../../assets/images/services-images/Garden-icon.png";
 import GymIcon from "../../assets/images/services-images/Gym-icon.png";
-import LyftIcon from "../../assets/images/services-images/Lyft-icon.png";
+import LiftIcon from "../../assets/images/services-images/Lift-icon.png";
 import ParkingIcon from "../../assets/images/services-images/Parking-icon.png";
 import PatioIcon from "../../assets/images/services-images/Patio-icon.png";
 import PlayGroundIcon from "../../assets/images/services-images/Playground-icon.png";
@@ -24,8 +24,8 @@ export default function Amenity({ feature }) {
           setImageUrl(PoolIcon);
         } else if (feature === "Air conditioning") {
           setImageUrl(AirIcon);
-        } else if (feature === "Lyft") {
-          setImageUrl(LyftIcon);
+        } else if (feature === "Lift") {
+          setImageUrl(LiftIcon);
         } else if (feature === "Built-in cabinets") {
           setImageUrl(CabinetsIcon);
         } else if (feature === "Boxroom") {

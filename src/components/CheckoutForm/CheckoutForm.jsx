@@ -9,7 +9,7 @@ export default function CheckoutForm({ id, handleSuccessfulPayment }) {
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState('');
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate()
 
@@ -65,27 +65,24 @@ export default function CheckoutForm({ id, handleSuccessfulPayment }) {
     });
 
     if (error.type === "card_error" || error.type === "validation_error") {
-      setMessage(error.message);
-    } else {
       setMessage("An unexpected error occurred.");
-    }
+    } 
 
     setIsLoading(false);
   };
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      {!message && (
-        <>
-          <PaymentElement id="payment-element" />
-          <button disabled={isLoading || !stripe || !elements} id="submit">
-            <span id="button-text">
-              {isLoading ? <span class="loader"></span> : "PAY"}
-            </span>
-          </button>
-        </>
-      )}
+      <PaymentElement id="payment-element" />
       {message && <div id="payment-message">{message}</div>}
+      <button disabled={isLoading || !stripe || !elements} id="submit">
+        {isLoading ? (
+          <div className="loader-small">
+          </div>
+        ) : (
+          "PAY"
+        )}
+      </button>
     </form>
   );
 }

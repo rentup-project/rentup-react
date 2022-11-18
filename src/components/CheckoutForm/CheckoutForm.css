@@ -1,3 +1,7 @@
+#payment-form {
+  height: 50vh;
+}
+
 #submit {
     background-color: #ffd166;
     border: none;
@@ -7,13 +11,6 @@
     padding: 10px;
     font-weight: 500;
     border-radius:  0.5rem;
-}
-
-#button-text {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
 }
 
 #payment-message {

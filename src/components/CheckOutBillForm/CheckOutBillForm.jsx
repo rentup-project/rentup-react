@@ -1,9 +1,9 @@
 import { PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
-import { updateBills } from './../../services/Bills.services';
 import socket from "../../helpers/socketHelper";
-import { getOneRent, getOwnerProperty } from './../../services/Properties.services';
+import { updateBills } from './../../services/Bills.services';
+import { getOwnerProperty } from './../../services/Properties.services';
 
 export default function CheckOutBillForm({ bills }) {
   const stripe = useStripe();
@@ -81,17 +81,13 @@ export default function CheckOutBillForm({ bills }) {
 
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
-      {!message && (
-        <>
-          <PaymentElement id="payment-element" />
-          <button disabled={isLoading || !stripe || !elements} id="submit">
-            <span id="button-text">
-              {isLoading ? <span class="loader"></span> : "PAY NOW"}
-            </span>
-          </button>
-        </>
-      )}
+      <PaymentElement id="payment-element" />
       {message && <div id="payment-message">{message}</div>}
+      <button disabled={isLoading || !stripe || !elements} id="submit">
+        <span id="button-text">
+          {isLoading ? <div className="loader-small"></div> : "PAY"}
+        </span>
+      </button>
     </form>
   );
 }

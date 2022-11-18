@@ -1,29 +1,29 @@
-.loader {
-    width: 40px;
-    height: 40px;
-    display: inline-block;
-    position: relative;
-}
+/* SPINNER GENERAL */
 
+.loader {
+  width: 48px;
+  height: 48px;
+  display: inline-block;
+  position: relative;
+}
 .loader::after,
 .loader::before {
-    content: '';  
-    box-sizing: border-box;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #FFF;
-    position: absolute;
-    left: 43%;
-    top: 0;
-    animation: animloader 2s linear infinite;
+  content: '';  
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid #3a3a3a;
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation: gral-spinner 2s linear infinite;
 }
-
 .loader::after {
-    animation-delay: 1s;
+  animation-delay: 1s;
 }
 
-@keyframes animloader {
+@keyframes gral-spinner {
   0% {
     transform: scale(0);
     opacity: 1;
@@ -31,5 +31,34 @@
   100% {
     transform: scale(1);
     opacity: 0;
+  }
+}
+
+/* SPINNER BUTTONS */
+
+.loader-small{ 
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: block;
+  margin:15px auto;
+  position: relative;
+  color: #222222;
+  box-sizing: border-box;
+  animation: btn-spinner 1s linear infinite alternate;
+}
+
+@keyframes btn-spinner {
+  0% {
+    box-shadow: -38px -12px ,  -14px 0,  14px 0, 38px 0;
+  }
+  33% {
+    box-shadow: -38px 0px, -14px -12px,  14px 0, 38px 0;
+  }
+  66% {
+    box-shadow: -38px 0px , -14px 0, 14px -12px, 38px 0;
+  }
+  100% {
+    box-shadow: -38px 0 , -14px 0, 14px 0 , 38px -12px;
   }
 }
