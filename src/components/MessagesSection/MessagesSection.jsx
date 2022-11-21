@@ -14,15 +14,17 @@ export default function MessagesSection({ ownerId }) {
   const navigate = useNavigate();
 
   const updateUserList = useCallback(() => {
-    selectUser(currentUser.id)
-      .then((res) => {
-        setList(res);
-        setLoading(false);
-      })
-      .catch((err) => {
-        navigate('/error')
-      });
-    }, [navigate, currentUser]);
+    if (currentUser) {
+      selectUser(currentUser.id)
+        .then((res) => {
+          setList(res);
+          setLoading(false);
+        })
+        .catch((err) => {
+          navigate('/error')
+        });
+    }
+  }, [navigate, currentUser]);
     
   useEffect(() => {
     if (currentUser) {
@@ -31,6 +33,7 @@ export default function MessagesSection({ ownerId }) {
       if (ownerId) {
         setReceiverId(ownerId);
       }
+      
       updateUserList();
     }
   }, [currentUser, ownerId, updateUserList]);

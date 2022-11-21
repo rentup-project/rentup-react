@@ -44,6 +44,7 @@ export default function PropertyDetailScreen() {
   const [reviews, setReviews] = useState([]);
   const [countReviews, setCountReviews] = useState('');
   const [sumReviews, setSumReviews] = useState('');
+  const [login, setLogin] = useState(true);
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -106,16 +107,23 @@ export default function PropertyDetailScreen() {
   };
 
   const handleSaveFav = () => {
-    const body = { user: currentUser.id, property: property.id };
-    updateFav(body)
-      .then((res) => {
-        if (res === "deleted") {
-          setFavImg(UnFavIcon);
-        } else {
-          setFavImg(FavIcon);
-        }
-      })
-      .catch((err) => navigate("/error"));
+
+    if (currentUser) {
+      setLogin(true);
+      const body = { user: currentUser.id, property: property.id };
+
+      updateFav(body)
+        .then((res) => {
+          if (res === "deleted") {
+            setFavImg(UnFavIcon);
+          } else {
+            setFavImg(FavIcon);
+          }
+        })
+        .catch((err) => navigate("/error"));    
+    } else {
+      setLogin(false);
+    }
   };
 
   return allImages ? (
@@ -203,6 +211,11 @@ export default function PropertyDetailScreen() {
             ></div>
             <span>Save</span>
           </div>
+          {!login && 
+            <div className="save-fav-message">
+            You must log in first.
+            </div>
+          }
         </div>
       </section>
 
@@ -235,7 +248,7 @@ export default function PropertyDetailScreen() {
       <header className="header">
         <div className="title-price-container">
           <h3>
-            {property.propertyType} on {property.address}
+            {property.apartmentType || property.houseType} on {property.address}
           </h3>
           <h3>
             {property.monthlyRent} <small>€/mes</small>

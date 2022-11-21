@@ -4,7 +4,7 @@
 }
 
 .Filter {
-    margin: 0 2rem;
+    margin: 0 2rem 0 1.5rem;
     overflow-y: scroll;
     height: 55vh;
 }
@@ -56,12 +56,30 @@
 
 .submit-filter-button {
     font-weight: 500;
-    width: 96%;
+    width: 92%;
     margin: 1rem;
     background-color: #ffd166;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+    margin-left: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 @media (max-width: 992px) {

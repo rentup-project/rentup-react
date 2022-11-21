@@ -44,6 +44,19 @@ hr {
     cursor: pointer;
 }
 
+.save-fav-message {
+    z-index: 10;
+    position: absolute;
+    font-size: 0.7rem;
+    background-color: white;
+    width: fit-content;
+    top: 14%;
+    right: 2%;
+    border: 1px solid #dfdfdf;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
 .stars-container span {
     display: flex;
     justify-content: center;
@@ -116,7 +129,7 @@ hr {
 }
 
 .show-img-btn {
-    border: 1px solid #6363669d;
+    border: 1px solid #dfdfdf;
     border-radius: 5px;
     background-color: white;
     height: 3rem;
@@ -247,5 +260,18 @@ hr {
     .location {
         width: 100%;
         height: 25rem;
+    }
+
+    .save-fav-message {
+        z-index: 10;
+        position: absolute;
+        font-size: 0.7rem;
+        background-color: white;
+        width: fit-content;
+        top: 14%;
+        right: 2%;
+        border: 1px solid #dfdfdf;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
     }
 }
